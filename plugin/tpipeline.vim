@@ -77,6 +77,12 @@ endfunc
 func s:parse_stl(stl)
 	let l:res = a:stl
 
+	if strcharpart(l:res, 0, 2) ==# '%!'
+		" if we have a command, parse the evaluated command instead
+		let l:cmd = strcharpart(l:res, 2)
+		return s:parse_stl(eval(l:cmd))
+	endif
+
 	" parse every % according to standard statusline rules
 	let l:i = 0
 	while l:i < (strlen(l:res) - 1)
