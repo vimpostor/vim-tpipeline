@@ -15,13 +15,13 @@ func s:build_hooks()
 	augroup tpipeline
 		autocmd FocusGained * call s:tpipelineForceUpdate()
 		autocmd VimLeave * call s:cleanup()
-		autocmd BufEnter,InsertEnter,InsertLeave * call TPipelineUpdate()
+		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI * call TPipelineUpdate()
 	augroup END
 endfunc
 
 func s:initialize()
 	if !exists('g:tpipeline_statusline')
-		let g:tpipeline_statusline = '%t'
+		let g:tpipeline_statusline = '%{mode()}%t'
 	endif
 	set laststatus=0
 	call s:set_filepath()
