@@ -36,21 +36,25 @@ func s:parse(opt)
 	let l:first = strcharpart(a:opt, 0, 1)
 	let l:len = strlen(a:opt)
 
-	if l:len > 1
-		" handle multichar arguments
-		let l:inner = strcharpart(a:opt, 1, l:len - 2)
-		if l:first == '{'
-			return s:parse_stl(eval(l:inner))
-		elseif l:first == '#'
-			" TODO: Implement color support
-			return ''
+	if l:len == 1
+		" handle singlechar arguments
+		if l:first ==# 'F'
+			return expand('%:p')
+		elseif l:first ==# 't'
+			return expand('%:t')
+		elseif l:first ==# 'l'
+			return line('.')
+		elseif l:first ==# 'L'
+			return line('$')
 		endif
 	else
-		" handle singlechar arguments
-		if l:first == 'F'
-			return expand('%:p')
-		elseif l:first == 't'
-			return expand('%:t')
+		" handle multichar arguments
+		let l:inner = strcharpart(a:opt, 1, l:len - 2)
+		if l:first ==# '{'
+			return s:parse_stl(eval(l:inner))
+		elseif l:first ==# '#'
+			" TODO: Implement color support
+			return ''
 		endif
 	endif
 
