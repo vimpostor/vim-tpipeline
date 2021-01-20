@@ -86,6 +86,8 @@ func s:parse(opt)
 			return virtcol('.')
 		elseif l:first ==# 'p'
 			return s:percentage()
+		elseif l:first ==# 'P'
+			return s:percentage() . '%'
 		elseif l:first ==# '%'
 			return '%'
 		endif
