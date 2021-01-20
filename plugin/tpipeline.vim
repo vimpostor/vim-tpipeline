@@ -44,7 +44,7 @@ endfunc
 
 func s:parse(opt)
 	let l:first = strcharpart(a:opt, 0, 1)
-	let l:len = strlen(a:opt)
+	let l:len = strchars(a:opt)
 
 	if l:len == 1
 		" handle singlechar arguments
@@ -85,7 +85,7 @@ func s:charmatch(s)
 		let l:c = '}'
 	endif
 	let l:i = 1
-	let l:len = strlen(a:s)
+	let l:len = strchars(a:s)
 	while l:i < l:len
 		if strcharpart(a:s, l:i, 1) ==# l:c
 			return l:i + 1
@@ -107,15 +107,15 @@ func s:parse_stl(stl)
 
 	" parse every % according to standard statusline rules
 	let l:i = 0
-	while l:i < (strlen(l:res) - 1)
+	while l:i < (strchars(l:res) - 1)
 		if strcharpart(l:res, l:i, 1) ==# '%'
 			let l:next = strcharpart(l:res, l:i + 1, 1)
 			if (l:next ==# '#' || l:next ==# '{')
 				let l:next = strcharpart(l:res, l:i + 1, s:charmatch(strcharpart(l:res, l:i + 1)))
 			endif
 			let l:ins = s:parse(l:next)
-			let l:res = strcharpart(l:res, 0, l:i) . l:ins . strcharpart(l:res, l:i + 1 + strlen(l:next))
-			let l:i += strlen(l:ins) - 1
+			let l:res = strcharpart(l:res, 0, l:i) . l:ins . strcharpart(l:res, l:i + 1 + strchars(l:next))
+			let l:i += strchars(l:ins) - 1
 		endif
 		let l:i += 1
 	endwhile
