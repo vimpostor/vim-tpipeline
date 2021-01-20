@@ -188,11 +188,11 @@ func TPipelineUpdate()
 	endif
 	let s:last_statusline = l:line
 
-	let l:write_mode = "a" " append mode
+	let l:write_mode = 'a' " append mode
 	let s:socket_write_count += 1
 	" rotate the file when it gets too large
 	if s:socket_write_count > s:socket_rotate_threshold
-		let l:write_mode = ""
+		let l:write_mode = ''
 		let s:socket_write_count = 0
 	endif
 	call writefile([l:line], s:tpipeline_filepath, l:write_mode)
@@ -204,7 +204,7 @@ func s:tpipelineForceUpdate()
 endfunc
 
 func s:cleanup()
-	call writefile([''], s:tpipeline_filepath)
+	call writefile([''], s:tpipeline_filepath, 'a')
 endfunc
 
 func s:cautious_cleanup()
