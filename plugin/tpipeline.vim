@@ -72,6 +72,10 @@ func s:parse(opt)
 			return &readonly ? '[RO]' : ''
 		elseif l:first ==# 'R'
 			return &readonly ? 'RO' : ''
+		elseif l:first ==# 'y'
+			return '[' . &filetype . ']'
+		elseif l:first ==# 'Y'
+			return &filetype
 		elseif l:first ==# 'l'
 			return line('.')
 		elseif l:first ==# 'L'
@@ -92,7 +96,7 @@ func s:parse(opt)
 			return s:parse_stl(eval(l:inner))
 		elseif l:first ==# '#'
 			let l:id = synIDtrans(hlID(l:inner))
-			return '#[fg=' . synIDattr(l:id, 'fg') . ',bg=' . synIDattr(l:id, 'bg') . ']'
+			return printf('#[fg=%s,bg=%s]', synIDattr(l:id, 'fg'), synIDattr(l:id, 'bg'))
 		endif
 
 		" handle formatting parameters
