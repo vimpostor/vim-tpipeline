@@ -63,6 +63,14 @@ func s:parse(opt)
 			return expand('%:p')
 		elseif l:first ==# 't'
 			return expand('%:t')
+		elseif l:first ==# 'm'
+			return &modified ? '[+]' : (&modifiable ? '' : '-')
+		elseif l:first ==# 'M'
+			return &modified ? '+' : (&modifiable ? '' : '-')
+		elseif l:first ==# 'r'
+			return &readonly ? '[RO]' : ''
+		elseif l:first ==# 'R'
+			return &readonly ? 'RO' : ''
 		elseif l:first ==# 'l'
 			return line('.')
 		elseif l:first ==# 'L'
@@ -73,6 +81,8 @@ func s:parse(opt)
 			return virtcol('.')
 		elseif l:first ==# 'p'
 			return s:percentage() . '%'
+		elseif l:first ==# '%'
+			return '%'
 		endif
 	else
 		" handle multichar arguments
