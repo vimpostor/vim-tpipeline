@@ -13,6 +13,12 @@ endfunc
 
 func s:build_hooks()
 	augroup tpipeline
+		if v:vim_did_enter
+			call s:tpipelineInitStatusline()
+		else
+			autocmd VimEnter * call s:tpipelineInitStatusline()
+		endif
+
 		autocmd FocusGained * call s:tpipelineForceUpdate()
 		autocmd VimLeave * call s:cleanup()
 		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI * call TPipelineUpdate()
@@ -21,7 +27,7 @@ endfunc
 
 func s:initialize()
 	if !exists('g:tpipeline_statusline')
-		let g:tpipeline_statusline = '%{mode()}%t'
+		let g:tpipeline_statusline = ''
 	endif
 	set laststatus=0
 	call s:set_filepath()
@@ -38,7 +44,9 @@ func s:parse(opt)
 
 	if l:len == 1
 		" handle singlechar arguments
-		if l:first ==# 'F'
+		if l:first ==# 'f'
+			return expand('%')
+		elseif l:first ==# 'F'
 			return expand('%:p')
 		elseif l:first ==# 't'
 			return expand('%:t')
@@ -96,13 +104,24 @@ func s:parse_stl(stl)
 				let l:next = strcharpart(l:res, l:i + 1, s:charmatch(strcharpart(l:res, l:i + 1)))
 			endif
 			let l:ins = s:parse(l:next)
-			let l:res = strcharpart(l:res, 0, l:i) . l:ins . strcharpart(l:res, l:i + 1 + len(l:next))
+			let l:res = strcharpart(l:res, 0, l:i) . l:ins . strcharpart(l:res, l:i + 1 + strlen(l:next))
 			let l:i += strlen(l:ins) - 1
 		endif
 		let l:i += 1
 	endwhile
 
 	return l:res
+endfunc
+
+func s:tpipelineInitStatusline()
+	if empty(g:tpipeline_statusline)
+		if empty(&statusline)
+			" default statusline
+			let g:tpipeline_statusline = '%f'
+		else
+			let g:tpipeline_statusline = &statusline
+		endif
+	endif
 endfunc
 
 func TPipelineUpdate()
