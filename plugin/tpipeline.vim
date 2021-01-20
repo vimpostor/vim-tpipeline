@@ -38,6 +38,10 @@ func s:initialize()
 	let s:last_statusline = ''
 endfunc
 
+func s:percentage()
+	return line('.') * 100 / line('$')
+endfunc
+
 func s:parse(opt)
 	let l:first = strcharpart(a:opt, 0, 1)
 	let l:len = strlen(a:opt)
@@ -54,6 +58,12 @@ func s:parse(opt)
 			return line('.')
 		elseif l:first ==# 'L'
 			return line('$')
+		elseif l:first ==# 'c'
+			return col('.')
+		elseif l:first ==# 'v'
+			return virtcol('.')
+		elseif l:first ==# 'p'
+			return s:percentage() . '%'
 		endif
 	else
 		" handle multichar arguments
