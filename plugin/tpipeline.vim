@@ -42,6 +42,15 @@ func s:percentage()
 	return line('.') * 100 / line('$')
 endfunc
 
+func s:pad(str, num)
+	return repeat(' ', a:num - strchars(a:str)) . a:str
+endfunc
+
+func s:left_justify(str)
+	let l:num = strchars(matchstr(a:str, '^\ *'))
+	return strcharpart(a:str, l:num) . repeat(' ', l:num)
+endfunc
+
 func s:parse(opt)
 	let l:first = strcharpart(a:opt, 0, 1)
 	let l:len = strchars(a:opt)
@@ -73,6 +82,27 @@ func s:parse(opt)
 		elseif l:first ==# '#'
 			let l:id = synIDtrans(hlID(l:inner))
 			return '#[fg=' . synIDattr(l:id, 'fg') . ',bg=' . synIDattr(l:id, 'bg') . ']'
+		endif
+
+		" handle formatting parameters
+		let l:next = strcharpart(a:opt, 1)
+		if l:first ==# '-'
+			" Left justify the item
+			return s:left_justify(s:parse(l:next))
+		elseif l:first ==# '0'
+			" Leading zeroes in numeric items
+			" TODO: Implement this
+			return s:parse(l:next)
+		elseif match(l:first, '[0-9]') != -1
+			" minwidth
+			let l:num = matchstr(a:opt, '^[0-9]*')
+			let l:next = strcharpart(a:opt, strchars(l:num))
+			return s:pad(s:parse(l:next), str2nr(l:num))
+		elseif l:first ==# '.'
+			" maxwidth
+			let l:num = matchstr(l:next, '^[0-9]*')
+			let l:next = strcharpart(l:next, strchars(l:num))
+			return strcharpart(s:parse(l:next), 0, str2nr(l:num))
 		endif
 	endif
 
@@ -112,6 +142,11 @@ func s:parse_stl(stl)
 			let l:next = strcharpart(l:res, l:i + 1, 1)
 			if (l:next ==# '#' || l:next ==# '{')
 				let l:next = strcharpart(l:res, l:i + 1, s:charmatch(strcharpart(l:res, l:i + 1)))
+			elseif (l:next ==# '-' || match(l:next, '[0-9]') == 0 || l:next ==# '.')
+				let l:match = matchstr(strcharpart(l:res, l:i + 1), '^\(-\|\)[0-9]*\(\.[0-9]*\|\).')
+				if strchars(l:match) > 1
+					let l:next = l:match
+				endif
 			endif
 			let l:ins = s:parse(l:next)
 			let l:res = strcharpart(l:res, 0, l:i) . l:ins . strcharpart(l:res, l:i + 1 + strchars(l:next))
