@@ -20,6 +20,7 @@ func s:build_hooks()
 		endif
 
 		autocmd FocusGained * call s:tpipelineForceUpdate()
+		autocmd FocusLost * call s:cautious_cleanup()
 		autocmd VimLeave * call s:cleanup()
 		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CursorMoved * call TPipelineUpdate()
 	augroup END
@@ -204,6 +205,14 @@ endfunc
 
 func s:cleanup()
 	call writefile([''], s:tpipeline_filepath)
+endfunc
+
+func s:cautious_cleanup()
+	" check if some other instance wrote to the socket right before us
+	let l:written_line = reduce(readfile(s:tpipeline_filepath, '', -1), { acc, val -> acc . val }, '')
+	if s:last_statusline ==# l:written_line
+		call s:cleanup()
+	endif
 endfunc
 
 call s:initialize()
