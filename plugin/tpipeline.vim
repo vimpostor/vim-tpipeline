@@ -71,8 +71,8 @@ func s:parse(opt)
 		if l:first ==# '{'
 			return s:parse_stl(eval(l:inner))
 		elseif l:first ==# '#'
-			" TODO: Implement color support
-			return ''
+			let l:id = synIDtrans(hlID(l:inner))
+			return '#[fg=' . synIDattr(l:id, 'fg') . ',bg=' . synIDattr(l:id, 'bg') . ']'
 		endif
 	endif
 
