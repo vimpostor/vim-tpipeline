@@ -21,7 +21,7 @@ func s:build_hooks()
 
 		autocmd FocusGained * call s:tpipelineForceUpdate()
 		autocmd VimLeave * call s:cleanup()
-		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI * call TPipelineUpdate()
+		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CursorMoved * call TPipelineUpdate()
 	augroup END
 endfunc
 
