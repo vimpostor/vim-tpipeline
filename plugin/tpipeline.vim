@@ -44,6 +44,11 @@ func s:initialize()
 	let s:last_writtenline = ''
 	let l:hlid = synIDtrans(hlID('StatusLine'))
 	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(l:hlid, 'fg'), synIDattr(l:hlid, 'bg'))
+	let s:mode_map = {'n': 'NORMAL', 'i': 'INSERT', 'R': 'REPLACE', 'v': 'VISUAL'}
+endfunc
+
+func s:full_mode()
+	return get(s:mode_map, mode())
 endfunc
 
 func s:percentage()
