@@ -41,6 +41,7 @@ func s:initialize()
 	let s:socket_rotate_threshold = 128
 	let s:socket_write_count = 0
 	let s:last_statusline = ''
+	let s:last_writtenline = ''
 endfunc
 
 func s:percentage()
@@ -220,12 +221,12 @@ func TPipelineUpdate()
 			let l:left_line = strpart(l:line, 0, l:split_point)
 			let l:right_line = s:remove_align(strpart(l:line, l:split_point + 2))
 		endif
-		call writefile([l:left_line], s:tpipeline_filepath, l:write_mode)
 		call writefile([l:right_line], s:tpipeline_right_filepath, l:write_mode)
+		let s:last_writtenline = l:left_line
 	else
-		let l:line = s:remove_align(l:line)
-		call writefile([l:line], s:tpipeline_filepath, l:write_mode)
+		let s:last_writtenline = s_remove_align(l:line)
 	endif
+	call writefile([s:last_writtenline], s:tpipeline_filepath, l:write_mode)
 endfunc
 
 func s:tpipelineForceUpdate()
@@ -249,7 +250,7 @@ func s:cautious_cleanup()
 		let l:written_line = l:written_file[0]
 	endif
 
-	if s:last_statusline ==# l:written_line
+	if s:last_writtenline ==# l:written_line
 		call s:cleanup()
 	endif
 endfunc
