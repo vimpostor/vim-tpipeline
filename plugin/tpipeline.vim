@@ -22,7 +22,7 @@ func s:build_hooks()
 
 		autocmd FocusGained * call s:tpipelineForceUpdate()
 		autocmd FocusLost * call s:cautious_cleanup()
-		autocmd VimLeave * call s:cleanup()
+		autocmd VimLeave * call s:cleanup('')
 		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CursorMoved * call TPipelineUpdate()
 	augroup END
 endfunc
@@ -234,10 +234,10 @@ func s:tpipelineForceUpdate()
 	call TPipelineUpdate()
 endfunc
 
-func s:cleanup()
-	call writefile([''], s:tpipeline_filepath, 'a')
+func s:cleanup(mode)
+	call writefile([''], s:tpipeline_filepath, a:mode)
 	if g:tpipeline_split
-		call writefile([''], s:tpipeline_right_filepath, 'a')
+		call writefile([''], s:tpipeline_right_filepath, a:mode)
 	endif
 endfunc
 
@@ -251,7 +251,7 @@ func s:cautious_cleanup()
 	endif
 
 	if s:last_writtenline ==# l:written_line
-		call s:cleanup()
+		call s:cleanup('a')
 	endif
 endfunc
 
