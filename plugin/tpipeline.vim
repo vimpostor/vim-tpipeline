@@ -42,6 +42,8 @@ func s:initialize()
 	let s:socket_write_count = 0
 	let s:last_statusline = ''
 	let s:last_writtenline = ''
+	let l:hlid = synIDtrans(hlID('StatusLine'))
+	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(l:hlid, 'fg'), synIDattr(l:hlid, 'bg'))
 endfunc
 
 func s:percentage()
@@ -213,13 +215,16 @@ func TPipelineUpdate()
 		let s:socket_write_count = 0
 	endif
 
+	" append default color
+	let l:line = s:default_color . l:line
+
 	if g:tpipeline_split
 		let l:split_point = stridx(l:line, '%=')
 		let l:left_line = l:line
 		let l:right_line = ''
 		if l:split_point != -1
 			let l:left_line = strpart(l:line, 0, l:split_point)
-			let l:right_line = s:remove_align(strpart(l:line, l:split_point + 2))
+			let l:right_line = s:default_color . s:remove_align(strpart(l:line, l:split_point + 2))
 		endif
 		call writefile([l:right_line], s:tpipeline_right_filepath, l:write_mode)
 		let s:last_writtenline = l:left_line
