@@ -15,9 +15,9 @@ endfunc
 func s:build_hooks()
 	augroup tpipeline
 		if v:vim_did_enter
-			call s:tpipelineInitStatusline()
+			call s:init_statusline()
 		else
-			autocmd VimEnter * call s:tpipelineInitStatusline()
+			autocmd VimEnter * call s:init_statusline()
 		endif
 
 		autocmd FocusGained * call s:tpipelineForceUpdate()
@@ -188,7 +188,7 @@ func s:parse_stl(stl)
 	return l:res
 endfunc
 
-func s:tpipelineInitStatusline()
+func s:init_statusline()
 	if empty(g:tpipeline_statusline)
 		if empty(&statusline)
 			" default statusline
