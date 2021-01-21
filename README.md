@@ -13,10 +13,10 @@ Plug 'vimpostor/vim-tpipeline'
 Put this in your `~/.tmux.conf`:
 
 ```bash
+set -g status-bg default
 set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-right-length 120
 set -g status-interval 1
-set -g status-bg default
 ```
 
 Restart tmux and now you should see your vim statusline inside tmux.
@@ -36,11 +36,11 @@ let g:tpipeline_statusline = '%f'
 By default `vim-tpipeline` flattens the statusline into one continuous chunk. If you would like to keep the left part and right part separate, then set `let g:tpipeline_split = 1` in your `.vimrc` and use the following tmux block instead:
 
 ```bash
+set -g status-bg default
 set -g status-left '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 120
 set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 120
 set -g status-interval 1
-set -g status-bg default
 set -g status-justify centre # optionally put the window list in the middle
 ```
