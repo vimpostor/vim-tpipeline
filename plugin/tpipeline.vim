@@ -9,6 +9,7 @@ func s:set_filepath()
 	let l:path = strcharpart(l:tmux, 0, stridx(l:tmux, ","))
 	let l:session_id = strcharpart(l:tmux, strridx(l:tmux, ",") + 1)
 	let s:tpipeline_filepath = l:path . '-$' . l:session_id . '-vimbridge'
+	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
 endfunc
 
 func s:build_hooks()
@@ -30,6 +31,9 @@ func s:initialize()
 	if !exists('g:tpipeline_statusline')
 		let g:tpipeline_statusline = ''
 	endif
+	if !exists('g:tpipeline_split')
+		let g:tpipeline_split = 0
+	endif
 	set laststatus=0
 	call s:set_filepath()
 	call s:build_hooks()
@@ -50,6 +54,10 @@ endfunc
 func s:left_justify(str)
 	let l:num = strchars(matchstr(a:str, '^\ *'))
 	return strcharpart(a:str, l:num) . repeat(' ', l:num)
+endfunc
+
+func s:remove_align(str)
+	return substitute(a:str, '%=', '', 'g')
 endfunc
 
 func s:parse(opt)
@@ -88,6 +96,8 @@ func s:parse(opt)
 			return s:percentage()
 		elseif l:first ==# 'P'
 			return s:percentage() . '%'
+		elseif l:first ==# '='
+			return '%='
 		elseif l:first ==# '%'
 			return '%'
 		endif
@@ -201,7 +211,21 @@ func TPipelineUpdate()
 		let l:write_mode = ''
 		let s:socket_write_count = 0
 	endif
-	call writefile([l:line], s:tpipeline_filepath, l:write_mode)
+
+	if g:tpipeline_split
+		let l:split_point = stridx(l:line, '%=')
+		let l:left_line = l:line
+		let l:right_line = ''
+		if l:split_point != -1
+			let l:left_line = strpart(l:line, 0, l:split_point)
+			let l:right_line = s:remove_align(strpart(l:line, l:split_point + 2))
+		endif
+		call writefile([l:left_line], s:tpipeline_filepath, l:write_mode)
+		call writefile([l:right_line], s:tpipeline_right_filepath, l:write_mode)
+	else
+		let l:line = s:remove_align(l:line)
+		call writefile([l:line], s:tpipeline_filepath, l:write_mode)
+	endif
 endfunc
 
 func s:tpipelineForceUpdate()
@@ -211,6 +235,9 @@ endfunc
 
 func s:cleanup()
 	call writefile([''], s:tpipeline_filepath, 'a')
+	if g:tpipeline_split
+		call writefile([''], s:tpipeline_right_filepath, 'a')
+	endif
 endfunc
 
 func s:cautious_cleanup()
