@@ -4,7 +4,7 @@ Outsource your vim statusline to tmux!
 
 # Installation
 
-Using *vim-plug*:
+Using **vim-plug**:
 
 ```vim
 Plug 'vimpostor/vim-tpipeline'
@@ -20,7 +20,7 @@ set -g status-interval 1
 
 Restart tmux and now you should see your vim statusline inside tmux.
 
-`vim-tpipeline` is compatible with most statuslines and can be used together with other statusline plugins like lightline. If it doesn't work with yours, file a bug report.
+`vim-tpipeline` is compatible with most statuslines and can be used together with other statusline plugins like *lightline*. If it doesn't work with yours, file a bug report.
 
 # Configuration
 

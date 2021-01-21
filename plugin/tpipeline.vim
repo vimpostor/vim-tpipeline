@@ -242,7 +242,13 @@ endfunc
 
 func s:cautious_cleanup()
 	" check if some other instance wrote to the socket right before us
-	let l:written_line = reduce(readfile(s:tpipeline_filepath, '', -1), { acc, val -> acc . val }, '')
+	let l:written_file = readfile(s:tpipeline_filepath, '', -1)
+	if empty(l:written_file)
+		let l:written_line = ''
+	else
+		let l:written_line = l:written_file[0]
+	endif
+
 	if s:last_statusline ==# l:written_line
 		call s:cleanup()
 	endif
