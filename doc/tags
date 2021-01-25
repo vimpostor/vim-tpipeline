@@ -1,0 +1,3 @@
+vim-tpipeline	tpipeline.txt	/*vim-tpipeline*
+tpipeline	tpipeline.txt	/*tpipeline*
+tpipeline.txt	tpipeline.txt	/*tpipeline.txt*

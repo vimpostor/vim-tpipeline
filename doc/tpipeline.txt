@@ -1,0 +1,12 @@
+*tpipeline.txt*	Outsource your statusline to tmux
+
+CONTENTS					*tpipeline-contents*
+
+Introduction				|tpipeline-introduction|
+
+==============================================================================
+INTRODUCTION					*tpipeline-introduction*
+
+The *tpipeline* plugin embeds your vim statusline into your tmux statusline.
+
+	vim:tw=78:ft=help:norl:
