@@ -26,5 +26,5 @@ func tpipeline#stl#attr()
 endfunc
 
 func tpipeline#stl#line()
-	return tpipeline#stl#colors#modec() . '#' . tpipeline#stl#colors#mode() . '#' . tpipeline#stl#mode() . tpipeline#stl#colors#modec() . '# %#TpipelineBlueGreyInv#%#TpipelineBlueGrey#%f%#TpipelineBlueGreyInv#' . tpipeline#stl#attr() . '%=%#TpipelineLightBlueInv#%#TpipelineLightBlue#%Y%#TpipelineLightBlueInv# ' . tpipeline#stl#progress()
+	return tpipeline#stl#colors#modec() . '#' . tpipeline#stl#colors#mode() . '#' . tpipeline#stl#mode() . tpipeline#stl#colors#modec() . '# %#TpipelineBlueGreyInv#%#TpipelineBlueGrey#%f%#TpipelineBlueGreyInv#' . tpipeline#stl#attr() . '%=%#TpipelineLightBlueInv# %#TpipelineLightBlue#%Y%#TpipelineLightBlueInv# ' . tpipeline#stl#progress()
 endfunc
