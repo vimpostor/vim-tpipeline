@@ -14,6 +14,17 @@ func tpipeline#stl#progress()
 	return '%#TpipelineGreyInv#%#TpipelineGrey#' . strcharpart(l:text, 0, l:p) . '%#TpipelineGreyInv#' . strcharpart(l:text, l:p) . ''
 endfunc
 
+func tpipeline#stl#attr()
+	let l:r = ''
+	if &readonly
+		let l:r = ' %#TpipelinePinkInv#%#TpipelinePink#%R%#TpipelinePinkInv#'
+	endif
+	if &modified
+		let l:r = l:r . ' %#TpipelineAmberInv#%#TpipelineAmber#%M%#TpipelineAmberInv#'
+	endif
+	return l:r
+endfunc
+
 func tpipeline#stl#line()
-	return tpipeline#stl#colors#modec() . '#' . tpipeline#stl#colors#mode() . '#' . tpipeline#stl#mode() . tpipeline#stl#colors#modec() . '# %#TpipelineBlueGreyInv#%#TpipelineBlueGrey#%f%#TpipelineBlueGreyInv#%=%#TpipelineLightBlueInv#%#TpipelineLightBlue#%Y%#TpipelineLightBlueInv# ' . tpipeline#stl#progress()
+	return tpipeline#stl#colors#modec() . '#' . tpipeline#stl#colors#mode() . '#' . tpipeline#stl#mode() . tpipeline#stl#colors#modec() . '# %#TpipelineBlueGreyInv#%#TpipelineBlueGrey#%f%#TpipelineBlueGreyInv#' . tpipeline#stl#attr() . '%=%#TpipelineLightBlueInv#%#TpipelineLightBlue#%Y%#TpipelineLightBlueInv# ' . tpipeline#stl#progress()
 endfunc
