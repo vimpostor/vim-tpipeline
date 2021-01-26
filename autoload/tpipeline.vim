@@ -18,7 +18,7 @@ func tpipeline#build_hooks()
 		autocmd FocusGained * call tpipeline#forceupdate()
 		autocmd FocusLost * call tpipeline#cautious_cleanup()
 		autocmd VimLeave * call tpipeline#cleanup('')
-		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CursorMoved * call tpipeline#update()
+		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CursorMoved,CmdlineEnter * call tpipeline#update()
 	augroup END
 endfunc
 
