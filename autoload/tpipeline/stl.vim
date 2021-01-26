@@ -1,5 +1,5 @@
-if !exists('g:progress_length')
-	let g:progress_length = 10
+if !exists('g:tpipeline_progresslen')
+	let g:tpipeline_progresslen = 10
 endif
 let s:mode_map = {'n': 'NORMAL', 'i': 'INSERT', 'R': 'REPLACE', 'v': 'VISUAL', 'V': 'V-LINE', "\<C-v>": 'V-BLOCK', 'c': 'COMMAND', 's': 'SELECT', 'S': 'S-LINE', "\<C-s>": 'S-BLOCK', 't': 'TERMINAL'}
 
@@ -8,9 +8,9 @@ func tpipeline#stl#mode()
 endfunc
 
 func tpipeline#stl#progress()
-	let l:p = tpipeline#util#percentage() * g:progress_length / 100
+	let l:p = tpipeline#util#percentage() * g:tpipeline_progresslen / 100
 	let l:text = line('.') . ':' . col('.')
-	let l:text = l:text . repeat(' ', g:progress_length - strchars(l:text))
+	let l:text = l:text . repeat(' ', g:tpipeline_progresslen - strchars(l:text))
 	return '%#TpipelineGreyInv#%#TpipelineGrey#' . strcharpart(l:text, 0, l:p) . '%#TpipelineGreyInv#' . strcharpart(l:text, l:p) . ''
 endfunc
 
