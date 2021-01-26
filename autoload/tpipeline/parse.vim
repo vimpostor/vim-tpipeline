@@ -63,7 +63,16 @@ func tpipeline#parse#parse(opt)
 			return tpipeline#parse#parse_stl(eval(l:inner))
 		elseif l:first ==# '#'
 			let l:id = synIDtrans(hlID(l:inner))
-			return printf('#[fg=%s,bg=%s]', synIDattr(l:id, 'fg'), synIDattr(l:id, 'bg'))
+
+			let l:fg = synIDattr(l:id, 'fg')
+			if l:fg ==# 'fg'
+				let l:fg = 'default'
+			endif
+			let l:bg = synIDattr(l:id, 'bg')
+			if l:bg ==# 'bg'
+				let l:bg = 'default'
+			endif
+			return printf('#[fg=%s,bg=%s]', l:fg, l:bg)
 		endif
 
 		" handle formatting parameters
