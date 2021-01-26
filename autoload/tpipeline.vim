@@ -45,10 +45,9 @@ func tpipeline#init_statusline()
 	if empty(g:tpipeline_statusline)
 		if empty(&statusline)
 			" default statusline
-			let g:tpipeline_statusline = '%f'
-		else
-			let g:tpipeline_statusline = &statusline
+			set statusline=%!tpipeline#stl#line()
 		endif
+		let g:tpipeline_statusline = &statusline
 	endif
 endfunc
 

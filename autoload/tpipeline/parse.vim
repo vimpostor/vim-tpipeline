@@ -1,16 +1,3 @@
-func tpipeline#parse#percentage()
-	return line('.') * 100 / line('$')
-endfunc
-
-func tpipeline#parse#pad(str, num)
-	return repeat(' ', a:num - strchars(a:str)) . a:str
-endfunc
-
-func tpipeline#parse#left_justify(str)
-	let l:num = strchars(matchstr(a:str, '^\ *'))
-	return strcharpart(a:str, l:num) . repeat(' ', l:num)
-endfunc
-
 func tpipeline#parse#remove_align(str)
 	return substitute(a:str, '%=', '', 'g')
 endfunc
@@ -48,9 +35,9 @@ func tpipeline#parse#parse(opt)
 		elseif l:first ==# 'v'
 			return virtcol('.')
 		elseif l:first ==# 'p'
-			return tpipeline#parse#percentage()
+			return tpipeline#util#percentage()
 		elseif l:first ==# 'P'
-			return tpipeline#parse#percentage() . '%'
+			return tpipeline#util#percentage() . '%'
 		elseif l:first ==# '='
 			return '%='
 		elseif l:first ==# '%'
@@ -79,7 +66,7 @@ func tpipeline#parse#parse(opt)
 		let l:next = strcharpart(a:opt, 1)
 		if l:first ==# '-'
 			" Left justify the item
-			return tpipeline#parse#left_justify(tpipeline#parse#parse(l:next))
+			return tpipeline#util#left_justify(tpipeline#parse#parse(l:next))
 		elseif l:first ==# '0'
 			" Leading zeroes in numeric items
 			" TODO: Implement this
@@ -88,7 +75,7 @@ func tpipeline#parse#parse(opt)
 			" minwidth
 			let l:num = matchstr(a:opt, '^[0-9]*')
 			let l:next = strcharpart(a:opt, strchars(l:num))
-			return tpipeline#parse#pad(tpipeline#parse#parse(l:next), str2nr(l:num))
+			return tpipeline#util#pad(tpipeline#parse#parse(l:next), str2nr(l:num))
 		elseif l:first ==# '.'
 			" maxwidth
 			let l:num = matchstr(l:next, '^[0-9]*')
