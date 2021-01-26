@@ -38,7 +38,7 @@ hi TpipelineBrownInv guifg=#795548 guibg=bg
 hi TpipelineGreyInv guifg=#9e9e9e guibg=bg
 hi TpipelineBlueGreyInv guifg=#607d8b guibg=bg
 
-let s:mode_colormap = {'n': 'LightGreen', 'i': 'Blue', 'R': 'Red', 'v': 'Amber', 'V': 'Yellow', "\<C-v>": 'Amber', 'c': 'Brown', 's': 'Lime', 'S': 'DeepPurple', "\<C-s>": 'Cyan', 't': 'Indigo'}
+let s:mode_colormap = {'n': 'LightGreen', 'i': 'Cyan', 'R': 'Red', 'v': 'Orange', 'V': 'Yellow', "\<C-v>": 'DeepOrange', 'c': 'Brown', 's': 'Lime', 'S': 'DeepPurple', "\<C-s>": 'Cyan', 't': 'Teal'}
 
 func tpipeline#stl#colors#mode()
 	let l:color = get(s:mode_colormap, mode(), 'Red')

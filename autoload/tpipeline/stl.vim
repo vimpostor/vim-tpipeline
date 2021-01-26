@@ -15,6 +15,5 @@ func tpipeline#stl#progress()
 endfunc
 
 func tpipeline#stl#line()
-	let l:mode = tpipeline#stl#colors#modec() . '#' . tpipeline#stl#colors#mode() . '#' . tpipeline#stl#mode() . tpipeline#stl#colors#modec() . '#'
-	return l:mode . ' %#TpipelineBrownInv#%#TpipelineBrown#%f%#TpipelineBrownInv#%=%#TpipelineCyanInv#%#TpipelineCyan#%Y%#TpipelineCyanInv# ' . tpipeline#stl#progress()
+	return tpipeline#stl#colors#modec() . '#' . tpipeline#stl#colors#mode() . '#' . tpipeline#stl#mode() . tpipeline#stl#colors#modec() . '# %#TpipelineBlueGreyInv#%#TpipelineBlueGrey#%f%#TpipelineBlueGreyInv#%=%#TpipelineLightBlueInv#%#TpipelineLightBlue#%Y%#TpipelineLightBlueInv# ' . tpipeline#stl#progress()
 endfunc
