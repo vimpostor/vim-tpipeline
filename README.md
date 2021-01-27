@@ -4,6 +4,12 @@ Outsource your vim statusline to tmux!
 
 ![Screenshot](https://user-images.githubusercontent.com/21310755/105995814-cffaed00-60a9-11eb-9206-93d454831aae.png)
 
+The intent of this plugin is to minimize the amount of statuslines that you have in your terminal. Usually there is plenty of empty space available in your tmux statusline, hence you make much better use of your space if you put your vim statusline there.
+
+After all you don't want to have your carefully handcrafted vim config end up as a bad Internet Explorer meme, do you?
+
+![meme_shitpost](https://user-images.githubusercontent.com/21310755/106005356-70eea580-60b4-11eb-8aa3-105e213e472c.png)
+
 # Installation
 
 Using **vim-plug**:
