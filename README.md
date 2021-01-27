@@ -2,6 +2,8 @@
 
 Outsource your vim statusline to tmux!
 
+![Screenshot](https://user-images.githubusercontent.com/21310755/105995814-cffaed00-60a9-11eb-9206-93d454831aae.png)
+
 # Installation
 
 Using **vim-plug**:
