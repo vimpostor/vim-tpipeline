@@ -1,13 +1,10 @@
 # vim-tpipeline
 
 Outsource your vim statusline to tmux!
-
 ![Screenshot](https://user-images.githubusercontent.com/21310755/105995814-cffaed00-60a9-11eb-9206-93d454831aae.png)
-
-The intent of this plugin is to minimize the amount of statuslines that you have in your terminal. Usually there is plenty of empty space available in your tmux statusline, hence you make much better use of your space if you put your vim statusline there.
-
+## But why?
+Usually there is plenty of empty space available in your tmux statusline, hence you make much better use of your space if you put your vim statusline there.
 After all you don't want to have your carefully handcrafted vim config end up as a bad Internet Explorer meme, do you?
-
 ![meme_shitpost](https://user-images.githubusercontent.com/21310755/106005356-70eea580-60b4-11eb-8aa3-105e213e472c.png)
 
 # Installation
@@ -65,3 +62,26 @@ let g:tpipeline_progresslen = 10
 ## Can I use the default *tpipeline statusline* outside of tmux as well?
 
 Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugin uses *Vim*'s autoload mechanism to lazily load features, i.e. if you don't use tmux, you can still use the statusline inside vim without a performance penalty.
+
+## How do i get the config from the screenshot at the top?
+
+```vim
+" .vimrc
+set stl=%!tpipeline#stl#line()
+let g:tpipeline_split = 1
+```
+
+```bash
+# .tmux.conf
+set -g status-bg default
+set -g status-left '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
+set -g status-left-length 120
+set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge-R)'
+set -g status-right-length 120
+set -g status-interval 1
+set -g status-justify centre
+set -g window-status-current-format "#[fg=colour4]\uE0B6#[fg=colour7,bg=colour4]#{?window_zoomed_flag,#[fg=yellow]🔍,}#W#[fg=colour4,bg=default]\uE0B4"
+set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[fg=colour244,bg=default]\uE0B4"
+set -g pane-border-style fg='#78909C'
+set -g pane-active-border-style fg='#FFD600'
+```
