@@ -59,5 +59,9 @@ Configuration						*tpipeline-configure*
 		progress widget. You can set the length of this widget by
 		defining this variable with `let g:tpipeline_progresslen = 10`
 
+	g:tpipeline_focuslost				*g:tpipeline_focuslost*
+		If you don't want to respond to `FocusLost` signals, set this
+		variable using `let g:tpipeline_focuslost = 0`
+
 ==============================================================================
 	vim:tw=78:sw=4:ts=8:ft=help:norl:noet:

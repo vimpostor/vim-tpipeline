@@ -16,7 +16,9 @@ func tpipeline#build_hooks()
 		endif
 
 		autocmd FocusGained * call tpipeline#forceupdate()
-		autocmd FocusLost * call tpipeline#cautious_cleanup()
+		if g:tpipeline_focuslost
+			autocmd FocusLost * call tpipeline#cautious_cleanup()
+		endif
 		autocmd VimLeave * call tpipeline#cleanup('')
 		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CursorMoved,CmdlineEnter * call tpipeline#update()
 	augroup END
@@ -28,6 +30,9 @@ func tpipeline#initialize()
 	endif
 	if !exists('g:tpipeline_split')
 		let g:tpipeline_split = 0
+	endif
+	if !exists('g:tpipeline_focuslost')
+		let g:tpipeline_focuslost = 1
 	endif
 	set laststatus=0
 	call tpipeline#set_filepath()

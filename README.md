@@ -34,6 +34,7 @@ By default `vim-tpipeline` will copy your standard vim `statusline`. If your `st
 If you want to use a different statusline just for tmux, you can set it manually:
 
 ```vim
+" tpipeline comes bundled with its own custom minimal statusline seen above
 let g:tpipeline_statusline = '%!tpipeline#stl#line()'
 " You can also use standard statusline syntax, see :help stl
 let g:tpipeline_statusline = '%f'
@@ -55,6 +56,12 @@ If you use the default *tpipeline statusline*, then you can set the length of th
 
 ```vim
 let g:tpipeline_progresslen = 10
+```
+
+Some terminals do not fire `FocusLost` signals correctly. If you don't want *tpipeline* to respond to `FocusLost`, then use:
+
+```vim
+let g:tpipeline_focuslost = 0
 ```
 
 # FAQ
