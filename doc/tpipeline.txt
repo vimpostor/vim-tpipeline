@@ -1,12 +1,63 @@
 *tpipeline.txt*	Outsource your statusline to tmux
 
-CONTENTS					*tpipeline-contents*
+CONTENTS						*tpipeline-contents*
 
-Introduction				|tpipeline-introduction|
+Introduction					|tpipeline-introduction|
+Tmux Integration				|tpipeline-tmux|
+Configuration					|tpipeline-configure|
 
 ==============================================================================
-INTRODUCTION					*tpipeline-introduction*
+INTRODUCTION						*tpipeline-introduction*
 
 The *tpipeline* plugin embeds your vim statusline into your tmux statusline.
+This plugin also comes with its own statusline that you can use independently
+of the tmux functionality.
 
-	vim:tw=78:ft=help:norl:
+------------------------------------------------------------------------------
+TMUX INTEGRATION					*tpipeline-tmux*
+
+*tpipeline* creates a bridge to tmux as a file in the filesystem.
+Use the following block in your tmux config to use it:
+
+	set -g status-bg
+	set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
+	set -g status-right-length 120
+	set -g status-interval 1
+
+If you want your statusline to remain split into left and right parts, see the
+*g:tpipeline_split* section.
+
+------------------------------------------------------------------------------
+Configuration						*tpipeline-configure*
+
+	g:tpipeline_statusline				*g:tpipeline_statusline*
+		By default, *tpipeline* will copy your vim *statusline* but if
+		you want to use a different statusline, set this variable
+		instead.
+>
+			let g:tpipeline_statusline = '%!tpipeline#stl#line()'
+			let g:tpipeline_statusline = '%f'
+<
+
+	g:tpipeline_split				*g:tpipeline_split*
+		By default *tpipeline* will flatten your statusline into one
+		continuous chunk.
+		If you prefer to split it, set `let g:tpipeline_split = 1` and
+		use the following tmux config:
+>
+			set -g status-bg default
+			set -g status-left '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
+			set -g status-left-length 120
+			set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge-R)'
+			set -g status-right-length 120
+			set -g status-interval 1
+			set -g status-justify centre
+<
+
+	g:tpipeline_progresslen				*g:tpipeline_progresslen*
+		If you use the default *tpipeline* statusline, it comes with a
+		progress widget. You can set the length of this widget by
+		defining this variable with `let g:tpipeline_progresslen = 10`
+
+==============================================================================
+	vim:tw=78:sw=4:ts=8:ft=help:norl:noet:

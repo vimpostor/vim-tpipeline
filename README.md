@@ -30,7 +30,7 @@ If you want to use a different statusline just for tmux, you can set it manually
 
 ```vim
 let g:tpipeline_statusline = '%!tpipeline#stl#line()'
-" You can use standard statusline syntax, see :help stl
+" You can also use standard statusline syntax, see :help stl
 let g:tpipeline_statusline = '%f'
 ```
 
@@ -56,4 +56,4 @@ let g:tpipeline_progresslen = 10
 
 ## Can I use the default *tpipeline statusline* outside of tmux as well?
 
-Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugin uses *Vim*'s autoload mechanism to lazily load features, i.e. if you don't use the tmux feature you can still use the statusline inside vim without a performance penalty.
+Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugin uses *Vim*'s autoload mechanism to lazily load features, i.e. if you don't use tmux, you can still use the statusline inside vim without a performance penalty.
