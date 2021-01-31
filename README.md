@@ -1,7 +1,7 @@
 # vim-tpipeline
 
 Outsource your vim statusline to tmux!
-![Screenshot](https://user-images.githubusercontent.com/21310755/105995814-cffaed00-60a9-11eb-9206-93d454831aae.png)
+![Screenshot](https://user-images.githubusercontent.com/21310755/106371530-bdacd780-6365-11eb-8d98-1df0eb3830f1.png)
 
 # Installation
 
