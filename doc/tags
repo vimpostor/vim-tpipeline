@@ -1,3 +1,11 @@
-vim-tpipeline	tpipeline.txt	/*vim-tpipeline*
+g:tpipeline_focuslost	tpipeline.txt	/*g:tpipeline_focuslost*
+g:tpipeline_progresslen	tpipeline.txt	/*g:tpipeline_progresslen*
+g:tpipeline_split	tpipeline.txt	/*g:tpipeline_split*
+g:tpipeline_statusline	tpipeline.txt	/*g:tpipeline_statusline*
+statusline	tpipeline.txt	/*statusline*
 tpipeline	tpipeline.txt	/*tpipeline*
+tpipeline-configure	tpipeline.txt	/*tpipeline-configure*
+tpipeline-contents	tpipeline.txt	/*tpipeline-contents*
+tpipeline-introduction	tpipeline.txt	/*tpipeline-introduction*
+tpipeline-tmux	tpipeline.txt	/*tpipeline-tmux*
 tpipeline.txt	tpipeline.txt	/*tpipeline.txt*

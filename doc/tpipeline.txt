@@ -1,4 +1,5 @@
 *tpipeline.txt*	Outsource your statusline to tmux
+*tpipeline*
 
 CONTENTS						*tpipeline-contents*
 
@@ -9,14 +10,14 @@ Configuration					|tpipeline-configure|
 ==============================================================================
 INTRODUCTION						*tpipeline-introduction*
 
-The *tpipeline* plugin embeds your vim statusline into your tmux statusline.
+The |tpipeline| plugin embeds your vim statusline into your tmux statusline.
 This plugin also comes with its own statusline that you can use independently
 of the tmux functionality.
 
 ------------------------------------------------------------------------------
 TMUX INTEGRATION					*tpipeline-tmux*
 
-*tpipeline* creates a bridge to tmux as a file in the filesystem.
+|tpipeline| creates a bridge to tmux as a file in the filesystem.
 Use the following block in your tmux config to use it:
 
 	set -g status-bg
@@ -25,13 +26,13 @@ Use the following block in your tmux config to use it:
 	set -g status-interval 1
 
 If you want your statusline to remain split into left and right parts, see the
-*g:tpipeline_split* section.
+|g:tpipeline_split| section.
 
 ------------------------------------------------------------------------------
 Configuration						*tpipeline-configure*
 
 	g:tpipeline_statusline				*g:tpipeline_statusline*
-		By default, *tpipeline* will copy your vim *statusline* but if
+		By default, |tpipeline| will copy your vim *statusline* but if
 		you want to use a different statusline, set this variable
 		instead.
 >
@@ -40,7 +41,7 @@ Configuration						*tpipeline-configure*
 <
 
 	g:tpipeline_split				*g:tpipeline_split*
-		By default *tpipeline* will flatten your statusline into one
+		By default |tpipeline| will flatten your statusline into one
 		continuous chunk.
 		If you prefer to split it, set `let g:tpipeline_split = 1` and
 		use the following tmux config:
@@ -55,7 +56,7 @@ Configuration						*tpipeline-configure*
 <
 
 	g:tpipeline_progresslen				*g:tpipeline_progresslen*
-		If you use the default *tpipeline* statusline, it comes with a
+		If you use the default |tpipeline| statusline, it comes with a
 		progress widget. You can set the length of this widget by
 		defining this variable with `let g:tpipeline_progresslen = 10`
 
