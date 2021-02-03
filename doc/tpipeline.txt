@@ -6,6 +6,7 @@ CONTENTS						*tpipeline-contents*
 Introduction					|tpipeline-introduction|
 Tmux Integration				|tpipeline-tmux|
 Configuration					|tpipeline-configure|
+Api						|tpipeline-api|
 
 ==============================================================================
 INTRODUCTION						*tpipeline-introduction*
@@ -63,6 +64,21 @@ Configuration						*tpipeline-configure*
 	g:tpipeline_focuslost				*g:tpipeline_focuslost*
 		If you don't want to respond to `FocusLost` signals, set this
 		variable using `let g:tpipeline_focuslost = 0`
+
+------------------------------------------------------------------------------
+Api							*tpipeline-api*
+
+	tpipeline#update()				*tpipeline#update()*
+		This hook provides a way to update the tmux statusline from the
+		outside.
+
+	tpipeline#state#freeze()			*tpipeline#state#freeze()*
+		Disables all updates of the tmux statusline until you call
+		|tpipeline#state#thaw()|.
+
+	tpipeline#state#thaw()				*tpipeline#state#thaw()*
+		Reenables all updates of the tmux statusline after they were
+		disabled using |tpipeline#state#freeze()|.
 
 ==============================================================================
 	vim:tw=78:sw=4:ts=8:ft=help:norl:noet:

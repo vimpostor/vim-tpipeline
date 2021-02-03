@@ -8,6 +8,7 @@ func tpipeline#set_filepath()
 endfunc
 
 func tpipeline#build_hooks()
+	let g:tpipeline_hooks_enabled = 1
 	augroup tpipeline
 		if v:vim_did_enter
 			call tpipeline#init_statusline()

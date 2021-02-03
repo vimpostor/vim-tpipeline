@@ -1,8 +1,6 @@
 # vim-tpipeline
 
-Outsource your vim statusline to tmux!
 ![Screenshot](https://user-images.githubusercontent.com/21310755/106371530-bdacd780-6365-11eb-8d98-1df0eb3830f1.png)
-
 # Installation
 
 Using **vim-plug**:
@@ -97,3 +95,17 @@ set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[
 ## How do I make focus events work inside tmux?
 
 You need `set -g focus-events on` in your `~/.tmux.conf`. Also make sure that your terminal supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut). Keep in mind that terminal vim only supports focus events since patch level `8.2.2345`.
+
+## vim-multiple-cursors is slow with this plugin
+
+Unfortunately due to the way that *vim-multiple-cursors* works, it can sometimes cause this plugin to send `n` different updates to tmux on every movement, where `n` is the number of cursors.
+Put the following block in your `.vimrc` to freeze this plugin while using multiple cursors:
+
+```vim
+function! Multiple_cursors_before()
+	call tpipeline#state#freeze()
+endfunction
+function! Multiple_cursors_after()
+	call tpipeline#state#thaw()
+endfunction
+```
