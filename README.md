@@ -15,7 +15,7 @@ Put this in your `~/.tmux.conf`:
 set -g status-bg default
 set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-right-length 120
-set -g status-interval 1
+set -g status-interval 0
 ```
 
 Restart tmux and now you should see your vim statusline inside tmux.
@@ -42,7 +42,7 @@ set -g status-left '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 120
 set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 120
-set -g status-interval 1
+set -g status-interval 0
 set -g status-justify centre # optionally put the window list in the middle
 ```
 
@@ -86,7 +86,7 @@ set -g status-left '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 120
 set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 120
-set -g status-interval 1
+set -g status-interval 0
 set -g status-justify centre
 set -g window-status-current-format "#[fg=colour4]\uE0B6#[fg=colour7,bg=colour4]#{?window_zoomed_flag,#[fg=yellow]🔍,}#W#[fg=colour4,bg=default]\uE0B4"
 set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[fg=colour244,bg=default]\uE0B4"

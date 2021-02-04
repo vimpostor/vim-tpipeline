@@ -90,6 +90,8 @@ func tpipeline#update()
 		let s:last_writtenline = tpipeline#parse#remove_align(l:line)
 	endif
 	call writefile([s:last_writtenline], s:tpipeline_filepath, l:write_mode)
+	" force tmux to update its statusline
+	let s:timer = timer_start(1, {-> system('tmux refresh-client -S')})
 endfunc
 
 func tpipeline#cleanup(mode)

@@ -24,7 +24,7 @@ Use the following block in your tmux config to use it:
 	set -g status-bg
 	set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge)'
 	set -g status-right-length 120
-	set -g status-interval 1
+	set -g status-interval 0
 
 If you want your statusline to remain split into left and right parts, see the
 |g:tpipeline_split| section.
@@ -52,7 +52,7 @@ Configuration						*tpipeline-configure*
 			set -g status-left-length 120
 			set -g status-right '#(tail -f #{socket_path}-\#{session_id}-vimbridge-R)'
 			set -g status-right-length 120
-			set -g status-interval 1
+			set -g status-interval 0
 			set -g status-justify centre
 <
 

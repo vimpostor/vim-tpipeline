@@ -4,6 +4,10 @@ g:tpipeline_split	tpipeline.txt	/*g:tpipeline_split*
 g:tpipeline_statusline	tpipeline.txt	/*g:tpipeline_statusline*
 statusline	tpipeline.txt	/*statusline*
 tpipeline	tpipeline.txt	/*tpipeline*
+tpipeline#state#freeze()	tpipeline.txt	/*tpipeline#state#freeze()*
+tpipeline#state#thaw()	tpipeline.txt	/*tpipeline#state#thaw()*
+tpipeline#update()	tpipeline.txt	/*tpipeline#update()*
+tpipeline-api	tpipeline.txt	/*tpipeline-api*
 tpipeline-configure	tpipeline.txt	/*tpipeline-configure*
 tpipeline-contents	tpipeline.txt	/*tpipeline-contents*
 tpipeline-introduction	tpipeline.txt	/*tpipeline-introduction*
