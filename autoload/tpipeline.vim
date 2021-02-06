@@ -41,6 +41,9 @@ func tpipeline#initialize()
 
 	let s:socket_rotate_threshold = 128
 	let s:socket_write_count = 0
+	let s:update_delay = 64
+	let s:update_pending = 0
+	let s:update_required = 0
 	let s:last_statusline = ''
 	let s:last_writtenline = ''
 	let l:hlid = synIDtrans(hlID('StatusLine'))
@@ -57,7 +60,23 @@ func tpipeline#init_statusline()
 	endif
 endfunc
 
+func tpipeline#delayed_update()
+	let s:update_pending = 0
+	if s:update_required
+		let s:update_required = 0
+		call tpipeline#update()
+	endif
+endfunc
+
 func tpipeline#update()
+	if s:update_pending
+		let s:update_required = 1
+		return
+	endif
+	let s:update_pending = 1
+	let s:delay_timer = timer_start(s:update_delay, {-> tpipeline#delayed_update()})
+
+
 	let l:line = tpipeline#parse#parse_stl(g:tpipeline_statusline)
 	if l:line ==# s:last_statusline
 		" don't spam the same message twice
