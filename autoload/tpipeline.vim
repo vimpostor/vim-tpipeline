@@ -60,6 +60,14 @@ func tpipeline#init_statusline()
 	endif
 endfunc
 
+func tpipeline#job(c)
+	if has('nvim')
+		let s:job_id = jobstart(a:c)
+	else
+		let s:job_id = job_start(a:c, {"in_io": "null", "out_io": "null", "err_io": "null"})
+	endif
+endfunc
+
 func tpipeline#delayed_update()
 	let s:update_pending = 0
 	if s:update_required
@@ -110,7 +118,7 @@ func tpipeline#update()
 	endif
 	call writefile([s:last_writtenline], s:tpipeline_filepath, l:write_mode)
 	" force tmux to update its statusline
-	let s:job_id = job_start('tmux refresh-client -S', {"in_io": "null", "out_io": "null", "err_io": "null"})
+	call tpipeline#job('tmux refresh-client -S')
 endfunc
 
 func tpipeline#cleanup(mode)
