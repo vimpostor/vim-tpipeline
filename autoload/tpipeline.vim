@@ -41,7 +41,7 @@ func tpipeline#initialize()
 
 	let s:socket_rotate_threshold = 128
 	let s:socket_write_count = 0
-	let s:update_delay = 64
+	let s:update_delay = 128
 	let s:update_pending = 0
 	let s:update_required = 0
 	let s:last_statusline = ''
