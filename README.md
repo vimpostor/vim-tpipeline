@@ -99,3 +99,7 @@ set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[
 ## How do I make focus events work inside tmux?
 
 You need `set -g focus-events on` in your `~/.tmux.conf`. Also make sure that your terminal supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut). Keep in mind that terminal vim only supports focus events since patch level `8.2.2345`.
+
+## The statusline does not appear in tmux
+
+This plugin requires Lua to work. Make sure that your vim was compiled with Lua support.
