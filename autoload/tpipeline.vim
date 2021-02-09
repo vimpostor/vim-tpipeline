@@ -111,14 +111,15 @@ func tpipeline#update()
 			let l:left_line = strpart(l:line, 0, l:split_point)
 			let l:right_line = s:default_color . tpipeline#parse#remove_align(strpart(l:line, l:split_point + 2))
 		endif
-		call writefile([l:right_line], s:tpipeline_right_filepath, l:write_mode)
+		"call writefile([l:right_line], s:tpipeline_right_filepath, l:write_mode)
 		let s:last_writtenline = l:left_line
 	else
 		let s:last_writtenline = tpipeline#parse#remove_align(l:line)
 	endif
-	call writefile([s:last_writtenline], s:tpipeline_filepath, l:write_mode)
+	"call writefile([s:last_writtenline], s:tpipeline_filepath, l:write_mode)
 	" force tmux to update its statusline
-	call tpipeline#job('tmux refresh-client -S')
+	"call tpipeline#job('tmux refresh-client -S')
+	call system('bash -c /tmp/tmux-1000/default-\\\$0-l.sh\ \''''' . s:last_writtenline . '''\'' &disown')
 endfunc
 
 func tpipeline#cleanup(mode)
