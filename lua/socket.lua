@@ -61,7 +61,7 @@ local tmux = coroutine.create(function (l)
 		--l_file:write(last_written_line .. "\n")
 		--l_file:close()
 		--os.execute("tmux refresh-client -S")
-		os.execute('bash -c /tmp/tmux-1000/default-\\\\\\$0-l.sh\\ \\\'\'' .. last_written_line .. '\'\\\'')
+		os.execute('bash -c /tmp/tmux-1000/default-\\\\\\$0-l.sh\\ \\\'\'' .. last_written_line .. '\'\\\' &disown')
 		coroutine.yield()
 	end
 end)
