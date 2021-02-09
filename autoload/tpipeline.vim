@@ -45,6 +45,8 @@ func tpipeline#init_statusline()
 		endif
 		let g:tpipeline_statusline = &statusline
 	endif
+
+	exe 'py3file ' . expand('<sfile>:p:h') . '/python3/socket.py'
 endfunc
 
 func tpipeline#delayed_update()
@@ -69,7 +71,7 @@ func tpipeline#update()
 		return
 	endif
 	let s:last_statusline = l:line
-	call luaeval("require'socket'.update(_A)", l:line)
+	python3 write()
 endfunc
 
 func tpipeline#forceupdate()
