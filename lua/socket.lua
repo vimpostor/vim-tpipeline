@@ -41,6 +41,7 @@ local tmux = coroutine.create(function (l)
 		-- append default color
 		line = default_color .. line
 
+		local command = ''
 		if split then
 			local split_point = string.find(line, "%=", 1, true)
 			local left_line = line
@@ -49,19 +50,13 @@ local tmux = coroutine.create(function (l)
 				left_line = string.sub(line, 1, split_point - 1)
 				right_line = default_color .. remove_align(string.sub(line, split_point + 2))
 			end
-			-- TODO: Optimize IO perf
-			--local r_file = io.open(right_filepath, write_mode)
-			--r_file:write(right_line .. "\n")
-			--r_file:close()
 			last_written_line = left_line
+			command = command .. '\\ \\\'\'' .. right_line .. '\'\\\''
 		else
 			last_written_line = remove_align(line)
 		end
-		--local l_file = io.open(left_filepath, write_mode)
-		--l_file:write(last_written_line .. "\n")
-		--l_file:close()
-		--os.execute("tmux refresh-client -S")
-		os.execute('bash -c /tmp/tmux-1000/default-\\\\\\$0-l.sh\\ \\\'\'' .. last_written_line .. '\'\\\' &disown')
+		command = 'bash -c /tmp/tmux-1000/default-\\\\\\$0.sh\\ \\\'\'' .. last_written_line .. '\'\\\'' .. command .. '\\\'\'&disown\'\\\''
+		os.execute(command)
 		coroutine.yield()
 	end
 end)
