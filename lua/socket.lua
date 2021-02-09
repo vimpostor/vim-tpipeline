@@ -50,17 +50,18 @@ local tmux = coroutine.create(function (l)
 				right_line = default_color .. remove_align(string.sub(line, split_point + 2))
 			end
 			-- TODO: Optimize IO perf
-			local r_file = io.open(right_filepath, write_mode)
-			r_file:write(right_line .. "\n")
-			r_file:close()
+			--local r_file = io.open(right_filepath, write_mode)
+			--r_file:write(right_line .. "\n")
+			--r_file:close()
 			last_written_line = left_line
 		else
 			last_written_line = remove_align(line)
 		end
-		local l_file = io.open(left_filepath, write_mode)
-		l_file:write(last_written_line .. "\n")
-		l_file:close()
-		os.execute("tmux refresh-client -S")
+		--local l_file = io.open(left_filepath, write_mode)
+		--l_file:write(last_written_line .. "\n")
+		--l_file:close()
+		--os.execute("tmux refresh-client -S")
+		os.execute('bash -c /tmp/tmux-1000/default-\\\\\\$0-l.sh\\ \\\'\'' .. last_written_line .. '\'\\\'')
 		coroutine.yield()
 	end
 end)
