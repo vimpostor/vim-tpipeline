@@ -3,8 +3,10 @@ func tpipeline#set_filepath()
 	let l:tmux = $TMUX
 	let l:path = strcharpart(l:tmux, 0, stridx(l:tmux, ","))
 	let l:session_id = strcharpart(l:tmux, strridx(l:tmux, ",") + 1)
-	let s:tpipeline_filepath = l:path . '-$' . l:session_id . '-vimbridge'
+	let l:head = l:path . '-$' . l:session_id
+	let s:tpipeline_filepath = l:head . '-vimbridge'
 	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
+	let s:script_path = l:head . '-so.sh'
 endfunc
 
 func tpipeline#build_hooks()
@@ -39,8 +41,6 @@ func tpipeline#initialize()
 	call tpipeline#set_filepath()
 	call tpipeline#build_hooks()
 
-	let s:socket_rotate_threshold = 128
-	let s:socket_write_count = 0
 	let s:update_delay = 128
 	let s:update_pending = 0
 	let s:update_required = 0
@@ -48,9 +48,35 @@ func tpipeline#initialize()
 	let s:last_writtenline = ''
 	let l:hlid = synIDtrans(hlID('StatusLine'))
 	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(l:hlid, 'fg'), synIDattr(l:hlid, 'bg'))
+
+	let s:is_nvim = 0
+	if has('nvim')
+		let s:is_nvim = 1
+	endif
+endfunc
+
+func tpipeline#fork_job()
+	" TODO: Append to the file
+	let l:script = printf("#!/usr/bin/env bash\nwhile IFS='$\\n' read -r l; do\necho \"$l\" > '%s'", s:tpipeline_filepath)
+	if g:tpipeline_split
+		let l:script = l:script . printf("\nIFS='$\\n' read -r l\necho \"$l\" > '%s'", s:tpipeline_right_filepath)
+	endif
+	let l:script = split(l:script . "\ntmux refresh-client -S\ndone", "\n")
+	call writefile(l:script, s:script_path)
+
+	let l:command = '/usr/bin/env bash ' . s:script_path
+	if s:is_nvim
+		let s:job = jobstart(split(l:command))
+		let s:channel = s:job
+	else
+		let s:job = job_start(l:command, {'noblock': 1})
+		let s:channel = job_getchannel(s:job)
+	endif
 endfunc
 
 func tpipeline#init_statusline()
+	call tpipeline#fork_job()
+
 	if empty(g:tpipeline_statusline)
 		if empty(&statusline)
 			" default statusline
@@ -76,7 +102,6 @@ func tpipeline#update()
 	let s:update_pending = 1
 	let s:delay_timer = timer_start(s:update_delay, {-> tpipeline#delayed_update()})
 
-
 	let l:line = tpipeline#parse#parse_stl(g:tpipeline_statusline)
 	if l:line ==# s:last_statusline
 		" don't spam the same message twice
@@ -84,16 +109,9 @@ func tpipeline#update()
 	endif
 	let s:last_statusline = l:line
 
-	let l:write_mode = 'a' " append mode
-	let s:socket_write_count += 1
-	" rotate the file when it gets too large
-	if s:socket_write_count > s:socket_rotate_threshold
-		let l:write_mode = ''
-		let s:socket_write_count = 0
-	endif
-
 	" append default color
 	let l:line = s:default_color . l:line
+	let l:cstream = ''
 
 	if g:tpipeline_split
 		let l:split_point = stridx(l:line, '%=')
@@ -103,14 +121,17 @@ func tpipeline#update()
 			let l:left_line = strpart(l:line, 0, l:split_point)
 			let l:right_line = s:default_color . tpipeline#parse#remove_align(strpart(l:line, l:split_point + 2))
 		endif
-		call writefile([l:right_line], s:tpipeline_right_filepath, l:write_mode)
+		let l:cstream = l:right_line . "\n"
 		let s:last_writtenline = l:left_line
 	else
 		let s:last_writtenline = tpipeline#parse#remove_align(l:line)
 	endif
-	call writefile([s:last_writtenline], s:tpipeline_filepath, l:write_mode)
-	" force tmux to update its statusline
-	lua require'socket'.write()
+	let l:cstream = s:last_writtenline . "\n" . l:cstream
+	if s:is_nvim
+		call chansend(s:channel, l:cstream)
+	else
+		call ch_sendraw(s:channel, l:cstream)
+	endif
 endfunc
 
 func tpipeline#cleanup(mode)
