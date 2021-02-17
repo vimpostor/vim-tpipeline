@@ -22,7 +22,7 @@ func tpipeline#build_hooks()
 		if g:tpipeline_focuslost
 			autocmd FocusLost * call tpipeline#cautious_cleanup()
 		endif
-		autocmd VimLeave * call tpipeline#cleanup('')
+		autocmd VimLeavePre * call tpipeline#cleanup()
 		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CmdlineEnter * call tpipeline#update()
 	augroup END
 endfunc
@@ -134,11 +134,12 @@ func tpipeline#update()
 	endif
 endfunc
 
-func tpipeline#cleanup(mode)
-	call writefile([''], s:tpipeline_filepath, a:mode)
+func tpipeline#cleanup()
+	call writefile([''], s:tpipeline_filepath, '')
 	if g:tpipeline_split
-		call writefile([''], s:tpipeline_right_filepath, a:mode)
+		call writefile([''], s:tpipeline_right_filepath, '')
 	endif
+	call system('tmux refresh-client -S')
 endfunc
 
 func tpipeline#forceupdate()
@@ -156,6 +157,14 @@ func tpipeline#cautious_cleanup()
 	endif
 
 	if s:last_writtenline ==# l:written_line
-		call tpipeline#cleanup('a')
+		let l:cstream = "\n"
+		if g:tpipeline_split
+			let l:cstream = l:cstream . "\n"
+		endif
+		if s:is_nvim
+			call chansend(s:channel, l:cstream)
+		else
+			call ch_sendraw(s:channel, l:cstream)
+		endif
 	endif
 endfunc
