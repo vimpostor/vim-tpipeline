@@ -84,6 +84,8 @@ func tpipeline#init_statusline()
 		endif
 		let g:tpipeline_statusline = &statusline
 	endif
+
+	call tpipeline#update()
 endfunc
 
 func tpipeline#delayed_update()
