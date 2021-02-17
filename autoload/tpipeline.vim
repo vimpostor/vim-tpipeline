@@ -24,6 +24,9 @@ func tpipeline#build_hooks()
 		endif
 		autocmd VimLeavePre * call tpipeline#cleanup()
 		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CmdlineEnter * call tpipeline#update()
+		if g:tpipeline_cursormoved
+			autocmd CursorMoved * call tpipeline#update()
+		endif
 	augroup END
 endfunc
 
@@ -36,6 +39,9 @@ func tpipeline#initialize()
 	endif
 	if !exists('g:tpipeline_focuslost')
 		let g:tpipeline_focuslost = 1
+	endif
+	if !exists('g:tpipeline_cursormoved')
+		let g:tpipeline_cursormoved = 0
 	endif
 	set laststatus=0
 	call tpipeline#set_filepath()

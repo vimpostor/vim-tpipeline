@@ -97,7 +97,7 @@ You need `set -g focus-events on` in your `~/.tmux.conf`. Also make sure that yo
 ## How do I update the statusline on every cursor movement?
 
 ```vim
-autocmd CursorMoved * call tpipeline#update()
+let g:tpipeline_cursormoved = 1
 ```
 **Warning**: When using `neovim`, this can cause performance problems with some configurations. If you experience this problem, you can fix it by using `set guicursor=` which disables `neovim`'s `DECSCUSR` feature that can sometimes cause laggy scrolling when used inside `tmux`.
 In all other cases this `autocmd` can be used without problems. `tpipeline` is heavily optimized to allow for this usage and finishes within a few milliseconds to allow for smooth scrolling.

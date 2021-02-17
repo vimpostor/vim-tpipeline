@@ -65,6 +65,15 @@ Configuration						*tpipeline-configure*
 		If you don't want to respond to `FocusLost` signals, set this
 		variable using `let g:tpipeline_focuslost = 0`
 
+	g:tpipeline_cursormoved				*g:tpipeline_cursormoved*
+		If you want to have the statusline update while moving the
+		cursor, use `let g:tpipeline_cursormoved = 1` which will set
+		the |CursorMoved| autocmd. Note that when using neovim this can
+		cause some performance problems with some configurations. You
+		can fix these problems by setting `set guicursor=` which will
+		disable the DECSCUSR feature that sometimes doesn't work well
+		in tmux. In all other cases this feature can safely be enabled.
+
 ------------------------------------------------------------------------------
 Api							*tpipeline-api*
 
