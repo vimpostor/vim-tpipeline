@@ -50,12 +50,6 @@ set -g status-interval 0
 set -g status-justify centre # optionally put the window list in the middle
 ```
 
-If you use the default *tpipeline statusline*, then you can set the length of the progress widget using:
-
-```vim
-let g:tpipeline_progresslen = 10
-```
-
 Some terminals do not fire `FocusLost` signals correctly. If you don't want *tpipeline* to respond to `FocusLost`, then use:
 
 ```vim
@@ -75,7 +69,7 @@ After all you don't want to have your carefully handcrafted vim config end up as
 
 Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugin uses *Vim*'s autoload mechanism to lazily load features, i.e. if you don't use tmux, you can still use the statusline inside vim without a performance penalty.
 
-## How do i get the config from the screenshot at the top?
+## How do I get the config from the screenshot at the top?
 
 ```vim
 " .vimrc
@@ -105,7 +99,7 @@ You need `set -g focus-events on` in your `~/.tmux.conf`. Also make sure that yo
 ```vim
 autocmd CursorMoved * call tpipeline#update()
 ```
-**Warning**: When using `neovim`, this can cause performance problems with some configurations. If you experience these problems, you can fix it by using `set guicursor=` which disables `neovim`'s `DECSCUSR` feature that can sometimes cause laggy scrolling when used inside `tmux`.
+**Warning**: When using `neovim`, this can cause performance problems with some configurations. If you experience this problem, you can fix it by using `set guicursor=` which disables `neovim`'s `DECSCUSR` feature that can sometimes cause laggy scrolling when used inside `tmux`.
 In all other cases this `autocmd` can be used without problems. `tpipeline` is heavily optimized to allow for this usage and finishes within a few milliseconds to allow for smooth scrolling.
 
 ## Why should I use this plugin over [onestatus](https://github.com/narajaon/onestatus)?
