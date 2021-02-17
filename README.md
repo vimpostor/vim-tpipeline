@@ -68,7 +68,7 @@ let g:tpipeline_focuslost = 0
 
 Usually there is plenty of empty space available in your tmux statusline, hence you make much better use of your space if you put your vim statusline there.
 After all you don't want to have your carefully handcrafted vim config end up as a bad Internet Explorer meme, do you?
-![meme_shitpost](https://user-images.githubusercontent.com/21310755/106005356-70eea580-60b4-11eb-8aa3-105e213e472c.png)
+![meme_shitpost](https://user-images.githubusercontent.com/21310755/108243701-a71cc380-714e-11eb-9274-bc1cdb3590af.png)
 
 
 ## Can I use the default *tpipeline statusline* outside of tmux as well?
@@ -99,3 +99,18 @@ set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[
 ## How do I make focus events work inside tmux?
 
 You need `set -g focus-events on` in your `~/.tmux.conf`. Also make sure that your terminal supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut). Keep in mind that terminal vim only supports focus events since patch level `8.2.2345`.
+
+## How do I update the statusline on every cursor movement?
+
+```vim
+autocmd CursorMoved * call tpipeline#update()
+```
+**Warning**: When using `neovim`, this can cause performance problems with some configurations. If you experience these problems, you can fix it by using `set guicursor=` which disables `neovim`'s `DECSCUSR` feature that can sometimes cause laggy scrolling when used inside `tmux`.
+In all other cases this `autocmd` can be used without problems. `tpipeline` is heavily optimized to allow for this usage and finishes within a few milliseconds to allow for smooth scrolling.
+
+## Why should I use this plugin over [onestatus](https://github.com/narajaon/onestatus)?
+
+- `tpipeline` works out of the box with your current vim statusline, whereas `onestatus` does not actually use your statusline at all and requires you to configure its own statusline.
+- As a result of the above, `oneline` isn't able to use many vim features such as your vim colorscheme and requires you to redefine your colors. In `tpipeline`, vim colors are translated to tmux syntax automatically.
+- Simple things such as showing your current mode or linenumber require writing your own function in `oneline`. In `tpipeline` this works out of the box.
+- In `oneline` the tmux statusline is updated using a blocking call, whereas `tpipeline` uses non-blocking jobs to asynchronously update the statusline.
