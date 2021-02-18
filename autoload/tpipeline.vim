@@ -12,12 +12,6 @@ endfunc
 func tpipeline#build_hooks()
 	let g:tpipeline_hooks_enabled = 1
 	augroup tpipeline
-		if v:vim_did_enter
-			call tpipeline#init_statusline()
-		else
-			autocmd VimEnter * call tpipeline#init_statusline()
-		endif
-
 		autocmd FocusGained * call tpipeline#forceupdate()
 		if g:tpipeline_focuslost
 			autocmd FocusLost * call tpipeline#cautious_cleanup()
@@ -45,7 +39,13 @@ func tpipeline#initialize()
 	endif
 	set laststatus=0
 	call tpipeline#set_filepath()
-	call tpipeline#build_hooks()
+	augroup tpipelinei
+		if v:vim_did_enter
+			call tpipeline#init_statusline()
+		else
+			autocmd VimEnter * call tpipeline#init_statusline()
+		endif
+	augroup END
 
 	let s:update_delay = 128
 	let s:update_pending = 0
@@ -86,6 +86,8 @@ func tpipeline#fork_job()
 endfunc
 
 func tpipeline#init_statusline()
+	autocmd! tpipelinei
+	call tpipeline#build_hooks()
 	call tpipeline#fork_job()
 
 	if empty(g:tpipeline_statusline)
