@@ -75,7 +75,11 @@ func tpipeline#fork_job()
 		let s:job = jobstart(split(l:command))
 		let s:channel = s:job
 	else
-		let s:job = job_start(l:command, {'noblock': 1})
+		let l:options = {}
+		if has("patch-8.1.350")
+			let options['noblock'] = 1
+		endif
+		let s:job = job_start(l:command, l:options)
 		let s:channel = job_getchannel(s:job)
 	endif
 endfunc
