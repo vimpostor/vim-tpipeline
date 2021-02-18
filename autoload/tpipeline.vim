@@ -54,6 +54,7 @@ func tpipeline#initialize()
 	let s:last_writtenline = ''
 	let l:hlid = synIDtrans(hlID('StatusLine'))
 	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(l:hlid, 'fg'), synIDattr(l:hlid, 'bg'))
+	let s:job_check = 1
 
 	let s:is_nvim = 0
 	if has('nvim')
@@ -99,6 +100,12 @@ func tpipeline#init_statusline()
 endfunc
 
 func tpipeline#delayed_update()
+	if s:job_check
+		if (s:is_nvim && s:job < 0) || (!s:is_nvim && job_status(s:job) == 'dead')
+			call tpipeline#state#freeze()
+		endif
+		let s:job_check = 0
+	endif
 	let s:update_pending = 0
 	if s:update_required
 		let s:update_required = 0
