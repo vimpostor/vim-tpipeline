@@ -20,12 +20,13 @@ TMUX INTEGRATION					*tpipeline-tmux*
 
 |tpipeline| creates a bridge to tmux as a file in the filesystem.
 Use the following block in your tmux config to use it:
-
+>
+	set -g focus-events on
 	set -g status-bg
 	set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 	set -g status-right-length 120
 	set -g status-interval 0
-
+<
 If you want your statusline to remain split into left and right parts, see the
 |g:tpipeline_split| section.
 
@@ -47,6 +48,7 @@ Configuration						*tpipeline-configure*
 		If you prefer to split it, set `let g:tpipeline_split = 1` and
 		use the following tmux config:
 >
+			set -g focus-events on
 			set -g status-bg default
 			set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 			set -g status-left-length 120

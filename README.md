@@ -14,6 +14,7 @@ Plug 'vimpostor/vim-tpipeline'
 Put this in your `~/.tmux.conf`:
 
 ```bash
+set -g focus-events on
 set -g status-bg default
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-right-length 120
@@ -25,6 +26,11 @@ Restart tmux and now you should see your vim statusline inside tmux.
 If you like to have a left and right part of your statusline in tmux, see `:help g:tpipeline_split`.
 
 `vim-tpipeline` is compatible with most statuslines and can be used together with other statusline plugins like *lightline*. If it doesn't work with yours, file a bug report.
+
+## Requirements
+
+- Vim 8 (with patch `8.2.2345` for best experience) OR Neovim
+- For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `Konsole`, `Gnome Terminal` and `iTerm2`)
 
 # Configuration
 
@@ -41,6 +47,7 @@ let g:tpipeline_statusline = '%f'
 By default `vim-tpipeline` flattens the statusline into one continuous chunk. If you would like to keep the left part and right part separate, then set `let g:tpipeline_split = 1` in your `.vimrc` and use the following tmux block instead:
 
 ```bash
+set -g focus-events on
 set -g status-bg default
 set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 120
@@ -79,6 +86,7 @@ let g:tpipeline_split = 1
 
 ```bash
 # .tmux.conf
+set -g focus-events on
 set -g status-bg default
 set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 120
@@ -89,10 +97,6 @@ set -g status-justify centre
 set -g window-status-current-format "#[fg=colour4]\uE0B6#[fg=colour7,bg=colour4]#{?window_zoomed_flag,#[fg=yellow]🔍,}#W#[fg=colour4,bg=default]\uE0B4"
 set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[fg=colour244,bg=default]\uE0B4"
 ```
-
-## How do I make focus events work inside tmux?
-
-You need `set -g focus-events on` in your `~/.tmux.conf`. Also make sure that your terminal supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut). Keep in mind that terminal vim only supports focus events since patch level `8.2.2345`.
 
 ## How do I update the statusline on every cursor movement?
 
