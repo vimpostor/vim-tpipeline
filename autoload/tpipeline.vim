@@ -53,7 +53,11 @@ func tpipeline#initialize()
 	let s:last_statusline = ''
 	let s:last_writtenline = ''
 	let l:hlid = synIDtrans(hlID('StatusLine'))
-	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(l:hlid, 'fg'), synIDattr(l:hlid, 'bg'))
+	let l:bg_color = synIDattr(l:hlid, 'bg')
+	if empty(l:bg_color)
+		let l:bg_color = synIDattr(synIDtrans(hlID('Normal')), 'bg')
+	endif
+	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(l:hlid, 'fg'), l:bg_color)
 	let s:job_check = 1
 
 	let s:is_nvim = 0
