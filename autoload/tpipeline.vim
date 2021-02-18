@@ -70,7 +70,7 @@ func tpipeline#fork_job()
 	let l:script = split(l:script . "\ntmux refresh-client -S\ndone", "\n")
 	call writefile(l:script, s:script_path)
 
-	let l:command = '/usr/bin/env bash ' . s:script_path
+	let l:command = 'bash ' . s:script_path
 	if s:is_nvim
 		let s:job = jobstart(split(l:command))
 		let s:channel = s:job
