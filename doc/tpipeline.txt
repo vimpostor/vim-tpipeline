@@ -76,6 +76,12 @@ Configuration						*tpipeline-configure*
 		disable the DECSCUSR feature that sometimes doesn't work well
 		in tmux. In all other cases this feature can safely be enabled.
 
+	g:tpipeline_tabline				*g:tpipeline_tabline*
+		By default if |g:tpipeline_statusline| is not set, the plugin
+		will copy your |statusline|.
+		If you instead want it to copy your |tabline| set this variable
+		using `let g:tpipeline_tabline = 1`
+
 ------------------------------------------------------------------------------
 Api							*tpipeline-api*
 

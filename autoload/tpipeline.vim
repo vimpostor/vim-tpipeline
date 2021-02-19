@@ -37,7 +37,14 @@ func tpipeline#initialize()
 	if !exists('g:tpipeline_cursormoved')
 		let g:tpipeline_cursormoved = 0
 	endif
-	set laststatus=0
+	if !exists('g:tpipeline_tabline')
+		let g:tpipeline_tabline = 0
+	endif
+	if g:tpipeline_tabline
+		set showtabline=0
+	else
+		set laststatus=0
+	endif
 	call tpipeline#set_filepath()
 	augroup tpipelinei
 		if v:vim_did_enter
@@ -95,11 +102,15 @@ func tpipeline#init_statusline()
 	call tpipeline#fork_job()
 
 	if empty(g:tpipeline_statusline)
-		if empty(&statusline)
-			" default statusline
-			set statusline=%!tpipeline#stl#line()
+		if g:tpipeline_tabline
+			" TODO: Add a default tabline
+			let g:tpipeline = &tabline
+		else
+			if empty(&statusline)
+				set statusline=%!tpipeline#stl#line()
+			endif
+			let g:tpipeline_statusline = &statusline
 		endif
-		let g:tpipeline_statusline = &statusline
 	endif
 
 	call tpipeline#update()
