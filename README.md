@@ -29,7 +29,7 @@ If you like to have a left and right part of your statusline in tmux, see `:help
 
 ## Requirements
 
-- Vim 8 (with patch `8.2.2345` for best experience) OR Neovim
+- Vim 8 (with patch `8.2.2345` for best experience) OR Neovim with true color support (`set termguicolors`)
 - For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `Konsole`, `Gnome Terminal` and `iTerm2`)
 
 # Configuration
