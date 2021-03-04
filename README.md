@@ -15,7 +15,7 @@ Put this in your `~/.tmux.conf`:
 
 ```bash
 set -g focus-events on
-set -g status-bg default
+set -g status-style bg=default
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-right-length 120
 set -g status-interval 0
@@ -48,7 +48,7 @@ By default `vim-tpipeline` flattens the statusline into one continuous chunk. If
 
 ```bash
 set -g focus-events on
-set -g status-bg default
+set -g status-style bg=default
 set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 120
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
@@ -87,7 +87,7 @@ let g:tpipeline_split = 1
 ```bash
 # .tmux.conf
 set -g focus-events on
-set -g status-bg default
+set -g status-style bg=default
 set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 120
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
