@@ -29,8 +29,9 @@ If you like to have a left and right part of your statusline in tmux, see `:help
 
 ## Requirements
 
-- Vim 8 (with patch `8.2.2345` for best experience) OR Neovim with true color support (`set termguicolors`)
+- Vim 8 (with patch `8.2.2345` for best experience) OR Neovim
 - For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `Konsole`, `Gnome Terminal` and `iTerm2`)
+- True color support (`set termguicolors` in vim)
 
 # Configuration
 
@@ -105,6 +106,18 @@ let g:tpipeline_cursormoved = 1
 ```
 **Warning**: When using `neovim`, this can cause performance problems with some configurations. If you experience this problem, you can fix it by using `set guicursor=` which disables `neovim`'s `DECSCUSR` feature that can sometimes cause laggy scrolling when used inside `tmux`.
 In all other cases this `autocmd` can be used without problems. `tpipeline` is heavily optimized to allow for this usage and finishes within a few milliseconds to allow for smooth scrolling.
+
+## Focus events are not working for me in tmux
+
+Besides putting `set -g focus-events on` in your `tmux` config, you also need to have the `XT`-capability available, which you can test by issuing the `tput XT` command. If the capability is not present inside tmux, then there are three ways to fix the [issue](https://github.com/tmux/tmux/issues/2606):
+
+- Put `set -g default-terminal "xterm-256color"` in your `tmux` config. Note that this option is discouraged by tmux and can cause other issues.
+- Force vim to enable it by using this in your `.vimrc`
+```vim
+let &t_fe = "\<Esc>[?1004h"
+let &t_fd = "\<Esc>[?1004l"
+```
+- Write your own custom terminfo entry based on *tmux-256color*
 
 ## Why should I use this plugin over [onestatus](https://github.com/narajaon/onestatus)?
 
