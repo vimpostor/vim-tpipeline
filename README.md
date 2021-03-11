@@ -119,6 +119,14 @@ let &t_fd = "\<Esc>[?1004l"
 ```
 - Write your own custom terminfo entry based on *tmux-256color*
 
+## How do I stop the centered window list from flickering when changing panes?
+
+With `tmux` version **3.2** and above you can use `absolute-centre` instead of `centre`:
+```diff
+-set -g status-justify centre
++set -g status-justify absolute-centre
+```
+
 ## Why should I use this plugin over [onestatus](https://github.com/narajaon/onestatus)?
 
 - `tpipeline` works out of the box with your current vim statusline, whereas `onestatus` does not actually use your statusline at all and requires you to configure its own statusline.
