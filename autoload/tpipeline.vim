@@ -6,7 +6,6 @@ func tpipeline#set_filepath()
 	let l:head = l:path . '-$' . l:session_id
 	let s:tpipeline_filepath = l:head . '-vimbridge'
 	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
-	let s:script_path = l:head . '-so.sh'
 endfunc
 
 func tpipeline#build_hooks()
@@ -74,17 +73,15 @@ func tpipeline#initialize()
 endfunc
 
 func tpipeline#fork_job()
-	" TODO: Append to the file
-	let l:script = printf("#!/usr/bin/env bash\nwhile IFS='$\\n' read -r l; do\necho \"$l\" > '%s'", s:tpipeline_filepath)
+	let l:script = printf("while IFS='$\\n' read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
 	if g:tpipeline_split
-		let l:script = l:script . printf("\nIFS='$\\n' read -r l\necho \"$l\" > '%s'", s:tpipeline_right_filepath)
+		let l:script = l:script . printf("; IFS='$\\n' read -r l; echo \"$l\" > '%s'", s:tpipeline_right_filepath)
 	endif
-	let l:script = split(l:script . "\ntmux refresh-client -S\ndone", "\n")
-	call writefile(l:script, s:script_path)
+	let l:script = l:script . "; tmux refresh-client -S; done"
 
-	let l:command = 'bash ' . s:script_path
+	let l:command = ['bash', '-c', l:script]
 	if s:is_nvim
-		let s:job = jobstart(split(l:command))
+		let s:job = jobstart(l:command)
 		let s:channel = s:job
 	else
 		let l:options = {}
