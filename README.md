@@ -58,12 +58,6 @@ set -g status-interval 0
 set -g status-justify centre # optionally put the window list in the middle
 ```
 
-Some terminals do not fire `FocusLost` signals correctly. If you don't want *tpipeline* to respond to `FocusLost`, then use:
-
-```vim
-let g:tpipeline_focuslost = 0
-```
-
 # FAQ
 
 ## But why?
@@ -121,7 +115,7 @@ let &t_fd = "\<Esc>[?1004l"
 
 ## How do I stop the centered window list from flickering when changing panes?
 
-With `tmux` version **3.2** and above you can use `absolute-centre` instead of `centre`:
+Since `tmux` version **3.2** you can use `absolute-centre` instead of `centre`:
 ```diff
 -set -g status-justify centre
 +set -g status-justify absolute-centre
