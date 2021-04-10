@@ -34,7 +34,7 @@ If you want your statusline to remain split into left and right parts, see the
 Configuration						*tpipeline-configure*
 
 	g:tpipeline_statusline				*g:tpipeline_statusline*
-		By default, |tpipeline| will copy your vim *statusline* but if
+		By default, |tpipeline| will copy your vim |statusline| but if
 		you want to use a different statusline, set this variable
 		instead.
 >
