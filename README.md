@@ -30,8 +30,8 @@ If you like to have a left and right part of your statusline in tmux, see `:help
 ## Requirements
 
 - Vim 8 (with patch `8.2.2345` for best experience) OR Neovim
-- For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `Konsole`, `Gnome Terminal` and `iTerm2`)
 - True color support (`set termguicolors` in vim)
+- For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `Konsole`, `Gnome Terminal` and `iTerm2`)
 
 # Configuration
 
@@ -69,7 +69,7 @@ After all you don't want to have your carefully handcrafted vim config end up as
 
 ## Can I use the default *tpipeline statusline* outside of tmux as well?
 
-Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugin uses *Vim*'s autoload mechanism to lazily load features, i.e. if you don't use tmux, you can still use the statusline inside vim without a performance penalty.
+Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugin uses *Vim*'s autoload mechanism to lazily load features, i.e. if you don't use tmux, you can still use the statusline inside vim without loading unnecessary features.
 
 ## How do I get the config from the screenshot at the top?
 
