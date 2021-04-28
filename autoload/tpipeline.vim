@@ -116,7 +116,11 @@ endfunc
 
 func tpipeline#deferred_update()
 	let s:update_required = 1
-	call tpipeline#update()
+	if s:update_pending
+		return
+	endif
+	let s:update_pending = 1
+	let s:delay_timer = timer_start(s:update_delay, {-> tpipeline#delayed_update()})
 endfunc
 
 func tpipeline#delayed_update()
