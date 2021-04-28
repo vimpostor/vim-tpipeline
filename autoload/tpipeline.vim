@@ -16,8 +16,8 @@ func tpipeline#build_hooks()
 			autocmd FocusLost * call tpipeline#cautious_cleanup()
 		endif
 		autocmd VimLeavePre * call tpipeline#cleanup()
-		autocmd BufEnter,InsertLeave,CursorHold,CursorHoldI,CmdlineEnter * call tpipeline#update()
-		autocmd InsertEnter * call tpipeline#deferred_update()
+		autocmd BufEnter,InsertLeave,CursorHold,CursorHoldI * call tpipeline#update()
+		autocmd InsertEnter,CmdlineEnter * call tpipeline#deferred_update()
 		if g:tpipeline_cursormoved
 			autocmd CursorMoved * call tpipeline#update()
 		endif
