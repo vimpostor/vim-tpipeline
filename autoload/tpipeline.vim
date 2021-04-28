@@ -16,7 +16,8 @@ func tpipeline#build_hooks()
 			autocmd FocusLost * call tpipeline#cautious_cleanup()
 		endif
 		autocmd VimLeavePre * call tpipeline#cleanup()
-		autocmd BufEnter,InsertEnter,InsertLeave,CursorHold,CursorHoldI,CmdlineEnter * call tpipeline#update()
+		autocmd BufEnter,InsertLeave,CursorHold,CursorHoldI,CmdlineEnter * call tpipeline#update()
+		autocmd InsertEnter * call tpipeline#deferred_update()
 		if g:tpipeline_cursormoved
 			autocmd CursorMoved * call tpipeline#update()
 		endif
@@ -110,6 +111,11 @@ func tpipeline#init_statusline()
 		endif
 	endif
 
+	call tpipeline#update()
+endfunc
+
+func tpipeline#deferred_update()
+	let s:update_required = 1
 	call tpipeline#update()
 endfunc
 
