@@ -23,12 +23,13 @@ Use the following block in your tmux config to use it:
 >
 	set -g focus-events on
 	set -g status-style bg=default
-	set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
+	set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
+	set -g status-left-length 100
+	set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 	set -g status-right-length 100
 	set -g status-interval 0
+	set -g status-justify centre
 <
-If you want your statusline to remain split into left and right parts, see the
-|g:tpipeline_split| section.
 
 ------------------------------------------------------------------------------
 Configuration						*tpipeline-configure*
@@ -43,19 +44,17 @@ Configuration						*tpipeline-configure*
 <
 
 	g:tpipeline_split				*g:tpipeline_split*
-		By default |tpipeline| will flatten your statusline into one
-		continuous chunk.
-		If you prefer to split it, set `let g:tpipeline_split = 1` and
-		use the following tmux config:
+		By default |tpipeline| will create separate files for the left
+		and right part of your statusline.
+		If you prefer to merge both parts of your statusline into one
+		single chunk, then set `let g:tpipeline_split = 0` and use the
+		following tmux config:
 >
 			set -g focus-events on
 			set -g status-style bg=default
-			set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-			set -g status-left-length 100
-			set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
+			set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 			set -g status-right-length 100
 			set -g status-interval 0
-			set -g status-justify centre
 <
 
 	g:tpipeline_progresslen				*g:tpipeline_progresslen*

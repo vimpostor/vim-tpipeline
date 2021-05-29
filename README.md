@@ -16,14 +16,15 @@ Put this in your `~/.tmux.conf`:
 ```bash
 set -g focus-events on
 set -g status-style bg=default
-set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
+set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
+set -g status-left-length 100
+set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 100
 set -g status-interval 0
+set -g status-justify centre # optionally put the window list in the middle
 ```
 
 Restart tmux and now you should see your vim statusline inside tmux.
-
-If you like to have a left and right part of your statusline in tmux, see `:help g:tpipeline_split`.
 
 `vim-tpipeline` is compatible with most statuslines and can be used together with other statusline plugins like *lightline*. If it doesn't work with yours, file a bug report.
 
@@ -45,17 +46,14 @@ let g:tpipeline_statusline = '%!tpipeline#stl#line()'
 let g:tpipeline_statusline = '%f'
 ```
 
-By default `vim-tpipeline` flattens the statusline into one continuous chunk. If you would like to keep the left part and right part separate, then set `let g:tpipeline_split = 1` in your `.vimrc` and use the following tmux block instead:
+You can use `let g:tpipeline_split = 0` to merge the left and right part of your statusline into one single chunk which you can then use with the following tmux block instead:
 
 ```bash
 set -g focus-events on
 set -g status-style bg=default
-set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-set -g status-left-length 100
-set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
+set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-right-length 100
 set -g status-interval 0
-set -g status-justify centre # optionally put the window list in the middle
 ```
 
 # FAQ

@@ -29,7 +29,7 @@ func tpipeline#initialize()
 		let g:tpipeline_statusline = ''
 	endif
 	if !exists('g:tpipeline_split')
-		let g:tpipeline_split = 0
+		let g:tpipeline_split = 1
 	endif
 	if !exists('g:tpipeline_focuslost')
 		let g:tpipeline_focuslost = 1
