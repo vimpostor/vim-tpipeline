@@ -17,7 +17,7 @@ Put this in your `~/.tmux.conf`:
 set -g focus-events on
 set -g status-style bg=default
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-set -g status-right-length 120
+set -g status-right-length 100
 set -g status-interval 0
 ```
 
@@ -51,9 +51,9 @@ By default `vim-tpipeline` flattens the statusline into one continuous chunk. If
 set -g focus-events on
 set -g status-style bg=default
 set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-set -g status-left-length 120
+set -g status-left-length 100
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
-set -g status-right-length 120
+set -g status-right-length 100
 set -g status-interval 0
 set -g status-justify centre # optionally put the window list in the middle
 ```
@@ -84,9 +84,9 @@ let g:tpipeline_split = 1
 set -g focus-events on
 set -g status-style bg=default
 set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-set -g status-left-length 120
+set -g status-left-length 100
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
-set -g status-right-length 120
+set -g status-right-length 100
 set -g status-interval 0
 set -g status-justify centre
 set -g window-status-current-format "#[fg=colour4]\uE0B6#[fg=colour7,bg=colour4]#{?window_zoomed_flag,#[fg=yellow]🔍,}#W#[fg=colour4,bg=default]\uE0B4"
