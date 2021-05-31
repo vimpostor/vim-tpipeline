@@ -74,7 +74,6 @@ Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugi
 ```vim
 " .vimrc
 set stl=%!tpipeline#stl#line()
-let g:tpipeline_split = 1
 ```
 
 ```bash
