@@ -27,7 +27,6 @@ Use the following block in your tmux config to use it:
 	set -g status-left-length 100
 	set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 	set -g status-right-length 100
-	set -g status-interval 0
 	set -g status-justify centre
 <
 
@@ -54,7 +53,6 @@ Configuration						*tpipeline-configure*
 			set -g status-style bg=default
 			set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 			set -g status-right-length 100
-			set -g status-interval 0
 <
 
 	g:tpipeline_progresslen				*g:tpipeline_progresslen*

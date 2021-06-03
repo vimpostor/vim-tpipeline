@@ -20,7 +20,6 @@ set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 100
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 100
-set -g status-interval 0
 set -g status-justify centre # optionally put the window list in the middle
 ```
 
@@ -53,7 +52,6 @@ set -g focus-events on
 set -g status-style bg=default
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-right-length 100
-set -g status-interval 0
 ```
 
 # FAQ
@@ -84,7 +82,6 @@ set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 100
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 100
-set -g status-interval 0
 set -g status-justify centre
 set -g window-status-current-format "#[fg=colour4]\uE0B6#[fg=colour7,bg=colour4]#{?window_zoomed_flag,#[fg=yellow]🔍,}#W#[fg=colour4,bg=default]\uE0B4"
 set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[fg=colour244,bg=default]\uE0B4"
