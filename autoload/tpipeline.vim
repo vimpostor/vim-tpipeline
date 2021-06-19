@@ -170,7 +170,7 @@ func tpipeline#update()
 		let l:right_line = ''
 		if l:split_point != -1
 			let l:left_line = strpart(l:line, 0, l:split_point)
-			let l:right_line = s:default_color . strpart(l:line, l:split_point + 2)
+			let l:right_line = s:line_pfx . strpart(l:line, l:split_point + 2)
 		endif
 		let l:cstream = l:right_line . "\n"
 		let s:last_writtenline = l:left_line
