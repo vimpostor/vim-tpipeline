@@ -68,6 +68,12 @@ func tpipeline#initialize()
 		let l:bg_color = synIDattr(synIDtrans(hlID('Normal')), 'bg')
 	endif
 	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(l:hlid, 'fg'), l:bg_color)
+	let s:line_pfx = ''
+	if !g:tpipeline_preservebg
+		" prepend default color
+		let s:line_pfx = s:default_color
+	endif
+
 	let s:job_check = 1
 
 	let s:is_nvim = 0
@@ -155,10 +161,7 @@ func tpipeline#update()
 	endif
 	let s:last_statusline = l:line
 
-	if !g:tpipeline_preservebg
-		" append default color
-		let l:line = s:default_color . l:line
-	endif
+	let l:line = s:line_pfx . l:line
 	let l:cstream = ''
 
 	if g:tpipeline_split
