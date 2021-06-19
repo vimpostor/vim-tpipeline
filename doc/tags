@@ -1,5 +1,6 @@
 g:tpipeline_cursormoved	tpipeline.txt	/*g:tpipeline_cursormoved*
 g:tpipeline_focuslost	tpipeline.txt	/*g:tpipeline_focuslost*
+g:tpipeline_preservebg	tpipeline.txt	/*g:tpipeline_preservebg*
 g:tpipeline_progresslen	tpipeline.txt	/*g:tpipeline_progresslen*
 g:tpipeline_split	tpipeline.txt	/*g:tpipeline_split*
 g:tpipeline_statusline	tpipeline.txt	/*g:tpipeline_statusline*

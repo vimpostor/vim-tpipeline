@@ -79,6 +79,17 @@ Configuration						*tpipeline-configure*
 		If you instead want it to copy your |tabline| set this variable
 		using `let g:tpipeline_tabline = 1`
 
+	g:tpipeline_preservebg				*g:tpipeline_preservebg*
+		By default the statusline will be prepended with a color
+		definition such that the statusline in tmux reflects the colors
+		of your vim statusline as defined in the |hl-StatusLine|
+		highlight group.
+		If you do not want to have this plugin mess with your tmux
+		statusline color, you can disable this behaviour by setting
+		`let g:tpipeline_preservebg = 1` but take in mind that in this
+		case the embedded statusline will follow your tmux default
+		colors and can in some cases even become invisible.
+
 ------------------------------------------------------------------------------
 Api							*tpipeline-api*
 

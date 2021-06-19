@@ -40,6 +40,9 @@ func tpipeline#initialize()
 	if !exists('g:tpipeline_tabline')
 		let g:tpipeline_tabline = 0
 	endif
+	if !exists('g:tpipeline_preservebg')
+		let g:tpipeline_preservebg = 0
+	endif
 	if g:tpipeline_tabline
 		set showtabline=0
 	else
@@ -152,8 +155,10 @@ func tpipeline#update()
 	endif
 	let s:last_statusline = l:line
 
-	" append default color
-	let l:line = s:default_color . l:line
+	if !g:tpipeline_preservebg
+		" append default color
+		let l:line = s:default_color . l:line
+	endif
 	let l:cstream = ''
 
 	if g:tpipeline_split
