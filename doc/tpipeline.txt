@@ -90,6 +90,14 @@ Configuration						*tpipeline-configure*
 		case the embedded statusline will follow your tmux default
 		colors and can in some cases even become invisible.
 
+	g:tpipeline_autoembed				*g:tpipeline_autoembed*
+		If this option is enabled (default: disabled), this plugin will
+		automatically embed itself in tmux by replacing any previously
+		configured statusline.
+		You can enable this by using `let g:tpipeline_autoembed = 1`
+		With this option set there is no need to configure the
+		statusline separately in the tmux config.
+
 ------------------------------------------------------------------------------
 Api							*tpipeline-api*
 

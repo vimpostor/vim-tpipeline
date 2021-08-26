@@ -43,6 +43,9 @@ func tpipeline#initialize()
 	if !exists('g:tpipeline_preservebg')
 		let g:tpipeline_preservebg = 0
 	endif
+	if !exists('g:tpipeline_autoembed')
+		let g:tpipeline_autoembed = 0
+	endif
 	if g:tpipeline_tabline
 		set showtabline=0
 	else
@@ -80,6 +83,16 @@ func tpipeline#initialize()
 	if has('nvim')
 		let s:is_nvim = 1
 	endif
+endfunc
+
+func tpipeline#auto_embed()
+	let l:opts = ['status-left ' . shellescape('#(cat #{socket_path}-\#{session_id}-vimbridge)')]
+	if g:tpipeline_split
+		let l:opts = add(l:opts, 'status-right ' . shellescape('#(cat #{socket_path}-\#{session_id}-vimbridge-R)'))
+	endif
+	for l:opt in l:opts
+		call system('tmux set -g ' . l:opt)
+	endfor
 endfunc
 
 func tpipeline#fork_job()
@@ -121,6 +134,9 @@ func tpipeline#init_statusline()
 	endif
 
 	call tpipeline#update()
+	if g:tpipeline_autoembed
+		call tpipeline#auto_embed()
+	endif
 endfunc
 
 func tpipeline#deferred_update()
