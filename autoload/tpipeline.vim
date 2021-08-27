@@ -47,9 +47,9 @@ func tpipeline#initialize()
 		let g:tpipeline_autoembed = 0
 	endif
 	if !exists('g:tpipeline_embedopts')
-		let g:tpipeline_embedopts = ['status-left ' . shellescape('#(cat #{socket_path}-\#{session_id}-vimbridge)')]
+		let g:tpipeline_embedopts = ["status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)'"]
 		if g:tpipeline_split
-			let g:tpipeline_embedopts = add(g:tpipeline_embedopts, 'status-right ' . shellescape('#(cat #{socket_path}-\#{session_id}-vimbridge-R)'))
+			let g:tpipeline_embedopts = add(g:tpipeline_embedopts, "status-right '#(cat #{socket_path}-\\#{session_id}-vimbridge-R)'")
 		endif
 	endif
 	if g:tpipeline_tabline
