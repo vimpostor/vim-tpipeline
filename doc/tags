@@ -1,5 +1,6 @@
 g:tpipeline_autoembed	tpipeline.txt	/*g:tpipeline_autoembed*
 g:tpipeline_cursormoved	tpipeline.txt	/*g:tpipeline_cursormoved*
+g:tpipeline_embedopts	tpipeline.txt	/*g:tpipeline_embedopts*
 g:tpipeline_focuslost	tpipeline.txt	/*g:tpipeline_focuslost*
 g:tpipeline_preservebg	tpipeline.txt	/*g:tpipeline_preservebg*
 g:tpipeline_progresslen	tpipeline.txt	/*g:tpipeline_progresslen*

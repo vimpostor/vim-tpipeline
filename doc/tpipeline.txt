@@ -97,6 +97,16 @@ Configuration						*tpipeline-configure*
 		You can enable this by using `let g:tpipeline_autoembed = 1`
 		With this option set there is no need to configure the
 		statusline separately in the tmux config.
+		Also see |g:tpipeline_embedopts|.
+
+	g:tpipeline_embedopts				*g:tpipeline_embedopts*
+		If |g:tpipeline_embedopts| is set, this option will specify
+		what options will be used when embedding the statusline in
+		tmux.
+		This must be an array of tmux options. Each option will be
+		prepended with `'tmux set -g '` and then be executed in a shell.
+		E.g. to only move the tmux window list to the middle, use:
+		`let g:tpipeline_embedopts = ['status-justify absolute-centre']`
 
 ------------------------------------------------------------------------------
 Api							*tpipeline-api*

@@ -46,6 +46,12 @@ func tpipeline#initialize()
 	if !exists('g:tpipeline_autoembed')
 		let g:tpipeline_autoembed = 0
 	endif
+	if !exists('g:tpipeline_embedopts')
+		let g:tpipeline_embedopts = ['status-left ' . shellescape('#(cat #{socket_path}-\#{session_id}-vimbridge)')]
+		if g:tpipeline_split
+			let g:tpipeline_embedopts = add(g:tpipeline_embedopts, 'status-right ' . shellescape('#(cat #{socket_path}-\#{session_id}-vimbridge-R)'))
+		endif
+	endif
 	if g:tpipeline_tabline
 		set showtabline=0
 	else
@@ -85,18 +91,13 @@ func tpipeline#initialize()
 	endif
 endfunc
 
-func tpipeline#auto_embed()
-	let l:opts = ['status-left ' . shellescape('#(cat #{socket_path}-\#{session_id}-vimbridge)')]
-	if g:tpipeline_split
-		let l:opts = add(l:opts, 'status-right ' . shellescape('#(cat #{socket_path}-\#{session_id}-vimbridge-R)'))
-	endif
-	for l:opt in l:opts
-		call system('tmux set -g ' . l:opt)
-	endfor
-endfunc
-
 func tpipeline#fork_job()
 	let l:script = printf("while IFS='$\\n' read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
+	if g:tpipeline_autoembed
+		for l:o in g:tpipeline_embedopts
+			let l:script = 'tmux set -g ' . l:o . '; ' . l:script
+		endfor
+	endif
 	if g:tpipeline_split
 		let l:script = l:script . printf("; IFS='$\\n' read -r l; echo \"$l\" > '%s'", s:tpipeline_right_filepath)
 	endif
@@ -134,9 +135,6 @@ func tpipeline#init_statusline()
 	endif
 
 	call tpipeline#update()
-	if g:tpipeline_autoembed
-		call tpipeline#auto_embed()
-	endif
 endfunc
 
 func tpipeline#deferred_update()
