@@ -37,7 +37,7 @@ This plugin will automatically embed your statusline in tmux with sane defaults.
 If you want to have more control over where it is placed and how this is done, disable the autoconfiguration with `g:tpipeline_autoembed` and embed the statusline manually, here is one example:
 
 ```vim
-# .vimrc
+" .vimrc
 let g:tpipeline_autoembed = 0
 ```
 
