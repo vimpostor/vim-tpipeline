@@ -19,16 +19,18 @@ of the tmux functionality.
 TMUX INTEGRATION					*tpipeline-tmux*
 
 |tpipeline| creates a bridge to tmux as a file in the filesystem.
-Use the following block in your tmux config to use it:
+It will automatically embed itself in the tmux statusline.
+However you need to put the following block in your tmux config:
 >
 	set -g focus-events on
 	set -g status-style bg=default
-	set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 	set -g status-left-length 80
-	set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 	set -g status-right-length 80
 	set -g status-justify centre
 <
+
+If you want to disable the automatic embed process for more control over how
+the statusline is placed, see |g:tpipeline_autoembed|.
 
 ------------------------------------------------------------------------------
 Configuration						*tpipeline-configure*
@@ -46,7 +48,8 @@ Configuration						*tpipeline-configure*
 		By default |tpipeline| will create separate files for the left
 		and right part of your statusline.
 		If you prefer to merge both parts of your statusline into one
-		single chunk, then set `let g:tpipeline_split = 0` and use the
+		single chunk, then set `let g:tpipeline_split = 0`, and if you
+		do not use the automatic embed process, you need to use the
 		following tmux config:
 >
 			set -g focus-events on
@@ -91,13 +94,24 @@ Configuration						*tpipeline-configure*
 		colors and can in some cases even become invisible.
 
 	g:tpipeline_autoembed				*g:tpipeline_autoembed*
-		If this option is enabled (default: disabled), this plugin will
-		automatically embed itself in tmux by replacing any previously
-		configured statusline.
-		You can enable this by using `let g:tpipeline_autoembed = 1`
-		With this option set there is no need to configure the
-		statusline separately in the tmux config.
-		Also see |g:tpipeline_embedopts|.
+		If this option is enabled (enabled by default), this plugin
+		will automatically embed itself in tmux by replacing any
+		previously configured statusline.
+		You can disable this by using `let g:tpipeline_autoembed = 0`
+		If you disable this you need to manually configure the embed
+		process in your tmux config.
+		This means something similar to the following tmux block:
+>
+			set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
+			set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
+			set -g focus-events on
+			set -g status-style bg=default
+			set -g status-left-length 80
+			set -g status-right-length 80
+			set -g status-justify centre
+<
+		Also see |g:tpipeline_embedopts| for a way to configure this
+		without disabling autoembed completely.
 
 	g:tpipeline_embedopts				*g:tpipeline_embedopts*
 		If |g:tpipeline_autoembed| is enabled, this option will

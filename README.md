@@ -11,16 +11,14 @@ Using **vim-plug**:
 Plug 'vimpostor/vim-tpipeline'
 ```
 
-Put this in your `~/.tmux.conf`:
+It is **highly recommended** to put this in your `~/.tmux.conf`:
 
 ```bash
 set -g focus-events on
 set -g status-style bg=default
-set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 80
-set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 80
-set -g status-justify centre # optionally put the window list in the middle
+set -g status-justify centre
 ```
 
 Restart tmux and now you should see your vim statusline inside tmux.
@@ -35,6 +33,25 @@ Restart tmux and now you should see your vim statusline inside tmux.
 
 # Configuration
 
+This plugin will automatically embed your statusline in tmux with sane defaults.
+If you want to have more control over where it is placed and how this is done, disable the autoconfiguration with `g:tpipeline_autoembed` and embed the statusline manually, here is one example:
+
+```vim
+# .vimrc
+let g:tpipeline_autoembed = 0
+```
+
+```bash
+# .tmux.conf
+set -g focus-events on
+set -g status-style bg=default
+set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
+set -g status-left-length 80
+set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
+set -g status-right-length 80
+set -g status-justify centre
+```
+
 By default `vim-tpipeline` will copy your standard vim `statusline`. If your `statusline` is empty, the default *tpipeline statusline* from the screenshot above is used.
 If you want to use a different statusline just for tmux, you can set it manually:
 
@@ -45,14 +62,7 @@ let g:tpipeline_statusline = '%!tpipeline#stl#line()'
 let g:tpipeline_statusline = '%f'
 ```
 
-You can use `let g:tpipeline_split = 0` to merge the left and right part of your statusline into one single chunk which you can then use with the following tmux block instead:
-
-```bash
-set -g focus-events on
-set -g status-style bg=default
-set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-set -g status-right-length 80
-```
+There are many more options available to accomodate for every specific usecase. Check them out in the comprehensive help file using `:help tpipeline-configure`.
 
 # FAQ
 
@@ -78,9 +88,7 @@ set stl=%!tpipeline#stl#line()
 # .tmux.conf
 set -g focus-events on
 set -g status-style bg=default
-set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 80
-set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 80
 set -g status-justify centre
 set -g window-status-current-format "#[fg=colour4]\uE0B6#[fg=colour7,bg=colour4]#{?window_zoomed_flag,#[fg=yellow]🔍,}#W#[fg=colour4,bg=default]\uE0B4"

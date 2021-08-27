@@ -44,7 +44,7 @@ func tpipeline#initialize()
 		let g:tpipeline_preservebg = 0
 	endif
 	if !exists('g:tpipeline_autoembed')
-		let g:tpipeline_autoembed = 0
+		let g:tpipeline_autoembed = 1
 	endif
 	if !exists('g:tpipeline_embedopts')
 		let g:tpipeline_embedopts = ["status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)'"]
