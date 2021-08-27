@@ -100,9 +100,9 @@ Configuration						*tpipeline-configure*
 		Also see |g:tpipeline_embedopts|.
 
 	g:tpipeline_embedopts				*g:tpipeline_embedopts*
-		If |g:tpipeline_embedopts| is set, this option will specify
-		what options will be used when embedding the statusline in
-		tmux.
+		If |g:tpipeline_autoembed| is enabled, this option will
+		specify what options will be used when embedding the
+		statusline in tmux.
 		This must be an array of tmux options. Each option will be
 		prepended with `'tmux set -g '` and then be executed in a shell.
 		E.g. to only move the tmux window list to the middle, use:
