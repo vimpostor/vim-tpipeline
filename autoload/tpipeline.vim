@@ -17,7 +17,11 @@ func tpipeline#build_hooks()
 		endif
 		autocmd VimLeavePre * call tpipeline#cleanup()
 		autocmd BufEnter,InsertLeave,CursorHold,CursorHoldI * call tpipeline#update()
-		autocmd InsertEnter,CmdlineEnter * call tpipeline#deferred_update()
+		if s:has_modechgd
+			autocmd ModeChanged * call tpipeline#deferred_update()
+		else
+			autocmd InsertEnter,CmdlineEnter * call tpipeline#deferred_update()
+		endif
 		if g:tpipeline_cursormoved
 			autocmd CursorMoved * call tpipeline#update()
 		endif
@@ -88,6 +92,10 @@ func tpipeline#initialize()
 	let s:is_nvim = 0
 	if has('nvim')
 		let s:is_nvim = 1
+	endif
+	let s:has_modechgd = 0
+	if has('patch-8.2.3430')
+		let s:has_modechgd = 1
 	endif
 endfunc
 
