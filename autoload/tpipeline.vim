@@ -18,7 +18,8 @@ func tpipeline#build_hooks()
 		autocmd VimLeavePre * call tpipeline#cleanup()
 		autocmd BufEnter,InsertLeave,CursorHold,CursorHoldI * call tpipeline#update()
 		if s:has_modechgd
-			autocmd ModeChanged * call tpipeline#deferred_update()
+			autocmd ModeChanged *:[^c]* call tpipeline#update()
+			autocmd CmdlineEnter * call tpipeline#deferred_update()
 		else
 			autocmd InsertEnter,CmdlineEnter * call tpipeline#deferred_update()
 		endif
