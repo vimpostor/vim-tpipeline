@@ -98,6 +98,11 @@ func tpipeline#initialize()
 	if has('patch-8.2.3430')
 		let s:has_modechgd = 1
 	endif
+	let s:has_eval_stl = 0
+	if has('nvim-0.6')
+		let s:has_eval_stl = 1
+		let g:tpipeline_fillchar = ""
+	endif
 endfunc
 
 func tpipeline#fork_job()
@@ -177,7 +182,11 @@ func tpipeline#update()
 	let s:update_pending = 1
 	let s:delay_timer = timer_start(s:update_delay, {-> tpipeline#delayed_update()})
 
-	let l:line = tpipeline#parse#parse_stl(g:tpipeline_statusline)
+	if s:has_eval_stl
+		let l:line = tpipeline#parse#eval_stl(g:tpipeline_statusline)
+	else
+		let l:line = tpipeline#parse#parse_stl(g:tpipeline_statusline)
+	endif
 	if l:line ==# s:last_statusline
 		" don't spam the same message twice
 		return
