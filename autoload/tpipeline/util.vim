@@ -7,6 +7,6 @@ func tpipeline#util#pad(str, num)
 endfunc
 
 func tpipeline#util#left_justify(str)
-	let l:num = strchars(matchstr(a:str, '^\ *'))
-	return strcharpart(a:str, l:num) . repeat(' ', l:num)
+	let num = strchars(matchstr(a:str, '^\ *'))
+	return strcharpart(a:str, num) . repeat(' ', num)
 endfunc

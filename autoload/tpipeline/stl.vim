@@ -12,14 +12,14 @@ func tpipeline#stl#fn()
 endfunc
 
 func tpipeline#stl#attr()
-	let l:r = ''
+	let r = ''
 	if &readonly
-		let l:r = ' %#TpipelinePinkInv#%#TpipelinePink#%R%#TpipelinePinkInv#'
+		let r = ' %#TpipelinePinkInv#%#TpipelinePink#%R%#TpipelinePinkInv#'
 	endif
 	if &modified
-		let l:r = l:r . ' %#TpipelineAmberInv#%#TpipelineAmber#%M%#TpipelineAmberInv#'
+		let r = r . ' %#TpipelineAmberInv#%#TpipelineAmber#%M%#TpipelineAmberInv#'
 	endif
-	return l:r
+	return r
 endfunc
 
 func tpipeline#stl#ft()
@@ -27,12 +27,12 @@ func tpipeline#stl#ft()
 endfunc
 
 func tpipeline#stl#progress()
-	let l:p = tpipeline#util#percentage() * g:tpipeline_progresslen / 100
-	let l:text = line('.')
-	let l:text = repeat(' ', g:tpipeline_progresslen - strchars(l:text) - 1) . l:text . ' '
+	let p = tpipeline#util#percentage() * g:tpipeline_progresslen / 100
+	let text = line('.')
+	let text = repeat(' ', g:tpipeline_progresslen - strchars(text) - 1) . text . ' '
 
-	let l:pre = '%#TpipelineGreyInv#%#TpipelineGrey#'
-	return l:pre . strcharpart(l:text, 0, l:p) . '%#TpipelineGreyInv#' . strcharpart(l:text, l:p)
+	let pre = '%#TpipelineGreyInv#%#TpipelineGrey#'
+	return pre . strcharpart(text, 0, p) . '%#TpipelineGreyInv#' . strcharpart(text, p)
 endfunc
 
 func tpipeline#stl#line()

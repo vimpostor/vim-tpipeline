@@ -1,10 +1,7 @@
 func tpipeline#set_filepath()
-	" for example /tmp/tmux-1000/default-$0-vimbridge
-	let l:tmux = $TMUX
-	let l:path = strcharpart(l:tmux, 0, stridx(l:tmux, ","))
-	let l:session_id = strcharpart(l:tmux, strridx(l:tmux, ",") + 1)
-	let l:head = l:path . '-$' . l:session_id
-	let s:tpipeline_filepath = l:head . '-vimbridge'
+	" e.g. /tmp/tmux-1000/default-$0-vimbridge
+	let tmux = $TMUX
+	let s:tpipeline_filepath = strcharpart(tmux, 0, stridx(tmux, ",")) . '-$' . strcharpart(tmux, strridx(tmux, ",") + 1) . '-vimbridge'
 	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
 endfunc
 
@@ -76,12 +73,12 @@ func tpipeline#initialize()
 	let s:update_required = 0
 	let s:last_statusline = ''
 	let s:last_writtenline = ''
-	let l:hlid = synIDtrans(hlID('StatusLine'))
-	let l:bg_color = synIDattr(l:hlid, 'bg')
-	if empty(l:bg_color)
-		let l:bg_color = synIDattr(synIDtrans(hlID('Normal')), 'bg')
+	let hlid = synIDtrans(hlID('StatusLine'))
+	let bg_color = synIDattr(hlid, 'bg')
+	if empty(bg_color)
+		let bg_color = synIDattr(synIDtrans(hlID('Normal')), 'bg')
 	endif
-	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(l:hlid, 'fg'), l:bg_color)
+	let s:default_color = printf('#[fg=%s,bg=%s]', synIDattr(hlid, 'fg'), bg_color)
 	let s:line_pfx = ''
 	if !g:tpipeline_preservebg
 		" prepend default color
@@ -106,27 +103,27 @@ func tpipeline#initialize()
 endfunc
 
 func tpipeline#fork_job()
-	let l:script = printf("while IFS='$\\n' read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
+	let script = printf("while IFS='$\\n' read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
 	if g:tpipeline_autoembed
-		for l:o in g:tpipeline_embedopts
-			let l:script = 'tmux set -g ' . l:o . '; ' . l:script
+		for o in g:tpipeline_embedopts
+			let script = 'tmux set -g ' . o . '; ' . script
 		endfor
 	endif
 	if g:tpipeline_split
-		let l:script = l:script . printf("; IFS='$\\n' read -r l; echo \"$l\" > '%s'", s:tpipeline_right_filepath)
+		let script = script . printf("; IFS='$\\n' read -r l; echo \"$l\" > '%s'", s:tpipeline_right_filepath)
 	endif
-	let l:script = l:script . "; tmux refresh-client -S; done"
+	let script = script . "; tmux refresh-client -S; done"
 
-	let l:command = ['bash', '-c', l:script]
+	let command = ['bash', '-c', script]
 	if s:is_nvim
-		let s:job = jobstart(l:command)
+		let s:job = jobstart(command)
 		let s:channel = s:job
 	else
-		let l:options = {}
+		let options = {}
 		if has("patch-8.1.350")
-			let l:options['noblock'] = 1
+			let options['noblock'] = 1
 		endif
-		let s:job = job_start(l:command, l:options)
+		let s:job = job_start(command, options)
 		let s:channel = job_getchannel(s:job)
 	endif
 endfunc
@@ -183,37 +180,37 @@ func tpipeline#update()
 	let s:delay_timer = timer_start(s:update_delay, {-> tpipeline#delayed_update()})
 
 	if s:has_eval_stl
-		let l:line = tpipeline#parse#eval_stl(g:tpipeline_statusline)
+		let line = tpipeline#parse#eval_stl(g:tpipeline_statusline)
 	else
-		let l:line = tpipeline#parse#parse_stl(g:tpipeline_statusline)
+		let line = tpipeline#parse#parse_stl(g:tpipeline_statusline)
 	endif
-	if l:line ==# s:last_statusline
+	if line ==# s:last_statusline
 		" don't spam the same message twice
 		return
 	endif
-	let s:last_statusline = l:line
+	let s:last_statusline = line
 
-	let l:line = s:line_pfx . l:line
-	let l:cstream = ''
+	let line = s:line_pfx . line
+	let cstream = ''
 
 	if g:tpipeline_split
-		let l:split_point = stridx(l:line, '%=')
-		let l:left_line = l:line
-		let l:right_line = ''
-		if l:split_point != -1
-			let l:left_line = strpart(l:line, 0, l:split_point)
-			let l:right_line = s:line_pfx . strpart(l:line, l:split_point + 2)
+		let split_point = stridx(line, '%=')
+		let left_line = line
+		let right_line = ''
+		if split_point != -1
+			let left_line = strpart(line, 0, split_point)
+			let right_line = s:line_pfx . strpart(line, split_point + 2)
 		endif
-		let l:cstream = l:right_line . "\n"
-		let s:last_writtenline = l:left_line
+		let cstream = right_line . "\n"
+		let s:last_writtenline = left_line
 	else
-		let s:last_writtenline = tpipeline#parse#remove_align(l:line)
+		let s:last_writtenline = tpipeline#parse#remove_align(line)
 	endif
-	let l:cstream = s:last_writtenline . "\n" . l:cstream
+	let cstream = s:last_writtenline . "\n" . cstream
 	if s:is_nvim
-		call chansend(s:channel, l:cstream)
+		call chansend(s:channel, cstream)
 	else
-		call ch_sendraw(s:channel, l:cstream)
+		call ch_sendraw(s:channel, cstream)
 	endif
 endfunc
 
@@ -232,22 +229,22 @@ endfunc
 
 func tpipeline#cautious_cleanup()
 	" check if some other instance wrote to the socket right before us
-	let l:written_file = readfile(s:tpipeline_filepath, '', -1)
-	if empty(l:written_file)
-		let l:written_line = ''
+	let written_file = readfile(s:tpipeline_filepath, '', -1)
+	if empty(written_file)
+		let written_line = ''
 	else
-		let l:written_line = l:written_file[0]
+		let written_line = written_file[0]
 	endif
 
-	if s:last_writtenline ==# l:written_line
-		let l:cstream = "\n"
+	if s:last_writtenline ==# written_line
+		let cstream = "\n"
 		if g:tpipeline_split
-			let l:cstream = l:cstream . "\n"
+			let cstream = cstream . "\n"
 		endif
 		if s:is_nvim
-			call chansend(s:channel, l:cstream)
+			call chansend(s:channel, cstream)
 		else
-			call ch_sendraw(s:channel, l:cstream)
+			call ch_sendraw(s:channel, cstream)
 		endif
 	endif
 endfunc
