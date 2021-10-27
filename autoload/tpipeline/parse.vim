@@ -135,7 +135,7 @@ func tpipeline#parse#parse_stl(stl)
 endfunc
 
 func tpipeline#parse#eval_stl(stl)
-	let evl = nvim_eval_statusline(g:tpipeline_statusline, #{fillchar: g:tpipeline_fillchar, highlights: 1})
+	let evl = nvim_eval_statusline(g:tpipeline_statusline, #{fillchar: g:tpipeline_fillchar, highlights: 1, use_tabline: g:tpipeline_tabline})
 	let res = evl.str
 	let i = 0
 	for hl in evl.highlights
