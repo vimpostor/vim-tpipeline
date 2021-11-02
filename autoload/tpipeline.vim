@@ -18,7 +18,7 @@ func tpipeline#build_hooks()
 			autocmd ModeChanged *:[^c]* call tpipeline#update()
 			autocmd CmdlineEnter * call tpipeline#deferred_update()
 		else
-			autocmd InsertEnter,CmdlineEnter * call tpipeline#deferred_update()
+			autocmd InsertEnter,CmdlineEnter,CmdlineLeave * call tpipeline#deferred_update()
 		endif
 		if g:tpipeline_cursormoved
 			autocmd CursorMoved * call tpipeline#update()
