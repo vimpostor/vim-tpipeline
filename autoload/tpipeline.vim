@@ -58,6 +58,7 @@ func tpipeline#initialize()
 		set showtabline=0
 	else
 		set laststatus=0
+		set noruler
 	endif
 	call tpipeline#set_filepath()
 	augroup tpipelinei
