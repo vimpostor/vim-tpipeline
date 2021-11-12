@@ -52,7 +52,7 @@ set -g status-right-length 80
 set -g status-justify centre
 ```
 
-By default `vim-tpipeline` will copy your standard vim `statusline`. If your `statusline` is empty, the default *tpipeline statusline* from the screenshot above is used.
+By default `vim-tpipeline` will copy your standard vim `statusline`. If your `statusline` is empty, a *default statusline* from the screenshot above is used.
 If you want to use a different statusline just for tmux, you can set it manually:
 
 ```vim
@@ -126,6 +126,6 @@ Since `tmux` version **3.2** you can use `absolute-centre` instead of `centre`:
 ## Why should I use this plugin over [onestatus](https://github.com/narajaon/onestatus)?
 
 - `tpipeline` works out of the box with your current vim statusline, whereas `onestatus` does not actually use your statusline at all and requires you to configure its own statusline.
-- As a result of the above, `oneline` isn't able to use many vim features such as your vim colorscheme and requires you to redefine your colors. In `tpipeline`, vim colors are translated to tmux syntax automatically.
-- Simple things such as showing your current mode or linenumber require writing your own function in `oneline`. In `tpipeline` this works out of the box.
-- In `oneline` the tmux statusline is updated using a blocking call, whereas `tpipeline` uses non-blocking jobs to asynchronously update the statusline.
+- As a result of the above, `onestatus` isn't able to use many vim features such as your vim colorscheme and requires you to redefine your colors. In `tpipeline`, vim colors are translated to tmux syntax automatically.
+- Simple things such as showing your current mode or linenumber require writing your own function in `onestatus`. In `tpipeline` this works out of the box.
+- In `onestatus` the tmux statusline is updated using a blocking call, whereas `tpipeline` uses non-blocking jobs to asynchronously update the statusline.
