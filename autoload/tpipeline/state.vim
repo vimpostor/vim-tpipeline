@@ -4,7 +4,7 @@ endif
 
 func tpipeline#state#freeze()
 	if g:tpipeline_hooks_enabled
-		autocmd! tpipeline
+		au! tpipeline
 	endif
 endfunc
 

@@ -8,20 +8,20 @@ endfunc
 func tpipeline#build_hooks()
 	let g:tpipeline_hooks_enabled = 1
 	augroup tpipeline
-		autocmd FocusGained * call tpipeline#forceupdate()
+		au FocusGained * call tpipeline#forceupdate()
 		if g:tpipeline_focuslost
-			autocmd FocusLost * call tpipeline#cautious_cleanup()
+			au FocusLost * call tpipeline#cautious_cleanup()
 		endif
-		autocmd VimLeavePre * call tpipeline#cleanup()
-		autocmd BufEnter,InsertLeave,CursorHold,CursorHoldI * call tpipeline#update()
+		au VimLeavePre * call tpipeline#cleanup()
+		au BufEnter,InsertLeave,CursorHold,CursorHoldI * call tpipeline#update()
 		if s:has_modechgd
-			autocmd ModeChanged *:[^c]* call tpipeline#update()
-			autocmd CmdlineEnter * call tpipeline#deferred_update()
+			au ModeChanged *:[^c]* call tpipeline#update()
+			au CmdlineEnter * call tpipeline#deferred_update()
 		else
-			autocmd InsertEnter,CmdlineEnter,CmdlineLeave * call tpipeline#deferred_update()
+			au InsertEnter,CmdlineEnter,CmdlineLeave * call tpipeline#deferred_update()
 		endif
 		if g:tpipeline_cursormoved
-			autocmd CursorMoved * call tpipeline#update()
+			au CursorMoved * call tpipeline#update()
 		endif
 	augroup END
 endfunc
@@ -65,7 +65,7 @@ func tpipeline#initialize()
 		if v:vim_did_enter
 			call tpipeline#init_statusline()
 		else
-			autocmd VimEnter * call tpipeline#init_statusline()
+			au VimEnter * call tpipeline#init_statusline()
 		endif
 	augroup END
 
@@ -130,7 +130,7 @@ func tpipeline#fork_job()
 endfunc
 
 func tpipeline#init_statusline()
-	autocmd! tpipelinei
+	au! tpipelinei
 	call tpipeline#build_hooks()
 	call tpipeline#fork_job()
 
