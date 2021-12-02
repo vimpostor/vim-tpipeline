@@ -93,7 +93,7 @@ func tpipeline#initialize()
 		let s:is_nvim = 1
 	endif
 	let s:has_modechgd = 0
-	if has('patch-8.2.3430')
+	if has('patch-8.2.3430') || has('nvim-0.7')
 		let s:has_modechgd = 1
 	endif
 	let s:has_eval_stl = 0
