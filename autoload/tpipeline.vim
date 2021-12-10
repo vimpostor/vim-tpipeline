@@ -92,10 +92,7 @@ func tpipeline#initialize()
 	if has('nvim')
 		let s:is_nvim = 1
 	endif
-	let s:has_modechgd = 0
-	if exists('##ModeChanged')
-		let s:has_modechgd = 1
-	endif
+	let s:has_modechgd = exists('##ModeChanged')
 	let s:has_eval_stl = 0
 	if has('nvim-0.6')
 		let s:has_eval_stl = 1
