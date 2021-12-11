@@ -45,6 +45,9 @@ func tpipeline#initialize()
 	if !exists('g:tpipeline_preservebg')
 		let g:tpipeline_preservebg = 0
 	endif
+	if !exists('g:tpipeline_fillcentre')
+		let g:tpipeline_fillcentre = 0
+	endif
 	if !exists('g:tpipeline_autoembed')
 		let g:tpipeline_autoembed = 1
 	endif
@@ -107,8 +110,14 @@ func tpipeline#fork_job()
 			let script = 'tmux set -g ' . o . '; ' . script
 		endfor
 	endif
+	if g:tpipeline_fillcentre
+		let script = script . "; C=$(echo \"$l\" | grep -o 'bg=#[0-9a-f]\\{6\\}'| tail -1)"
+	endif
 	if g:tpipeline_split
 		let script = script . printf("; IFS='$\\n' read -r l; echo \"$l\" > '%s'", s:tpipeline_right_filepath)
+	endif
+	if g:tpipeline_fillcentre
+		let script = script . "; tmux set -g status-style \"$C\""
 	endif
 	let script = script . "; tmux refresh-client -S; done"
 
