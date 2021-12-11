@@ -1,3 +1,6 @@
+let s:b = 0
+let s:i = 0
+
 func tpipeline#parse#remove_align(str)
 	return substitute(a:str, '%=', '', 'g')
 endfunc
@@ -59,7 +62,22 @@ func tpipeline#parse#parse(opt)
 			if bg ==# 'bg'
 				let bg = 'default'
 			endif
-			return printf('#[fg=%s,bg=%s]', fg, bg)
+			let st = ''
+			if synIDattr(id, 'bold')
+				let st = ',bold'
+				let s:b = 1
+			elseif s:b
+				let st = ',nobold'
+				let s:b = 0
+			endif
+			if synIDattr(id, 'italic')
+				let st = st.',italics'
+				let s:i = 1
+			elseif s:i
+				let st = st.',noitalics'
+				let s:i = 0
+			endif
+			return printf('#[fg=%s,bg=%s%s]', fg, bg, st)
 		endif
 
 		" handle formatting parameters
