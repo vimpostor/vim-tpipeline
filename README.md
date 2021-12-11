@@ -100,8 +100,6 @@ set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[
 ```vim
 let g:tpipeline_cursormoved = 1
 ```
-**Warning**: When using `neovim`, this can cause performance problems with some configurations. If you experience this problem, you can fix it by using `set guicursor=` which disables `neovim`'s `DECSCUSR` feature that can sometimes cause laggy scrolling when used inside `tmux`.
-In all other cases this `autocmd` can be used without problems. `tpipeline` is heavily optimized to allow for this usage and finishes within a few milliseconds to allow for smooth scrolling.
 
 ## Focus events are not working for me in tmux
 
