@@ -38,3 +38,21 @@ endfunc
 func tpipeline#stl#line()
 	return tpipeline#stl#mode() . ' ' . tpipeline#stl#fn() . tpipeline#stl#attr() . '%=' . tpipeline#stl#ft() . ' ' . tpipeline#stl#progress()
 endfunc
+
+func tpipeline#stl#tabline()
+	let s = ''
+	for i in range(tabpagenr('$'))
+		if i + 1 == tabpagenr()
+			let s .= '%#TpipelineOrangeInv#%#TpipelineOrange#'
+		else
+			let s .= '%#TpipelineBlueGreyInv#%#TpipelineBlueGrey#'
+		endif
+		let s .= bufname(tabpagebuflist(i + 1)[tabpagewinnr(i + 1) - 1])
+		if i + 1 == tabpagenr()
+			let s .= '%#TpipelineOrangeInv# '
+		else
+			let s .= '%#TpipelineBlueGreyInv# '
+		endif
+	endfor
+	return s
+endfunc

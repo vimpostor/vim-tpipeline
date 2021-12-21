@@ -142,7 +142,9 @@ func tpipeline#init_statusline()
 
 	if empty(g:tpipeline_statusline)
 		if g:tpipeline_tabline
-			" TODO: Add a default tabline
+			if empty(&tabline)
+				set tabline=%!tpipeline#stl#tabline()
+			endif
 			let g:tpipeline_statusline = &tabline
 		else
 			if empty(&statusline)
