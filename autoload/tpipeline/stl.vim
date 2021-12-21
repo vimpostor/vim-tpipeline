@@ -17,7 +17,7 @@ func tpipeline#stl#attr()
 		let r = ' %#TpipelinePinkInv#%#TpipelinePink#%R%#TpipelinePinkInv#'
 	endif
 	if &modified
-		let r = r . ' %#TpipelineAmberInv#%#TpipelineAmber#%M%#TpipelineAmberInv#'
+		let r .= ' %#TpipelineAmberInv#%#TpipelineAmber#%M%#TpipelineAmberInv#'
 	endif
 	return r
 endfunc

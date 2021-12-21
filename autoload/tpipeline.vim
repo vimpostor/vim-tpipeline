@@ -111,15 +111,15 @@ func tpipeline#fork_job()
 		endfor
 	endif
 	if g:tpipeline_fillcentre
-		let script = script . "; C=$(echo \"$l\" | grep -o 'bg=#[0-9a-f]\\{6\\}'| tail -1)"
+		let script .= "; C=$(echo \"$l\" | grep -o 'bg=#[0-9a-f]\\{6\\}'| tail -1)"
 	endif
 	if g:tpipeline_split
-		let script = script . printf("; IFS='$\\n' read -r l; echo \"$l\" > '%s'", s:tpipeline_right_filepath)
+		let script .= printf("; IFS='$\\n' read -r l; echo \"$l\" > '%s'", s:tpipeline_right_filepath)
 	endif
 	if g:tpipeline_fillcentre
-		let script = script . "; tmux set -g status-style \"$C\""
+		let script .= "; tmux set -g status-style \"$C\""
 	endif
-	let script = script . "; tmux refresh-client -S; done"
+	let script .= "; tmux refresh-client -S; done"
 
 	let command = ['bash', '-c', script]
 	if s:is_nvim
@@ -248,7 +248,7 @@ func tpipeline#cautious_cleanup()
 	if s:last_writtenline ==# written_line
 		let cstream = "\n"
 		if g:tpipeline_split
-			let cstream = cstream . "\n"
+			let cstream .= "\n"
 		endif
 		if s:is_nvim
 			call chansend(s:channel, cstream)

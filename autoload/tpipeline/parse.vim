@@ -71,10 +71,10 @@ func tpipeline#parse#parse(opt)
 				let s:b = 0
 			endif
 			if synIDattr(id, 'italic')
-				let st = st.',italics'
+				let st .= ',italics'
 				let s:i = 1
 			elseif s:i
-				let st = st.',noitalics'
+				let st .= ',noitalics'
 				let s:i = 0
 			endif
 			return printf('#[fg=%s,bg=%s%s]', fg, bg, st)
