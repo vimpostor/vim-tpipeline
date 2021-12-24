@@ -128,6 +128,19 @@ Configuration						*tpipeline-configure*
 		E.g. to only move the tmux window list to the middle, use:
 		`let g:tpipeline_embedopts = ['status-justify absolute-centre']`
 
+	g:tpipeline_clearstl				*g:tpipeline_clearstl*
+		If you want this plugin to clear the vim internal statusline
+		after loading, then set `let g:tpipeline_clearstl = 1`, this is
+		disabled by default but can be useful to get rid of duplicate
+		statuslines in split windows.
+		By default vim shows the statusline below each split window,
+		and there is no way to disable it completely. Thus this option
+		can be used to at least show an empty statusline for split
+		windows.
+		Vim may still display filler symbols in the split statusline
+		even if it is empty. See |fillchars| for more info about this.
+		This option does not affect the statusline embedded in tmux.
+
 ------------------------------------------------------------------------------
 Api							*tpipeline-api*
 

@@ -1,4 +1,5 @@
 g:tpipeline_autoembed	tpipeline.txt	/*g:tpipeline_autoembed*
+g:tpipeline_clearstl	tpipeline.txt	/*g:tpipeline_clearstl*
 g:tpipeline_cursormoved	tpipeline.txt	/*g:tpipeline_cursormoved*
 g:tpipeline_embedopts	tpipeline.txt	/*g:tpipeline_embedopts*
 g:tpipeline_fillcentre	tpipeline.txt	/*g:tpipeline_fillcentre*

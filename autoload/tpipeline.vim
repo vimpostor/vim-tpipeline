@@ -57,6 +57,9 @@ func tpipeline#initialize()
 			let g:tpipeline_embedopts = add(g:tpipeline_embedopts, "status-right '#(cat #{socket_path}-\\#{session_id}-vimbridge-R)'")
 		endif
 	endif
+	if !exists('g:tpipeline_clearstl')
+		let g:tpipeline_clearstl = 0
+	endif
 	if g:tpipeline_tabline
 		set showtabline=0
 	else
@@ -148,9 +151,12 @@ func tpipeline#init_statusline()
 			let g:tpipeline_statusline = &tabline
 		else
 			if empty(&statusline)
-				set statusline=%!tpipeline#stl#line()
+				set stl=%!tpipeline#stl#line()
 			endif
 			let g:tpipeline_statusline = &statusline
+			if g:tpipeline_clearstl
+				set stl=%#StatusLine#
+			endif
 		endif
 	endif
 
