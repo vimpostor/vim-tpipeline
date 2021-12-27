@@ -230,6 +230,11 @@ func tpipeline#update()
 endfunc
 
 func tpipeline#cleanup()
+	if s:is_nvim
+		call jobstop(s:job)
+	else
+		call job_stop(s:job)
+	endif
 	call writefile([''], s:tpipeline_filepath, '')
 	if g:tpipeline_split
 		call writefile([''], s:tpipeline_right_filepath, '')
