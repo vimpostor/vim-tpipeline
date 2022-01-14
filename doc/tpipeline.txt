@@ -70,11 +70,7 @@ Configuration						*tpipeline-configure*
 	g:tpipeline_cursormoved				*g:tpipeline_cursormoved*
 		If you want to have the statusline update while moving the
 		cursor, use `let g:tpipeline_cursormoved = 1` which will set
-		the |CursorMoved| autocmd. Note that when using neovim this can
-		cause some performance problems with some configurations. You
-		can fix these problems by setting `set guicursor=` which will
-		disable the DECSCUSR feature that sometimes doesn't work well
-		in tmux. In all other cases this feature can safely be enabled.
+		the |CursorMoved| autocmd.
 
 	g:tpipeline_tabline				*g:tpipeline_tabline*
 		By default if |g:tpipeline_statusline| is not set, the plugin
@@ -140,6 +136,11 @@ Configuration						*tpipeline-configure*
 		Vim may still display filler symbols in the split statusline
 		even if it is empty. See |fillchars| for more info about this.
 		This option does not affect the statusline embedded in tmux.
+
+	g:tpipeline_restore				*g:tpipeline_restore*
+		When this option is enabled with `let g:tpipeline_restore = 1`
+		it will restore the tmux statusline to its previous state
+		after quitting vim. This feature is disabled by default.
 
 ------------------------------------------------------------------------------
 Api							*tpipeline-api*

@@ -60,6 +60,9 @@ func tpipeline#initialize()
 	if !exists('g:tpipeline_clearstl')
 		let g:tpipeline_clearstl = 0
 	endif
+	if !exists('g:tpipeline_restore')
+		let g:tpipeline_restore = 0
+	endif
 	if g:tpipeline_tabline
 		set showtabline=0
 	else
@@ -107,6 +110,10 @@ func tpipeline#initialize()
 endfunc
 
 func tpipeline#fork_job()
+	if g:tpipeline_restore
+		let s:restore_left = system("tmux display-message -p '#{status-left}'")
+		let s:restore_right = system("tmux display-message -p '#{status-right}'")
+	endif
 	let script = printf("while IFS='$\\n' read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
 	if g:tpipeline_autoembed
 		for o in g:tpipeline_embedopts
@@ -230,6 +237,12 @@ func tpipeline#update()
 endfunc
 
 func tpipeline#cleanup()
+	if g:tpipeline_restore
+		call system('tmux set -g status-left ' . shellescape(s:restore_left))
+		if g:tpipeline_split
+			call system('tmux set -g status-right ' . shellescape(s:restore_right))
+		endif
+	endif
 	if s:is_nvim
 		call jobstop(s:job)
 	else
