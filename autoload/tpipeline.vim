@@ -10,7 +10,7 @@ func tpipeline#build_hooks()
 	augroup tpipeline
 		au FocusGained * call tpipeline#forceupdate()
 		if g:tpipeline_focuslost
-			au FocusLost * call tpipeline#cautious_cleanup()
+			au FocusLost * call tpipeline#deferred_cleanup()
 		endif
 		au VimLeavePre * call tpipeline#cleanup()
 		au BufEnter,InsertLeave,CursorHold,CursorHoldI * call tpipeline#update()
@@ -83,6 +83,7 @@ func tpipeline#initialize()
 	let s:update_required = 0
 	let s:last_statusline = ''
 	let s:last_writtenline = ''
+	let s:cleanup_delay = 45
 	let hlid = synIDtrans(hlID('StatusLine'))
 	let bg_color = synIDattr(hlid, 'bg')
 	if empty(bg_color)
@@ -295,4 +296,8 @@ func tpipeline#cautious_cleanup()
 			endif
 		endif
 	endif
+endfunc
+
+func tpipeline#deferred_cleanup()
+	let s:cleanup_timer = timer_start(s:cleanup_delay, {-> tpipeline#cautious_cleanup()})
 endfunc
