@@ -260,14 +260,14 @@ func tpipeline#cleanup()
 endfunc
 
 func tpipeline#forceupdate()
-	let s:last_statusline = ''
-	call tpipeline#update()
 	if g:tpipeline_restore
 		call system("tmux set -g status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)'")
 		if g:tpipeline_split
 			call system("tmux set -g status-right '#(cat #{socket_path}-\\#{session_id}-vimbridge-R)'")
 		endif
 	endif
+	let s:last_statusline = ''
+	call tpipeline#update()
 endfunc
 
 func tpipeline#cautious_cleanup()
