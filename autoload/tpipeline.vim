@@ -236,12 +236,16 @@ func tpipeline#update()
 	endif
 endfunc
 
+func tpipeline#restore_tmux()
+	call system('tmux set -g status-left ' . shellescape(s:restore_left))
+	if g:tpipeline_split
+		call system('tmux set -g status-right ' . shellescape(s:restore_right))
+	endif
+endfunc
+
 func tpipeline#cleanup()
 	if g:tpipeline_restore
-		call system('tmux set -g status-left ' . shellescape(s:restore_left))
-		if g:tpipeline_split
-			call system('tmux set -g status-right ' . shellescape(s:restore_right))
-		endif
+		call tpipeline#restore_tmux()
 	endif
 	if s:is_nvim
 		call jobstop(s:job)
@@ -258,6 +262,12 @@ endfunc
 func tpipeline#forceupdate()
 	let s:last_statusline = ''
 	call tpipeline#update()
+	if g:tpipeline_restore
+		call system("tmux set -g status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)'")
+		if g:tpipeline_split
+			call system("tmux set -g status-right '#(cat #{socket_path}-\\#{session_id}-vimbridge-R)'")
+		endif
+	endif
 endfunc
 
 func tpipeline#cautious_cleanup()
@@ -278,6 +288,9 @@ func tpipeline#cautious_cleanup()
 			call chansend(s:channel, cstream)
 		else
 			call ch_sendraw(s:channel, cstream)
+		endif
+		if g:tpipeline_restore
+			call tpipeline#restore_tmux()
 		endif
 	endif
 endfunc
