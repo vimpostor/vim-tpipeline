@@ -94,6 +94,10 @@ func tpipeline#initialize()
 		" prepend default color
 		let s:line_pfx = s:default_color
 	endif
+	let s:clear_stream = "\n"
+	if g:tpipeline_split
+		let s:clear_stream .= "\n"
+	endif
 
 	let s:job_check = 1
 
@@ -271,11 +275,6 @@ func tpipeline#forceupdate()
 endfunc
 
 func tpipeline#cautious_cleanup()
-	let cstream = "\n"
-	if g:tpipeline_split
-		let cstream .= "\n"
-	endif
-
 	" check if some other instance wrote to the socket right before us
 	let written_file = readfile(s:tpipeline_filepath, '', -1)
 	if empty(written_file)
@@ -286,9 +285,9 @@ func tpipeline#cautious_cleanup()
 
 	if s:last_writtenline ==# written_line
 		if s:is_nvim
-			call chansend(s:channel, cstream)
+			call chansend(s:channel, s:clear_stream)
 		else
-			call ch_sendraw(s:channel, cstream)
+			call ch_sendraw(s:channel, s:clear_stream)
 		endif
 		if g:tpipeline_restore
 			call tpipeline#restore_tmux()
