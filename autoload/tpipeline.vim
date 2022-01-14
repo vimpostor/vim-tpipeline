@@ -250,17 +250,18 @@ endfunc
 func tpipeline#cleanup()
 	if g:tpipeline_restore
 		call tpipeline#restore_tmux()
-	endif
-	if s:is_nvim
-		call jobstop(s:job)
 	else
-		call job_stop(s:job)
+		if s:is_nvim
+			call jobstop(s:job)
+		else
+			call job_stop(s:job)
+		endif
+		call writefile([''], s:tpipeline_filepath, '')
+		if g:tpipeline_split
+			call writefile([''], s:tpipeline_right_filepath, '')
+		endif
+		call system('tmux refresh-client -S')
 	endif
-	call writefile([''], s:tpipeline_filepath, '')
-	if g:tpipeline_split
-		call writefile([''], s:tpipeline_right_filepath, '')
-	endif
-	call system('tmux refresh-client -S')
 endfunc
 
 func tpipeline#forceupdate()
@@ -284,13 +285,14 @@ func tpipeline#cautious_cleanup()
 	endif
 
 	if s:last_writtenline ==# written_line
-		if s:is_nvim
-			call chansend(s:channel, s:clear_stream)
-		else
-			call ch_sendraw(s:channel, s:clear_stream)
-		endif
 		if g:tpipeline_restore
 			call tpipeline#restore_tmux()
+		else
+			if s:is_nvim
+				call chansend(s:channel, s:clear_stream)
+			else
+				call ch_sendraw(s:channel, s:clear_stream)
+			endif
 		endif
 	endif
 endfunc
