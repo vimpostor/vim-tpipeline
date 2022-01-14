@@ -271,6 +271,11 @@ func tpipeline#forceupdate()
 endfunc
 
 func tpipeline#cautious_cleanup()
+	let cstream = "\n"
+	if g:tpipeline_split
+		let cstream .= "\n"
+	endif
+
 	" check if some other instance wrote to the socket right before us
 	let written_file = readfile(s:tpipeline_filepath, '', -1)
 	if empty(written_file)
@@ -280,10 +285,6 @@ func tpipeline#cautious_cleanup()
 	endif
 
 	if s:last_writtenline ==# written_line
-		let cstream = "\n"
-		if g:tpipeline_split
-			let cstream .= "\n"
-		endif
 		if s:is_nvim
 			call chansend(s:channel, cstream)
 		else
