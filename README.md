@@ -52,7 +52,7 @@ set -g status-right-length 80
 set -g status-justify centre
 ```
 
-By default `vim-tpipeline` will copy your standard vim `statusline`. If your `statusline` is empty, a *default statusline* from the screenshot above is used.
+By default `vim-tpipeline` will copy your standard vim `statusline`.
 If you want to use a different statusline just for tmux, you can set it manually:
 
 ```vim
@@ -105,7 +105,7 @@ let g:tpipeline_cursormoved = 1
 
 Besides putting `set -g focus-events on` in your `tmux` config, you also need to have the `XT`-capability available, which you can test by issuing the `tput XT` command. If the capability is not present inside tmux, then there are three ways to fix the [issue](https://github.com/tmux/tmux/issues/2606):
 
-- Put `set -g default-terminal "xterm-256color"` in your `tmux` config. Note that this option is discouraged by tmux and can cause other issues.
+- Put `set -g default-terminal "xterm-256color"` in your `tmux` config.
 - Force vim to enable it by using this in your `.vimrc`
 ```vim
 let &t_fe = "\<Esc>[?1004h"
