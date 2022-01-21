@@ -1,4 +1,4 @@
-# Testing
+# Testing Suite
 
 This directory contains a testing suite to make it easy to find regressions.
 
