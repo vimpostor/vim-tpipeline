@@ -8,4 +8,4 @@ jobs:
     - name: Build the Docker image
       run: docker build -t vim-tpipeline -f tests/Dockerfile .
     - name: Run the Docker image
-      run: docker run -it vim-tpipeline
+      run: docker run -t vim-tpipeline
