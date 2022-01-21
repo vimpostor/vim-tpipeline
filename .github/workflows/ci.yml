@@ -7,5 +7,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build -t vim-tpipeline -f tests/Dockerfile .
-    - name: Run the Docker image
-      run: docker run -t vim-tpipeline
+    - name: Run tests with vim
+      run: docker run -t vim-tpipeline make tests_vim
+    - name: Run tests with neovim
+      run: docker run -t vim-tpipeline make tests_neovim
