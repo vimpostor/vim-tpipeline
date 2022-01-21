@@ -3,7 +3,6 @@
 
 let g:test_name = expand("%:p:t")
 let g:test_path = expand("%:p:h")
-let g:logfile = g:test_path . "/" . g:test_name . ".failed.log"
 
 " Source the file that's open and close it
 source %
@@ -21,16 +20,7 @@ function! s:EarlyExit()
 	call s:Done()
 endfunction
 
-function! s:Start()
-	" Truncate
-	call writefile([], g:logfile, 's')
-endfunction
-
 function! s:EndTest()
-	if len(v:errors) > 0
-		" Append errors to test failure log
-		call writefile(v:errors, g:logfile, 'as')
-	endif
 	call extend(s:errors, v:errors)
 	let v:errors = []
 endfunction
@@ -45,8 +35,6 @@ function! s:Done()
 		quit!
 	endif
 endfunction
-
-call s:Start()
 
 if exists("*SetUp")
 	call SetUp()
