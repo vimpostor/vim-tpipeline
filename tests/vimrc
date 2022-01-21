@@ -1,0 +1,19 @@
+set nocompatible
+let &rtp .= ',' .expand( "<sfile>:p:h:h" )
+
+" true color support
+if has('termguicolors') "true colors
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+	set termguicolors
+endif
+
+" do not clear screen on exit
+set t_ti=
+set t_te=
+
+" do not show Press ENTER to continue prompts
+set nomore
+
+" tpipeline settings to make testing more reliable
+let g:tpipeline_preservebg = 1
