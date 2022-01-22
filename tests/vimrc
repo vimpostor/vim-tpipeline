@@ -16,4 +16,5 @@ set t_te=
 set nomore
 
 " tpipeline settings to make testing more reliable
+let g:tpipeline_statusline = ' '
 let g:tpipeline_preservebg = 1

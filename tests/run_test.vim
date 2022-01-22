@@ -47,7 +47,7 @@ for test_function in s:tests
 	try
 		execute 'call ' test_function
 	catch
-		call add( v:errors, "Uncaught exception in test " . g:test_name . ":" . test_function . ": " . v:exception . " at " . v:throwpoint )
+		call add(v:errors, "Uncaught exception in test " . g:test_name . ":" . test_function . ": " . v:exception . " at " . v:throwpoint)
 	finally
 		au! VimLeavePre
 	endtry
@@ -55,7 +55,7 @@ for test_function in s:tests
 	call s:EndTest()
 endfor
 
-if exists( "*TearDown" )
+if exists("*TearDown")
 	call TearDown()
 endif
 

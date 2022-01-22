@@ -33,3 +33,17 @@ func Test_colors()
 	call Read_socket()
 	call assert_equal('#[fg=#000000,bg=#ffffff,bold]BOLD#[fg=#ffffff,bg=#ff0000,nobold]RED', s:socket)
 endfunc
+
+func Test_focusevents()
+	let g:tpipeline_statusline = 'focused'
+	call Read_socket()
+	call assert_match('focused', s:socket)
+	" lose focus
+	call tpipeline#deferred_cleanup()
+	call Read_socket()
+	call assert_notmatch('focused', s:socket)
+	" gain focus
+	call tpipeline#forceupdate()
+	call Read_socket()
+	call assert_match('focused', s:socket)
+endfunc
