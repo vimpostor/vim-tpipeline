@@ -207,7 +207,7 @@ func tpipeline#update()
 	let s:delay_timer = timer_start(s:update_delay, {-> tpipeline#delayed_update()})
 
 	if s:has_eval_stl
-		let line = tpipeline#parse#eval_stl(g:tpipeline_statusline)
+		let line = tpipeline#parse#eval_stl()
 	else
 		let line = tpipeline#parse#parse_stl(g:tpipeline_statusline)
 	endif
