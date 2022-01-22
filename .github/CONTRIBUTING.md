@@ -1,9 +1,14 @@
 # Contributing
 
-Contributions are much welcomed and appreciated.
+## Issues and bug reports
+When reporting issues, please include both your vim config and tmux config if relevant. If you don't know what parts of your config are relevant, it is okay to just paste your entire config.
+Often it is also helpful to know what terminal emulator you are using.
+
+## Development
+Code contributions are much welcomed and appreciated.
 Here are a few guidelines to help you get started:
 
-## Code Guidelines
+### Code Guidelines
 - If you add a new option, document it in the vim help file. Documenting it in the `README.md` is NOT sufficient (and not even needed for most options). Take a look at `doc/tpipeline.txt` and document in a similar style. You can generate a help tag later with `:helptags ALL`.
 - Never change basic vim options (for example `:h fillchars`) just because they make more sense for you. Plugins should never overwrite unrelated settings.
 - Only add comments if they bring extra info to the table, don't just reiterate obvious code
@@ -11,7 +16,7 @@ Here are a few guidelines to help you get started:
 - If you need more than 10 seconds to understand a single line of code, then absolutely DO add a comment
 - If you implement a feature only for Neovim, write it in such an abstract way that it is easy to add a Vim implementation later
 
-## Testing
+### Testing
 Always run the testing suite before submitting a patch, so that you don't break any functionality.
 For more info about this take a look at the documentation in `tests/README.md`.
 
