@@ -1,6 +1,5 @@
 func SetUp()
-	let l:tmux = $TMUX
-	let s:tpipeline_filepath = strcharpart(tmux, 0, stridx(tmux, ",")) . '-$' . strcharpart(tmux, strridx(tmux, ",") + 1) . '-vimbridge'
+	let s:tpipeline_filepath = tpipeline#get_filepath()
 	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
 
 	" init statusline manually, because VimEnter is not triggered

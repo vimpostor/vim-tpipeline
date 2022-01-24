@@ -1,8 +1,7 @@
-func tpipeline#set_filepath()
+func tpipeline#get_filepath()
 	" e.g. /tmp/tmux-1000/default-$0-vimbridge
 	let tmux = $TMUX
-	let s:tpipeline_filepath = strcharpart(tmux, 0, stridx(tmux, ",")) . '-$' . strcharpart(tmux, strridx(tmux, ",") + 1) . '-vimbridge'
-	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
+	return strcharpart(tmux, 0, stridx(tmux, ",")) . '-$' . strcharpart(tmux, strridx(tmux, ",") + 1) . '-vimbridge'
 endfunc
 
 func tpipeline#build_hooks()
@@ -69,7 +68,8 @@ func tpipeline#initialize()
 		set laststatus=0
 		set noruler
 	endif
-	call tpipeline#set_filepath()
+	let s:tpipeline_filepath = tpipeline#get_filepath()
+	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
 	augroup tpipelinei
 		if v:vim_did_enter
 			call tpipeline#init_statusline()
