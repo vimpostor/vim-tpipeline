@@ -61,6 +61,8 @@ func tpipeline#parse#parse(opt)
 			let bg = synIDattr(id, 'bg')
 			if bg ==# 'bg'
 				let bg = 'default'
+			elseif bg ==# ''
+				let bg = 'terminal'
 			endif
 			let st = ''
 			if synIDattr(id, 'bold')
