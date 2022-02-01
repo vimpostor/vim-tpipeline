@@ -9,7 +9,7 @@ Code contributions are much welcomed and appreciated.
 Here are a few guidelines to help you get started:
 
 ### Code Guidelines
-- If you add a new option, document it in the vim help file. Documenting it in the `README.md` is NOT sufficient (and not even needed for most options). Take a look at `doc/tpipeline.txt` and document in a similar style. You can generate a help tag later with `:helptags ALL`.
+- If you add a new option, document it in the vim help file. Documenting it in the `README.md` is NOT sufficient (and not even needed for most options). Take a look at `doc/tpipeline.txt` and document in a similar style. You can generate a help tag later with `scripts/gen-helptags.sh`.
 - Never change basic vim options (for example `:h fillchars`) just because they make more sense for you. Plugins should never overwrite unrelated settings.
 - Only add comments if they bring extra info to the table, don't just reiterate obvious code
 - Often good variable names are much more worth than comments
