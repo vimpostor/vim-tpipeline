@@ -16,8 +16,8 @@ It is **highly recommended** to put this in your `~/.tmux.conf`:
 ```bash
 set -g focus-events on
 set -g status-style bg=default
-set -g status-left-length 80
-set -g status-right-length 80
+set -g status-left-length 90
+set -g status-right-length 90
 set -g status-justify centre
 ```
 
@@ -46,9 +46,9 @@ let g:tpipeline_autoembed = 0
 set -g focus-events on
 set -g status-style bg=default
 set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-set -g status-left-length 80
+set -g status-left-length 90
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
-set -g status-right-length 80
+set -g status-right-length 90
 set -g status-justify centre
 ```
 
@@ -88,8 +88,8 @@ set stl=%!tpipeline#stl#line()
 # .tmux.conf
 set -g focus-events on
 set -g status-style bg=default
-set -g status-left-length 80
-set -g status-right-length 80
+set -g status-left-length 90
+set -g status-right-length 90
 set -g status-justify centre
 set -g window-status-current-format "#[fg=colour4]\uE0B6#[fg=colour7,bg=colour4]#{?window_zoomed_flag,#[fg=yellow]🔍,}#W#[fg=colour4,bg=default]\uE0B4"
 set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[fg=colour244,bg=default]\uE0B4"

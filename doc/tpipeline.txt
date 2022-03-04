@@ -24,8 +24,8 @@ However you need to put the following block in your tmux config:
 >
 	set -g focus-events on
 	set -g status-style bg=default
-	set -g status-left-length 80
-	set -g status-right-length 80
+	set -g status-left-length 90
+	set -g status-right-length 90
 	set -g status-justify centre
 <
 
@@ -55,7 +55,7 @@ Configuration						*tpipeline-configure*
 			set -g focus-events on
 			set -g status-style bg=default
 			set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-			set -g status-right-length 80
+			set -g status-right-length 90
 <
 
 	g:tpipeline_focuslost				*g:tpipeline_focuslost*
@@ -103,8 +103,8 @@ Configuration						*tpipeline-configure*
 			set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 			set -g focus-events on
 			set -g status-style bg=default
-			set -g status-left-length 80
-			set -g status-right-length 80
+			set -g status-left-length 90
+			set -g status-right-length 90
 			set -g status-justify centre
 <
 		Also see |g:tpipeline_embedopts| for a way to configure this
