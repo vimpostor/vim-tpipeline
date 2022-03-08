@@ -9,6 +9,7 @@ g:tpipeline_restore	tpipeline.txt	/*g:tpipeline_restore*
 g:tpipeline_split	tpipeline.txt	/*g:tpipeline_split*
 g:tpipeline_statusline	tpipeline.txt	/*g:tpipeline_statusline*
 g:tpipeline_tabline	tpipeline.txt	/*g:tpipeline_tabline*
+g:tpipeline_usepane	tpipeline.txt	/*g:tpipeline_usepane*
 tpipeline	tpipeline.txt	/*tpipeline*
 tpipeline#state#freeze()	tpipeline.txt	/*tpipeline#state#freeze()*
 tpipeline#state#thaw()	tpipeline.txt	/*tpipeline#state#thaw()*
