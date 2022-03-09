@@ -47,6 +47,9 @@ func tpipeline#initialize()
 	if !exists('g:tpipeline_fillcentre')
 		let g:tpipeline_fillcentre = 0
 	endif
+	if !exists('g:tpipeline_usepane')
+		let g:tpipeline_usepane = 0
+	endif
 	if !exists('g:tpipeline_autoembed')
 		let g:tpipeline_autoembed = 1
 	endif
@@ -120,6 +123,11 @@ func tpipeline#fork_job()
 		let s:restore_right = system("tmux display-message -p '#{status-right}'")
 	endif
 	let script = printf("while IFS='$\\n' read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
+	if g:tpipeline_usepane
+		" end early if file was truncated so as not to overwrite any
+		" titles of panes we may switch to
+		let script .= "; if [ -z \"$l\" ]; then continue; fi"
+	endif
 	if g:tpipeline_autoembed
 		for o in g:tpipeline_embedopts
 			let script = 'tmux set -g ' . o . '; ' . script
@@ -127,12 +135,15 @@ func tpipeline#fork_job()
 	endif
 	if g:tpipeline_fillcentre
 		let script .= "; C=$(echo \"$l\" | grep -o 'bg=#[0-9a-f]\\{6\\}'| tail -1)"
+		if !g:tpipeline_usepane
+			let script .= "; tmux set -g status-style \"$C\""
+		endif
 	endif
 	if g:tpipeline_split
-		let script .= printf("; IFS='$\\n' read -r l; echo \"$l\" > '%s'", s:tpipeline_right_filepath)
+		let script .= printf("; IFS='$\\n' read -r r; echo \"$r\" > '%s'", s:tpipeline_right_filepath)
 	endif
-	if g:tpipeline_fillcentre
-		let script .= "; tmux set -g status-style \"$C\""
+	if g:tpipeline_usepane
+		let script .= "; tmux select-pane -T \"#[fill=${C:3}]#[align=left]$l#[align=right]$r\""
 	endif
 	let script .= "; tmux refresh-client -S; done"
 
