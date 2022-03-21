@@ -77,24 +77,6 @@ After all you don't want to have your carefully handcrafted vim config end up as
 
 Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugin uses *Vim*'s autoload mechanism to lazily load features, i.e. if you don't use tmux, you can still use the statusline inside vim without loading unnecessary features.
 
-## How do I get the config from the screenshot at the top?
-
-```vim
-" .vimrc
-set stl=%!tpipeline#stl#line()
-```
-
-```bash
-# .tmux.conf
-set -g focus-events on
-set -g status-style bg=default
-set -g status-left-length 90
-set -g status-right-length 90
-set -g status-justify centre
-set -g window-status-current-format "#[fg=colour4]\uE0B6#[fg=colour7,bg=colour4]#{?window_zoomed_flag,#[fg=yellow]🔍,}#W#[fg=colour4,bg=default]\uE0B4"
-set -g window-status-format "#[fg=colour244]\uE0B6#[fg=default,bg=colour244]#W#[fg=colour244,bg=default]\uE0B4"
-```
-
 ## How do I update the statusline on every cursor movement?
 
 ```vim

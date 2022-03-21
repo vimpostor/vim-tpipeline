@@ -142,8 +142,8 @@ Configuration						*tpipeline-configure*
 		tmux status bar. Enabling this option will set the tmux
 		`pane_title` variable to your vim statusline, effectively
 		embedding the statusline into your active pane border provided
-		`pane-border-status` and `pane-border-format` are set
-		accordingly. For example:
+		the `pane-border-status` and `pane-border-format` tmux options
+		are set accordingly. For example:
 >
 			set -g pane-border-status top
 			set -g pane-border-format '#{pane_title}'
