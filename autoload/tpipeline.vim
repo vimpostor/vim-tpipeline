@@ -105,10 +105,7 @@ func tpipeline#initialize()
 
 	let s:job_check = 1
 
-	let s:is_nvim = 0
-	if has('nvim')
-		let s:is_nvim = 1
-	endif
+	let s:is_nvim = has('nvim')
 	let s:has_modechgd = exists('##ModeChanged')
 	let s:has_eval_stl = 0
 	if has('nvim-0.6')
