@@ -23,6 +23,9 @@ For more info about this take a look at the [documentation](/tests/README.md).
 Similarly, if your patch fixes a bug, it would be good if you can add a test that fails before your patch and passes after your patch.
 You can take a look at some existing test files to help you get started.
 
+### Submitting Patches
+You can either submit your changes as a pull request on Github or send them via email to me. In the latter case make sure that your email client does not break the formatting of your patch, I recommend using `git send-email` for this.
+
 ### Developer's Certificate of Origin
 By making a contribution to this project, I certify that:
 
