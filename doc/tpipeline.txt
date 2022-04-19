@@ -33,7 +33,7 @@ If you want to disable the automatic embed process for more control over how
 the statusline is placed, see |g:tpipeline_autoembed|.
 
 ------------------------------------------------------------------------------
-Configuration						*tpipeline-configure*
+CONFIGURATION						*tpipeline-configure*
 
 	g:tpipeline_statusline				*g:tpipeline_statusline*
 		By default, |tpipeline| will copy your vim |statusline| but if
@@ -150,7 +150,7 @@ Configuration						*tpipeline-configure*
 <
 
 ------------------------------------------------------------------------------
-Api							*tpipeline-api*
+API							*tpipeline-api*
 
 	tpipeline#update()				*tpipeline#update()*
 		This hook provides a way to update the tmux statusline from the
