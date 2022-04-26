@@ -4,7 +4,7 @@ func tpipeline#debug#init()
 endfunc
 
 " nvim only
-func tpipeline#debug#debug_info()
+func tpipeline#debug#info()
 	let left = readfile(s:tpipeline_filepath)
 	let right = readfile(s:tpipeline_right_filepath)
 	let native = nvim_eval_statusline(g:tpipeline_statusline, #{highlights: 1, use_tabline: g:tpipeline_tabline})
