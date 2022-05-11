@@ -10,6 +10,6 @@ jobs:
     - name: Check help tags
       run: docker run -w /tmp/vim-tpipeline -t vim-tpipeline scripts/check-helptags.sh
     - name: Run tests with vim
-      run: docker run -it vim-tpipeline make tests_vim
+      run: docker run -t vim-tpipeline make tests_vim
     - name: Run tests with neovim
-      run: docker run -it vim-tpipeline make tests_neovim
+      run: docker run -t vim-tpipeline make tests_neovim
