@@ -111,6 +111,9 @@ func tpipeline#initialize()
 	if has('nvim-0.6')
 		let s:has_eval_stl = 1
 		let g:tpipeline_fillchar = ""
+
+		let g:tpipeline_size = str2nr(system("tmux display-message -p '#{window_width}'"))
+		au VimResized * let g:tpipeline_size = str2nr(system("tmux display-message -p '#{window_width}'"))
 	endif
 endfunc
 

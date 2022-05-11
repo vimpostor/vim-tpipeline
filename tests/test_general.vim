@@ -64,3 +64,26 @@ func Test_split()
 	call assert_match('RIGHT', s:right)
 	call assert_notmatch('LEFT', s:right)
 endfunc
+
+" test that if a vim window is much smaller than the console window, that we still use the entire space available
+func Test_small_pane()
+	let c = &columns / 3
+	if c < 5
+		" this test does not make much sense for small overall console size
+		return
+	endif
+	let left = repeat('L', c)
+	let right = repeat('R', c)
+	let g:tpipeline_statusline = left . '%=' . right
+	" split window in half
+	vsplit
+	" Since 2/3 > 1/2, now the width of the pane is smaller than the width of the fully expanded statusline.
+	" Make sure we still use the entire tmux statusline regardless, since we are not bound by the vim window size
+	" This especially means that the right part is NOT empty.
+	call Read_socket()
+	call assert_false(empty(s:right))
+	call assert_match(left, s:left)
+	call assert_match(right, s:right)
+
+	bd
+endfunc
