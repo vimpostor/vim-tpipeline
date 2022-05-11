@@ -4,6 +4,8 @@ func SetUp()
 
 	" init statusline manually, because VimEnter is not triggered
 	call tpipeline#init_statusline()
+	" wait a bit for tmux to catch up
+	sleep 500m
 endfunc
 
 func Read_socket()
