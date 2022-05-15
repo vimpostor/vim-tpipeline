@@ -89,3 +89,34 @@ func Test_small_pane()
 
 	bd
 endfunc
+
+func Test_performance()
+	let test_duration = "10"
+	" one iteration should absolutely stay below 1 frame at 60FPS
+	let individual_threshold = 0.016
+	let log_file = "/tmp/.vim-tpipeline-perf.log"
+	exec printf("profile start %s", log_file)
+	profile func tpipeline#update
+	profile file *
+	" simulate someone scrolling at 60FPS
+	let timer = timer_start(16, {-> tpipeline#update()}, {'repeat': -1})
+	exec "sleep " . test_duration
+
+	profile stop
+	call timer_stop(timer)
+	let log = readfile(log_file, '', 5)
+	call assert_equal('FUNCTION  tpipeline#update()', log[0])
+
+	let call_num = str2nr(log[2]->matchstr('\d\+'))
+	call assert_equal(printf("Called %d times", call_num), log[2])
+
+	let total_time = str2float(log[3]->matchstr('\d\.\d\+'))
+	call assert_equal(printf("Total time:   %f", total_time), log[3])
+
+	let self_time = str2float(log[4]->matchstr('\d\.\d\+'))
+	call assert_equal(printf(" Self time:   %f", self_time), log[4])
+
+	let individual_time = total_time / call_num
+	echo printf("Called %d times\nTotal time: %f\n Self time: %f\nIndividual time: %f", call_num, total_time, self_time, individual_time)
+	call assert_true(individual_time < individual_threshold)
+endfunc
