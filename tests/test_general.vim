@@ -90,14 +90,24 @@ func Test_small_pane()
 	bd
 endfunc
 
+func Test_unicode()
+	let left = "🪛🔧🔨⚒"
+	let right = "🛠⛏🪚🔩"
+	let g:tpipeline_statusline = "%#String#" . left . "%=%#Error#" . right
+	call Read_socket()
+	call assert_match(left, s:left)
+	call assert_match(right, s:right)
+endfunc
+
 func Test_performance()
+	" make sure we use a somewhat heavy statusline
+	let g:tpipeline_statusline = "%!tpipeline#stl#line()"
 	let test_duration = "10"
 	" one iteration should absolutely stay below 1 frame at 60FPS
 	let individual_threshold = 0.016
 	let log_file = "/tmp/.vim-tpipeline-perf.log"
 	exec printf("profile start %s", log_file)
 	profile func tpipeline#update
-	profile file *
 	" simulate someone scrolling at 60FPS
 	let timer = timer_start(16, {-> tpipeline#update()}, {'repeat': -1})
 	exec "sleep " . test_duration
@@ -118,5 +128,6 @@ func Test_performance()
 
 	let individual_time = total_time / call_num
 	echo printf("Called %d times\nTotal time: %f\n Self time: %f\nIndividual time: %f", call_num, total_time, self_time, individual_time)
+	" make sure that we don't exceed the threshold time
 	call assert_true(individual_time < individual_threshold)
 endfunc
