@@ -153,15 +153,3 @@ func tpipeline#parse#parse_stl(stl)
 	endwhile
 	return res
 endfunc
-
-func tpipeline#parse#eval_stl()
-	let evl = nvim_eval_statusline(g:tpipeline_statusline, #{fillchar: g:tpipeline_fillchar, highlights: 1, use_tabline: g:tpipeline_tabline, maxwidth: g:tpipeline_size})
-	let res = evl.str
-	let i = 0
-	for hl in evl.highlights
-		let grp = tpipeline#parse#parse('#'.hl.group.'#')
-		let res = strpart(res, 0, hl.start+i) . grp . strpart(res, hl.start+i)
-		let i += len(grp)
-	endfor
-	return substitute(res, g:tpipeline_fillchar.'\+', '%=', '')
-endfunc

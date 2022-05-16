@@ -106,8 +106,8 @@ func Test_performance()
 	" one iteration should absolutely stay below 1 frame at 60FPS
 	let individual_threshold = 0.016
 	let log_file = "/tmp/.vim-tpipeline-perf.log"
-	" setup a file with two lines
-	norm o
+	" setup a file with enough lines to scroll
+	norm 99o
 
 	exec printf("profile start %s", log_file)
 	profile func tpipeline#update
@@ -116,7 +116,7 @@ func Test_performance()
 		if line(".") - 1
 			norm k
 		else
-			norm j
+			norm G
 		endif
 		call tpipeline#update()
 	endfunc
