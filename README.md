@@ -23,7 +23,7 @@ set -g status-justify centre
 
 Restart tmux and now you should see your vim statusline inside tmux.
 
-`vim-tpipeline` is compatible with most statuslines and can be used together with other statusline plugins like *lightline*. If it doesn't work with yours, file a bug report.
+`vim-tpipeline` is compatible with all statuslines and can be used together with other statusline plugins like *lightline*. If it doesn't work with yours, file a bug report.
 
 ## Requirements
 
