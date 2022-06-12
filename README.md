@@ -18,7 +18,7 @@ set -g focus-events on
 set -g status-style bg=default
 set -g status-left-length 90
 set -g status-right-length 90
-set -g status-justify centre
+set -g status-justify absolute-centre
 ```
 
 Restart tmux and now you should see your vim statusline inside tmux.
@@ -49,7 +49,7 @@ set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
 set -g status-left-length 90
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
 set -g status-right-length 90
-set -g status-justify centre
+set -g status-justify absolute-centre
 ```
 
 By default `vim-tpipeline` will copy your standard vim `statusline`.
@@ -94,14 +94,6 @@ let &t_fe = "\<Esc>[?1004h"
 let &t_fd = "\<Esc>[?1004l"
 ```
 - Write your own custom terminfo entry based on *tmux-256color*
-
-## How do I stop the centered window list from flickering when changing panes?
-
-Since `tmux` version **3.2** you can use `absolute-centre` instead of `centre`:
-```diff
--set -g status-justify centre
-+set -g status-justify absolute-centre
-```
 
 ## Why should I use this plugin over [onestatus](https://github.com/narajaon/onestatus)?
 
