@@ -38,6 +38,7 @@ If you want to have more control over where it is placed and how this is done, d
 
 ```vim
 " .vimrc
+" You can also use Lua for configuration, see :h lua-vim-variables for help
 let g:tpipeline_autoembed = 0
 ```
 
