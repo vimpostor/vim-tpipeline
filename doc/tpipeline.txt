@@ -12,6 +12,10 @@ Api						|tpipeline-api|
 INTRODUCTION						*tpipeline-introduction*
 
 The |tpipeline| plugin embeds your vim statusline into your tmux statusline.
+Since the tmux statusline usually is quite empty, this allows you to save one
+line of vertical space. If you additionally set |cmdheight| to `0`, you can
+get a total of two extra lines of buffer content available.
+
 This plugin also comes with its own statusline that you can use independently
 of the tmux functionality.
 
