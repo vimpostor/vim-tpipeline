@@ -22,6 +22,17 @@ func tpipeline#stl#attr()
 	return r
 endfunc
 
+func tpipeline#stl#searchc()
+	if !v:hlsearch
+		return ''
+	endif
+	let result = searchcount(#{recompute: 0})
+	if empty(result) || result.incomplete ==#1
+		return ''
+	endif
+	return '%#TpipelineDeepOrangeInv#%#TpipelineDeepOrange#🔍' . result.current . '/' . result.total .'%#TpipelineDeepOrangeInv#'
+endfunc
+
 func tpipeline#stl#ft()
 	return '%#TpipelineLightBlueInv# %#TpipelineLightBlue#%Y%#TpipelineLightBlueInv#'
 endfunc
@@ -36,7 +47,7 @@ func tpipeline#stl#progress()
 endfunc
 
 func tpipeline#stl#line()
-	return tpipeline#stl#mode() . ' ' . tpipeline#stl#fn() . tpipeline#stl#attr() . '%=' . tpipeline#stl#ft() . ' ' . tpipeline#stl#progress()
+	return tpipeline#stl#mode() . ' ' . tpipeline#stl#fn() . tpipeline#stl#attr() . '%=' . tpipeline#stl#searchc() . tpipeline#stl#ft() . ' ' . tpipeline#stl#progress()
 endfunc
 
 func tpipeline#stl#tabline()
