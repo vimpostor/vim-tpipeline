@@ -2,7 +2,7 @@
 
 Embed your vim statusline in the tmux statusline!
 
-![Screenshot](https://user-images.githubusercontent.com/21310755/106371530-bdacd780-6365-11eb-8d98-1df0eb3830f1.png)
+![Screenshot](https://user-images.githubusercontent.com/21310755/173618140-d2f76655-3de2-4abb-991b-d0f4dd7ed0e6.png)
 # Installation
 
 Using **vim-plug**:
@@ -23,7 +23,7 @@ set -g status-justify absolute-centre
 
 Restart tmux and now you should see your vim statusline inside tmux.
 
-`vim-tpipeline` is compatible with all statuslines and can be used together with other statusline plugins like *lightline*. If it doesn't work with yours, file a bug report.
+`vim-tpipeline` is compatible with all statuslines and can be used together with other statusline plugins like *lualine*. If it doesn't work with yours, file a bug report.
 
 ## Requirements
 
@@ -56,7 +56,7 @@ By default `vim-tpipeline` will copy your standard vim `statusline`.
 If you want to use a different statusline just for tmux, you can set it manually:
 
 ```vim
-" tpipeline comes bundled with its own custom minimal statusline seen above
+" tpipeline comes bundled with its own custom minimal statusline
 let g:tpipeline_statusline = '%!tpipeline#stl#line()'
 " You can also use standard statusline syntax, see :help stl
 let g:tpipeline_statusline = '%f'
@@ -97,7 +97,7 @@ let &t_fd = "\<Esc>[?1004l"
 
 ## Why should I use this plugin over [onestatus](https://github.com/narajaon/onestatus)?
 
+- In `onestatus` the tmux statusline is updated using a blocking call, whereas `tpipeline` uses non-blocking jobs to asynchronously update the statusline.
 - `tpipeline` works out of the box with your current vim statusline, whereas `onestatus` does not actually use your statusline at all and requires you to configure its own statusline.
 - As a result of the above, `onestatus` isn't able to use many vim features such as your vim colorscheme and requires you to redefine your colors. In `tpipeline`, vim colors are translated to tmux syntax automatically.
 - Simple things such as showing your current mode or linenumber require writing your own function in `onestatus`. In `tpipeline` this works out of the box.
-- In `onestatus` the tmux statusline is updated using a blocking call, whereas `tpipeline` uses non-blocking jobs to asynchronously update the statusline.
