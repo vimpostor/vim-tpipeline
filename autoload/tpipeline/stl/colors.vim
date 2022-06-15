@@ -38,6 +38,8 @@ func tpipeline#stl#colors#init()
 	hi TpipelineBrownInv guifg=#795548 guibg=bg
 	hi TpipelineGreyInv guifg=#9e9e9e guibg=bg
 	hi TpipelineBlueGreyInv guifg=#607d8b guibg=bg
+
+	hi TpipelineNormal guifg=fg guibg=bg
 endfunc
 
 func tpipeline#stl#colors#mode()
