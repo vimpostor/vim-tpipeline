@@ -144,3 +144,11 @@ func Test_performance()
 
 	bd!
 endfunc
+
+func Test_case_insensitive()
+	" color codes may be uppercase, but tmux only understands lowercase so we have to translate them
+	hi Uppercase guifg=#FFFFFF guibg=#AAAAAA
+	let g:tpipeline_statusline = '%#Uppercase#test'
+	call Read_socket()
+	call assert_equal('#[fg=#ffffff,bg=#aaaaaa]test', s:left)
+endfunc

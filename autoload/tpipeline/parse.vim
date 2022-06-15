@@ -54,11 +54,11 @@ func tpipeline#parse#parse(opt)
 		elseif first ==# '#'
 			let id = synIDtrans(hlID(inner))
 
-			let fg = synIDattr(id, 'fg')
+			let fg = tolower(synIDattr(id, 'fg'))
 			if fg ==# 'fg'
 				let fg = 'default'
 			endif
-			let bg = synIDattr(id, 'bg')
+			let bg = tolower(synIDattr(id, 'bg'))
 			if bg ==# 'bg'
 				let bg = 'default'
 			elseif bg ==# '' || bg ==# '#NONE'

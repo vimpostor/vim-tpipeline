@@ -7,11 +7,11 @@ local M = {
 
 function M.color(grp)
 	local id = vim.fn.synIDtrans(vim.fn.hlID(grp))
-	local fg = vim.fn.synIDattr(id, 'fg')
+	local fg = string.lower(vim.fn.synIDattr(id, 'fg'))
 	if fg == 'fg' then
 		fg = 'default'
 	end
-	local bg = vim.fn.synIDattr(id, 'bg')
+	local bg = string.lower(vim.fn.synIDattr(id, 'bg'))
 	if bg == 'bg' then
 		bg = 'default'
 	elseif bg == '' or bg == '#NONE' then
