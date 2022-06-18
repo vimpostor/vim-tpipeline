@@ -30,7 +30,7 @@ However you need to put the following block in your tmux config:
 	set -g status-style bg=default
 	set -g status-left-length 90
 	set -g status-right-length 90
-	set -g status-justify absolute-centre
+	set -g status-justify centre
 <
 
 If you want to disable the automatic embed process for more control over how
@@ -109,7 +109,7 @@ CONFIGURATION						*tpipeline-configure*
 			set -g status-style bg=default
 			set -g status-left-length 90
 			set -g status-right-length 90
-			set -g status-justify absolute-centre
+			set -g status-justify centre
 <
 		Also see |g:tpipeline_embedopts| for a way to configure this
 		without disabling autoembed completely.
