@@ -1,0 +1,54 @@
+name: Guided bug report
+description: File a bug report
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      placeholder: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: To reproduce
+      placeholder: Steps to reproduce the behavior.
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: A clear and concise description of what you expected to happen.
+    validations:
+      required: false
+  - type: input
+    id: vim
+    attributes:
+      label: Vim version
+      placeholder: vim/nvim --version
+    validations:
+      required: false
+  - type: input
+    id: tmux
+    attributes:
+      label: Tmux version
+      placeholder: tmux -V
+    validations:
+      required: false
+  - type: input
+    id: terminal
+    attributes:
+      label: Terminal emulator
+      placeholder: The terminal emulator that you are using
+    validations:
+      required: false
+  - type: textarea
+    id: debug
+    attributes:
+      label: Debug output
+      description: Please copy and paste the output of `:echo tpipeline#debug#info()` inside vim. This will be automatically formatted into code, so no need for backticks.
+      placeholder: :echo tpipeline#debug#info()
+      render: JSON
+    validations:
+      required: false
