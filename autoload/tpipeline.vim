@@ -112,8 +112,8 @@ func tpipeline#initialize()
 		let s:has_eval_stl = 1
 		let g:tpipeline_fillchar = ""
 
-		let g:tpipeline_size = str2nr(system("tmux display-message -p '#{window_width}'"))
-		au VimResized * let g:tpipeline_size = str2nr(system("tmux display-message -p '#{window_width}'"))
+		let g:tpipeline_size = str2nr(systemlist("tmux display-message -p '#{window_width}'")[-1])
+		au VimResized * let g:tpipeline_size = str2nr(systemlist("tmux display-message -p '#{window_width}'")[-1])
 	endif
 endfunc
 
