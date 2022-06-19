@@ -1,5 +1,5 @@
 name: Guided bug report
-description: File a bug report
+description: "File a bug report. If you know what you are doing, feel free to open a blank issue below."
 body:
   - type: textarea
     id: description
@@ -47,7 +47,7 @@ body:
     id: debug
     attributes:
       label: Debug output
-      description: "Please copy and paste the output of `:echo tpipeline#debug#info()` inside vim. This will be automatically formatted into code, so no need for backticks."
+      description: "Please copy and paste the output of `:echo tpipeline#debug#info()` inside vim, if relevant. This will be automatically formatted into code, so no need for backticks."
       placeholder: ":echo tpipeline#debug#info()"
       render: JSON
     validations:
