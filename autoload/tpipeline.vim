@@ -211,12 +211,14 @@ func tpipeline#delayed_update()
 endfunc
 
 func tpipeline#update()
-	if s:update_pending
-		let s:update_required = 1
-		return
+	if g:tpipeline_delay
+		if s:update_pending
+			let s:update_required = 1
+			return
+		endif
+		let s:update_pending = 1
+		let s:delay_timer = timer_start(g:tpipeline_delay, {-> tpipeline#delayed_update()})
 	endif
-	let s:update_pending = 1
-	let s:delay_timer = timer_start(g:tpipeline_delay, {-> tpipeline#delayed_update()})
 
 	if s:has_eval_stl
 		let line = luaeval("require'tpipeline.main'.update()")
