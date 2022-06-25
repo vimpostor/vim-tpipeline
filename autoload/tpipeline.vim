@@ -113,6 +113,9 @@ func tpipeline#initialize()
 	if has('nvim-0.6')
 		let s:has_eval_stl = 1
 		let g:tpipeline_fillchar = ""
+		if g:tpipeline_delay == 128
+			let g:tpipeline_delay = 0
+		endif
 
 		call tpipeline#util#set_size()
 		au VimResized * call tpipeline#util#set_size()
