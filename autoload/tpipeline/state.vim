@@ -13,3 +13,17 @@ func tpipeline#state#thaw()
 		call tpipeline#build_hooks()
 	endif
 endfunc
+
+func tpipeline#state#restore()
+	call tpipeline#cleanup()
+	call tpipeline#state#freeze()
+	if g:tpipeline_tabline
+		set showtabline=1
+	else
+		set laststatus=2
+	endif
+endfunc
+
+func tpipeline#state#reload()
+	call tpipeline#initialize()
+endfunc

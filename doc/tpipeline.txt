@@ -168,5 +168,15 @@ API							*tpipeline-api*
 		Reenables all updates of the tmux statusline after they were
 		disabled using |tpipeline#state#freeze()|.
 
+	tpipeline#state#restore()			*tpipeline#state#restore()*
+		Disables the plugin and restores state to how it was before
+		this plugin was loaded.
+		If you want to reload the plugin again, use
+		|tpipeline#state#reload()|.
+
+	tpipeline#state#reload()			*tpipeline#state#reload()*
+		Reloads the plugin after it was disabled with
+		|tpipeline#state#restore()|.
+
 ==============================================================================
 	vim:tw=78:sw=4:ts=8:ft=help:norl:noet:

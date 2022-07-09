@@ -12,6 +12,8 @@ g:tpipeline_tabline	tpipeline.txt	/*g:tpipeline_tabline*
 g:tpipeline_usepane	tpipeline.txt	/*g:tpipeline_usepane*
 tpipeline	tpipeline.txt	/*tpipeline*
 tpipeline#state#freeze()	tpipeline.txt	/*tpipeline#state#freeze()*
+tpipeline#state#reload()	tpipeline.txt	/*tpipeline#state#reload()*
+tpipeline#state#restore()	tpipeline.txt	/*tpipeline#state#restore()*
 tpipeline#state#thaw()	tpipeline.txt	/*tpipeline#state#thaw()*
 tpipeline#update()	tpipeline.txt	/*tpipeline#update()*
 tpipeline-api	tpipeline.txt	/*tpipeline-api*
