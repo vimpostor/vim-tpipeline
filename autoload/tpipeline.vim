@@ -119,6 +119,7 @@ func tpipeline#initialize()
 
 		call tpipeline#util#set_size()
 		au VimResized * call tpipeline#util#set_size()
+		au UIEnter * call tpipeline#state#restore()
 	endif
 endfunc
 
