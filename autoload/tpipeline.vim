@@ -119,7 +119,7 @@ func tpipeline#initialize()
 
 		call tpipeline#util#set_size()
 		au VimResized * call tpipeline#util#set_size()
-		au UIEnter * if v:event['chan'] | call tpipeline#state#restore() | endif
+		au UIEnter * call tpipeline#util#check_gui()
 	endif
 endfunc
 

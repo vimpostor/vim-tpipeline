@@ -29,7 +29,7 @@ Restart tmux and now you should see your vim statusline inside tmux.
 
 - Vim 8 (with patch `8.2.3430` for best experience) OR Neovim (for best experience use 0.7, but older versions work too)
 - True color support (`set termguicolors` in vim)
-- For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `Konsole`, `Gnome Terminal` and `iTerm2`)
+- For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `Konsole`, `wezterm` and `iTerm2`)
 
 # Configuration
 
