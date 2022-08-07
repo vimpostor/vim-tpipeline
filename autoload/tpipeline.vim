@@ -178,10 +178,12 @@ func tpipeline#init_statusline()
 			endif
 			let g:tpipeline_statusline = &tabline
 		else
-			if empty(&statusline)
+			if empty(&stl)
 				set stl=%!tpipeline#stl#line()
 			endif
-			let g:tpipeline_statusline = &statusline
+			if !s:is_nvim
+				let g:tpipeline_statusline = &stl
+			endif
 			if g:tpipeline_clearstl
 				set stl=%#StatusLine#
 			endif

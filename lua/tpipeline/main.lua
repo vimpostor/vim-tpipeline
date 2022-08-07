@@ -39,7 +39,11 @@ function M.update()
 	was_bold = false
 	was_italic = false
 
-	local evl = vim.api.nvim_eval_statusline(vim.g.tpipeline_statusline, {fillchar = vim.g.tpipeline_fillchar, highlights = 1, use_tabline = vim.g.tpipeline_tabline, maxwidth = vim.g.tpipeline_size})
+	local stl = vim.g.tpipeline_statusline
+	if stl == '' then
+		stl = vim.o.stl
+	end
+	local evl = vim.api.nvim_eval_statusline(stl, {fillchar = vim.g.tpipeline_fillchar, highlights = 1, use_tabline = vim.g.tpipeline_tabline, maxwidth = vim.g.tpipeline_size})
 	local res = evl.str
 	local i = 0
 	for k, hl in pairs(evl.highlights) do
