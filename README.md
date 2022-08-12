@@ -29,7 +29,7 @@ Restart tmux and now you should see your vim statusline inside tmux.
 
 - Vim 8 (with patch `8.2.3430` for best experience) OR Neovim (for best experience use 0.7, but older versions work too)
 - True color support (`set termguicolors` in vim)
-- For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `Konsole`, `wezterm` and `iTerm2`)
+- For best experience use a terminal that supports [focus events](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-FocusIn_FocusOut) (Known good terminals are `wezterm`, `konsole` and `iTerm2`)
 
 # Configuration
 
@@ -98,7 +98,7 @@ let &t_fd = "\<Esc>[?1004l"
 
 ## How do I stop the centered window list from flickering when changing panes?
 
-Since `tmux` version **3.2** you can use `absolute-centre` instead of `centre`:
+[Since tmux version 3.2](https://github.com/tmux/tmux/commit/3eb91efba160eff0b077a5fee902edb632f7fdca) you can use `absolute-centre` instead of `centre`:
 ```diff
 -set -g status-justify centre
 +set -g status-justify absolute-centre
