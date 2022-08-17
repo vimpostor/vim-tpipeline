@@ -181,9 +181,6 @@ func tpipeline#init_statusline()
 			if empty(&stl)
 				set stl=%!tpipeline#stl#line()
 			endif
-			if !s:is_nvim
-				let g:tpipeline_statusline = &stl
-			endif
 			if g:tpipeline_clearstl
 				set stl=%#StatusLine#
 			endif
@@ -229,7 +226,11 @@ func tpipeline#update()
 	if s:has_eval_stl
 		let line = luaeval("require'tpipeline.main'.update()")
 	else
-		let line = tpipeline#parse#parse_stl(g:tpipeline_statusline)
+		let stl=g:tpipeline_statusline
+		if empty(stl)
+			let stl = &stl
+		endif
+		let line = tpipeline#parse#parse_stl(stl)
 	endif
 	if line ==# s:last_statusline
 		" don't spam the same message twice

@@ -152,3 +152,14 @@ func Test_case_insensitive()
 	call Read_socket()
 	call assert_equal('#[fg=#ffffff,bg=#aaaaaa]test', s:left)
 endfunc
+
+func Test_late_evaluation()
+	" stl may change dynamically, even without function indirections
+	let g:tpipeline_statusline = ""
+	for i in range(10)
+		exec 'set stl=' . string(i)
+		call Read_socket()
+		call assert_match(string(i), s:left)
+		call assert_equal('', s:right)
+	endfor
+endfunc
