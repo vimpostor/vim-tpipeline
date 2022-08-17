@@ -157,9 +157,8 @@ func Test_late_evaluation()
 	" stl may change dynamically, even without function indirections
 	let g:tpipeline_statusline = ""
 	for i in range(10)
-		exec 'set stl=' . string(i)
+		exec 'set stl=%=' . string(i)
 		call Read_socket()
-		call assert_match(string(i), s:left)
-		call assert_equal('', s:right)
+		call assert_equal(string(i), s:right)
 	endfor
 endfunc
