@@ -226,7 +226,7 @@ func tpipeline#update()
 	if s:has_eval_stl
 		let line = luaeval("require'tpipeline.main'.update()")
 	else
-		let stl=g:tpipeline_statusline
+		let stl = g:tpipeline_statusline
 		if empty(stl)
 			let stl = &stl
 		endif
