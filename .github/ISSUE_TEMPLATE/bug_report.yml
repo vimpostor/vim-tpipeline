@@ -23,20 +23,6 @@ body:
     validations:
       required: false
   - type: input
-    id: vim
-    attributes:
-      label: Vim version
-      placeholder: "vim/nvim --version"
-    validations:
-      required: false
-  - type: input
-    id: tmux
-    attributes:
-      label: Tmux version
-      placeholder: tmux -V
-    validations:
-      required: false
-  - type: input
     id: terminal
     attributes:
       label: Terminal emulator
