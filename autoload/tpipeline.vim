@@ -106,6 +106,7 @@ func tpipeline#initialize()
 	endif
 
 	let s:job_check = 1
+	let s:needs_cleanup = 0
 
 	let s:is_nvim = has('nvim')
 	let s:has_modechgd = exists('##ModeChanged')
@@ -287,6 +288,7 @@ func tpipeline#cleanup()
 endfunc
 
 func tpipeline#forceupdate()
+	let s:needs_cleanup = 0
 	if g:tpipeline_restore
 		call system("tmux set -g status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)'")
 		if g:tpipeline_split
@@ -298,6 +300,10 @@ func tpipeline#forceupdate()
 endfunc
 
 func tpipeline#cautious_cleanup()
+	if !s:needs_cleanup
+		return
+	endif
+	let s:needs_cleanup = 0
 	" check if some other instance wrote to the socket right before us
 	let written_file = readfile(s:tpipeline_filepath, '', -1)
 	if empty(written_file)
@@ -320,5 +326,6 @@ func tpipeline#cautious_cleanup()
 endfunc
 
 func tpipeline#deferred_cleanup()
+	let s:needs_cleanup = 1
 	let s:cleanup_timer = timer_start(s:cleanup_delay, {-> tpipeline#cautious_cleanup()})
 endfunc

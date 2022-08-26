@@ -58,6 +58,15 @@ func Test_focusevents()
 	call assert_match('focused', s:left)
 endfunc
 
+func Test_rapidfocus()
+	let g:tpipeline_statusline = 'focused'
+	" rapidly lose focus and gain focus in quick succession
+	call tpipeline#deferred_cleanup()
+	call tpipeline#forceupdate()
+	call Read_socket()
+	call assert_match('focused', s:left)
+endfunc
+
 func Test_split()
 	let g:tpipeline_statusline = 'LEFT%=RIGHT'
 	call Read_socket()
