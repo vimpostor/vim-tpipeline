@@ -1,6 +1,11 @@
 func tpipeline#get_filepath()
 	" e.g. /tmp/tmux-1000/default-$0-vimbridge
 	let tmux = $TMUX
+	if empty(tmux)
+		let p = "/tmp/tmux-" . systemlist("id -u")[-1]
+		silent! call mkdir(p)
+		let tmux = p . "/default,0,0"
+	endif
 	return strcharpart(tmux, 0, stridx(tmux, ",")) . '-$' . strcharpart(tmux, strridx(tmux, ",") + 1) . '-vimbridge'
 endfunc
 
