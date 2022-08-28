@@ -123,6 +123,13 @@ CONFIGURATION						*tpipeline-configure*
 		E.g. to only move the tmux window list to the middle, use:
 		`let g:tpipeline_embedopts = ['status-justify absolute-centre']`
 
+	g:tpipeline_refreshcmd				*g:tpipeline_refreshcmd*
+		If you want to run an external command every time the
+		statusline changes, you can provide a shell command with this
+		variable.
+		This can be used for external statusline integrations
+		different from tmux.
+
 	g:tpipeline_clearstl				*g:tpipeline_clearstl*
 		If you want this plugin to clear the vim internal statusline
 		after loading, then set `let g:tpipeline_clearstl = 1`, this is

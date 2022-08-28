@@ -59,6 +59,9 @@ func tpipeline#initialize()
 			let g:tpipeline_embedopts = add(g:tpipeline_embedopts, "status-right '#(cat #{socket_path}-\\#{session_id}-vimbridge-R)'")
 		endif
 	endif
+	if !exists('g:tpipeline_refreshcmd')
+		let g:tpipeline_refreshcmd = 'tmux refresh-client -S'
+	endif
 	if !exists('g:tpipeline_clearstl')
 		let g:tpipeline_clearstl = 0
 	endif
@@ -151,7 +154,7 @@ func tpipeline#fork_job()
 	if g:tpipeline_usepane
 		let script .= "; tmux select-pane -T \"#[fill=${C:3}]#[align=left]$l#[align=right]$r\""
 	endif
-	let script .= "; tmux refresh-client -S; done"
+	let script .= "; " . g:tpipeline_refreshcmd . "; done"
 
 	let command = ['bash', '-c', script]
 	if s:is_nvim
