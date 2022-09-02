@@ -1,3 +1,7 @@
+if !has('nvim')
+	import autoload 'tpipeline/parse.vim'
+endif
+
 func tpipeline#get_filepath()
 	" e.g. /tmp/tmux-1000/default-$0-vimbridge
 	let tmux = $TMUX
@@ -239,7 +243,7 @@ func tpipeline#update()
 		if empty(stl)
 			let stl = &stl
 		endif
-		let line = tpipeline#parse#parse_stl(stl)
+		let line = s:parse.Parse_stl(stl)
 	endif
 	if line ==# s:last_statusline
 		" don't spam the same message twice
