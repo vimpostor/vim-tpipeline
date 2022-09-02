@@ -261,7 +261,7 @@ func tpipeline#update()
 		let cstream = right_line . "\n"
 		let s:last_writtenline = left_line
 	else
-		let s:last_writtenline = tpipeline#parse#remove_align(line)
+		let s:last_writtenline = tpipeline#util#remove_align(line)
 	endif
 	let cstream = s:last_writtenline . "\n" . cstream
 	if s:is_nvim

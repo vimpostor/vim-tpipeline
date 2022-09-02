@@ -1,10 +1,6 @@
 let s:b = 0
 let s:i = 0
 
-func tpipeline#parse#remove_align(str)
-	return substitute(a:str, '%=', '', 'g')
-endfunc
-
 func tpipeline#parse#parse(opt)
 	let first = strcharpart(a:opt, 0, 1)
 	let len = strchars(a:opt)
