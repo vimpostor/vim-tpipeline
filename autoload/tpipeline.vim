@@ -123,7 +123,7 @@ func tpipeline#initialize()
 	let s:is_nvim = has('nvim')
 	let s:has_modechgd = exists('##ModeChanged')
 	let s:has_eval_stl = 0
-	if has('nvim-0.6')
+	if s:is_nvim
 		let s:has_eval_stl = 1
 		let g:tpipeline_fillchar = ""
 		if g:tpipeline_delay == 128
@@ -170,10 +170,7 @@ func tpipeline#fork_job()
 		let s:job = jobstart(command)
 		let s:channel = s:job
 	else
-		let options = {}
-		if has("patch-8.1.350")
-			let options['noblock'] = 1
-		endif
+		let options = #{noblock: 1}
 		let s:job = job_start(command, options)
 		let s:channel = job_getchannel(s:job)
 	endif
