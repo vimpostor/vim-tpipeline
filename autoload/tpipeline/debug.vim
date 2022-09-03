@@ -7,7 +7,7 @@ func tpipeline#debug#info()
 	let left = readfile(s:tpipeline_filepath)
 	let right = readfile(s:tpipeline_right_filepath)
 	let tmux = systemlist("tmux -V")[-1]
-	let result = #{left: left, right: right, tmux: tmux}
+	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string()}
 
 	if has('nvim')
 		let stl = g:tpipeline_statusline
