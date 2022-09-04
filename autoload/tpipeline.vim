@@ -122,9 +122,7 @@ func tpipeline#initialize()
 
 	let s:is_nvim = has('nvim')
 	let s:has_modechgd = exists('##ModeChanged')
-	let s:has_eval_stl = 0
 	if s:is_nvim
-		let s:has_eval_stl = 1
 		let g:tpipeline_fillchar = ""
 		if g:tpipeline_delay == 128
 			let g:tpipeline_delay = 0
@@ -233,7 +231,7 @@ func tpipeline#update()
 		let s:delay_timer = timer_start(g:tpipeline_delay, {-> tpipeline#delayed_update()})
 	endif
 
-	if s:has_eval_stl
+	if s:is_nvim
 		let line = luaeval("require'tpipeline.main'.update()")
 	else
 		let stl = g:tpipeline_statusline
