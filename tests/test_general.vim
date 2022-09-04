@@ -112,8 +112,9 @@ func Test_performance()
 	" make sure we use a somewhat heavy statusline
 	let g:tpipeline_statusline = "%!tpipeline#stl#line()"
 	let test_duration = "10"
-	" one iteration should absolutely stay below 1 frame at 60FPS
-	let individual_threshold = 0.016
+	" one iteration should absolutely stay below 1 frame at 120FPS
+	let fps = 120
+	let individual_threshold = 1.0 / fps
 	let log_file = "/tmp/.vim-tpipeline-perf.log"
 	" setup a file with enough lines to scroll
 	norm 99o
@@ -129,7 +130,7 @@ func Test_performance()
 		endif
 		call tpipeline#update()
 	endfunc
-	let timer = timer_start(16, {-> Scroll()}, {'repeat': -1})
+	let timer = timer_start(float2nr(individual_threshold * 1000), {-> Scroll()}, {'repeat': -1})
 	exec "sleep " . test_duration
 
 	profile stop
