@@ -111,7 +111,7 @@ endfunc
 func Test_performance()
 	" make sure we use a somewhat heavy statusline
 	let g:tpipeline_statusline = "%!tpipeline#stl#line()"
-	let test_duration = "10"
+	let test_duration = "3"
 	" one iteration should absolutely stay below 1 frame at 120FPS
 	let fps = 120
 	let individual_threshold = 1.0 / fps
