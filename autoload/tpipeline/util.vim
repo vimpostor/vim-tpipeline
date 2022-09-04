@@ -20,3 +20,7 @@ func tpipeline#util#check_gui()
 		call tpipeline#state#restore()
 	endif
 endfunc
+
+func tpipeline#util#remove_align(str)
+	return substitute(a:str, '%=', '', 'g')
+endfunc

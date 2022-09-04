@@ -1,3 +1,7 @@
+if !has('nvim')
+	import autoload 'tpipeline/parse.vim'
+endif
+
 func tpipeline#get_filepath()
 	" e.g. /tmp/tmux-1000/default-$0-vimbridge
 	let tmux = $TMUX
@@ -118,9 +122,7 @@ func tpipeline#initialize()
 
 	let s:is_nvim = has('nvim')
 	let s:has_modechgd = exists('##ModeChanged')
-	let s:has_eval_stl = 0
-	if has('nvim-0.6')
-		let s:has_eval_stl = 1
+	if s:is_nvim
 		let g:tpipeline_fillchar = ""
 		if g:tpipeline_delay == 128
 			let g:tpipeline_delay = 0
@@ -166,10 +168,7 @@ func tpipeline#fork_job()
 		let s:job = jobstart(command)
 		let s:channel = s:job
 	else
-		let options = {}
-		if has("patch-8.1.350")
-			let options['noblock'] = 1
-		endif
+		let options = #{noblock: 1}
 		let s:job = job_start(command, options)
 		let s:channel = job_getchannel(s:job)
 	endif
@@ -232,14 +231,14 @@ func tpipeline#update()
 		let s:delay_timer = timer_start(g:tpipeline_delay, {-> tpipeline#delayed_update()})
 	endif
 
-	if s:has_eval_stl
+	if s:is_nvim
 		let line = luaeval("require'tpipeline.main'.update()")
 	else
 		let stl = g:tpipeline_statusline
 		if empty(stl)
 			let stl = &stl
 		endif
-		let line = tpipeline#parse#parse_stl(stl)
+		let line = s:parse.Parse_stl(stl)
 	endif
 	if line ==# s:last_statusline
 		" don't spam the same message twice
@@ -261,7 +260,7 @@ func tpipeline#update()
 		let cstream = right_line . "\n"
 		let s:last_writtenline = left_line
 	else
-		let s:last_writtenline = tpipeline#parse#remove_align(line)
+		let s:last_writtenline = tpipeline#util#remove_align(line)
 	endif
 	let cstream = s:last_writtenline . "\n" . cstream
 	if s:is_nvim
