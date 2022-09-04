@@ -78,7 +78,7 @@ func tpipeline#initialize()
 		let g:tpipeline_restore = 0
 	endif
 	if !exists('g:tpipeline_delay')
-		let g:tpipeline_delay = 128
+		let g:tpipeline_delay = 0
 	endif
 	if g:tpipeline_tabline
 		set showtabline=0
@@ -124,9 +124,6 @@ func tpipeline#initialize()
 	let s:has_modechgd = exists('##ModeChanged')
 	if s:is_nvim
 		let g:tpipeline_fillchar = ""
-		if g:tpipeline_delay == 128
-			let g:tpipeline_delay = 0
-		endif
 
 		call tpipeline#util#set_size()
 		au VimResized * call tpipeline#util#set_size()
