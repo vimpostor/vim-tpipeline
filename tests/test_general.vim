@@ -175,3 +175,13 @@ func Test_late_evaluation()
 		call assert_equal(string(i), s:right)
 	endfor
 endfunc
+
+func g:ReturnNumber()
+	return 2
+endfunc
+
+func Test_number_evaluation()
+	let g:tpipeline_statusline = "%{g:ReturnNumber()}"
+	call Read_socket()
+	call assert_match(string(g:ReturnNumber()), s:left)
+endfunc

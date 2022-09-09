@@ -48,7 +48,7 @@ def Parse(opt: string): string
 		# handle multichar arguments
 		var inner = strcharpart(opt, 1, len - 2)
 		if first ==# '{'
-			return Parse_stl(eval(inner))
+			return Parse_stl("" .. eval(inner))
 		elseif first ==# '#'
 			var id = synIDtrans(hlID(inner))
 
