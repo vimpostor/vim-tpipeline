@@ -71,10 +71,10 @@ def Parse(opt: string): string
 				was_bold = 0
 			endif
 			if !empty(synIDattr(id, 'italic'))
-				st .= ',italics'
+				st ..= ',italics'
 				was_italic = 1
 			elseif was_italic
-				st .= ',noitalics'
+				st ..= ',noitalics'
 				was_italic = 0
 			endif
 			return printf('#[fg=%s,bg=%s%s]', fg, bg, st)
