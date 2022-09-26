@@ -16,6 +16,8 @@ tpipeline#state#freeze()	tpipeline.txt	/*tpipeline#state#freeze()*
 tpipeline#state#reload()	tpipeline.txt	/*tpipeline#state#reload()*
 tpipeline#state#restore()	tpipeline.txt	/*tpipeline#state#restore()*
 tpipeline#state#thaw()	tpipeline.txt	/*tpipeline#state#thaw()*
+tpipeline#state#toggle()	tpipeline.txt	/*tpipeline#state#toggle()*
+tpipeline#state#toggle_frozen()	tpipeline.txt	/*tpipeline#state#toggle_frozen()*
 tpipeline#update()	tpipeline.txt	/*tpipeline#update()*
 tpipeline-api	tpipeline.txt	/*tpipeline-api*
 tpipeline-configure	tpipeline.txt	/*tpipeline-configure*
