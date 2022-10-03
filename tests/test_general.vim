@@ -136,7 +136,7 @@ func Test_performance()
 	profile stop
 	call timer_stop(timer)
 	" wait for tmux to catch up
-	sleep 1
+	sleep 2
 
 	let log = readfile(log_file, '', 5)
 	call assert_equal('FUNCTION  tpipeline#update()', log[0])

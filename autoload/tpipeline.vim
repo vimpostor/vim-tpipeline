@@ -77,9 +77,6 @@ func tpipeline#initialize()
 	if !exists('g:tpipeline_restore')
 		let g:tpipeline_restore = 0
 	endif
-	if !exists('g:tpipeline_delay')
-		let g:tpipeline_delay = 0
-	endif
 	if g:tpipeline_tabline
 		set showtabline=0
 	else
@@ -201,7 +198,7 @@ func tpipeline#deferred_update()
 		return
 	endif
 	let s:update_pending = 1
-	let s:delay_timer = timer_start(g:tpipeline_delay, {-> tpipeline#delayed_update()})
+	let s:delay_timer = timer_start(0, {-> tpipeline#delayed_update()})
 endfunc
 
 func tpipeline#delayed_update()
@@ -219,15 +216,6 @@ func tpipeline#delayed_update()
 endfunc
 
 func tpipeline#update()
-	if g:tpipeline_delay
-		if s:update_pending
-			let s:update_required = 1
-			return
-		endif
-		let s:update_pending = 1
-		let s:delay_timer = timer_start(g:tpipeline_delay, {-> tpipeline#delayed_update()})
-	endif
-
 	if s:is_nvim
 		let line = luaeval("require'tpipeline.main'.update()")
 	else
