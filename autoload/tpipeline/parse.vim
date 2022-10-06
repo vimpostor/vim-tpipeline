@@ -48,7 +48,8 @@ def Parse(opt: string): string
 		# handle multichar arguments
 		var inner = strcharpart(opt, 1, len - 2)
 		if first ==# '{'
-			return Parse_stl("" .. eval(inner))
+			exe printf('legacy let g:tpipeline_leg = eval("%s")', inner)
+			return Parse_stl("" .. g:tpipeline_leg)
 		elseif first ==# '#'
 			var id = synIDtrans(hlID(inner))
 
