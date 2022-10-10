@@ -185,3 +185,9 @@ func Test_number_evaluation()
 	call Read_socket()
 	call assert_match(string(g:ReturnNumber()), s:left)
 endfunc
+
+func Test_quoted_strings()
+	let g:tpipeline_statusline = '%{eval("g:ReturnNumber()")}'
+	call Read_socket()
+	call assert_match(string(g:ReturnNumber()), s:left)
+endfunc
