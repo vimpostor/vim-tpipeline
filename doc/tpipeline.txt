@@ -146,7 +146,8 @@ CONFIGURATION						*tpipeline-configure*
 	g:tpipeline_restore				*g:tpipeline_restore*
 		When this option is enabled with `let g:tpipeline_restore = 1`
 		it will restore the tmux statusline to its previous state
-		after quitting vim. This feature is disabled by default.
+		after quitting vim and when focusing a different tmux pane.
+		This feature is disabled by default.
 
 	g:tpipeline_usepane				*g:tpipeline_usepane*
 		By default |tpipeline| embeds your vim statusline into your
