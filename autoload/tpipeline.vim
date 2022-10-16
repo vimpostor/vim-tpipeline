@@ -184,6 +184,7 @@ func tpipeline#init_statusline()
 				set stl=%!tpipeline#stl#line()
 			endif
 			if g:tpipeline_clearstl
+				let g:tpipeline_statusline = &stl
 				set stl=%#StatusLine#
 			endif
 		endif
