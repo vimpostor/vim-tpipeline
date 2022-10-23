@@ -78,12 +78,6 @@ After all you don't want to have your carefully handcrafted vim config end up as
 
 Yes, use `set stl=%!tpipeline#stl#line()` in your `~/.vimrc`. In fact this plugin uses *Vim*'s autoload mechanism to lazily load features, i.e. if you don't use tmux, you can still use the statusline inside vim without loading unnecessary features.
 
-## How do I update the statusline on every cursor movement?
-
-```vim
-let g:tpipeline_cursormoved = 1
-```
-
 ## Focus events are not working for me in tmux
 
 Besides putting `set -g focus-events on` in your `tmux` config, you also need to have the `XT`-capability available, which you can test by issuing the `tput XT` command. If the capability is not present inside tmux, then there are three ways to fix the [issue](https://github.com/tmux/tmux/issues/2606):

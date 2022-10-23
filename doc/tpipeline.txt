@@ -67,9 +67,8 @@ CONFIGURATION						*tpipeline-configure*
 		variable using `let g:tpipeline_focuslost = 0`
 
 	g:tpipeline_cursormoved				*g:tpipeline_cursormoved*
-		If you want to have the statusline update while moving the
-		cursor, use `let g:tpipeline_cursormoved = 1` which will set
-		the |CursorMoved| autocmd.
+		If you want to disable updates of the statusline while moving
+		the cursor, use `let g:tpipeline_cursormoved = 0`
 
 	g:tpipeline_tabline				*g:tpipeline_tabline*
 		By default if |g:tpipeline_statusline| is not set, the plugin

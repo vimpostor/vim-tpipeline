@@ -45,7 +45,7 @@ func tpipeline#initialize()
 		let g:tpipeline_focuslost = 1
 	endif
 	if !exists('g:tpipeline_cursormoved')
-		let g:tpipeline_cursormoved = 0
+		let g:tpipeline_cursormoved = 1
 	endif
 	if !exists('g:tpipeline_tabline')
 		let g:tpipeline_tabline = 0
