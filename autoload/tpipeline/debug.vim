@@ -3,11 +3,23 @@ func tpipeline#debug#init()
 	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
 endfunc
 
+func tpipeline#debug#os()
+	if has('linux')
+		return "Linux"
+	elseif has('osx') || has('osxdarwin')
+		return "MacOS"
+	elseif has('win32') || has('win64')
+		return "Windows"
+	fi
+	return "Unknown OS"
+endfunc
+
 func tpipeline#debug#info()
 	let left = readfile(s:tpipeline_filepath)
 	let right = readfile(s:tpipeline_right_filepath)
 	let tmux = systemlist("tmux -V")[-1]
-	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string()}
+	let os = tpipeline#debug#os()
+	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string(), os: os}
 
 	if has('nvim')
 		let stl = g:tpipeline_statusline
