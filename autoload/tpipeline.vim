@@ -24,9 +24,9 @@ func tpipeline#build_hooks()
 		au BufEnter,InsertLeave,CursorHold,CursorHoldI * call tpipeline#update()
 		if s:has_modechgd
 			au ModeChanged *:[^c]* call tpipeline#update()
-			au CmdlineEnter * call tpipeline#deferred_update()
+			au CmdlineEnter * call tpipeline#update()
 		else
-			au InsertEnter,CmdlineEnter,CmdlineLeave * call tpipeline#deferred_update()
+			au InsertEnter,CmdlineEnter,CmdlineLeave * call tpipeline#update()
 		endif
 		if g:tpipeline_cursormoved
 			au CursorMoved * call tpipeline#update()
