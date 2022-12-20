@@ -27,7 +27,7 @@ func Read_socket()
 endfunc
 
 func Test_autoembed()
-	call assert_equal('status-left "#(cat #{socket_path}-\\#{session_id}-vimbridge)"', trim(system('tmux show-options -g status-left')))
+	call assert_equal('status-left "#(cat #{socket_path}-\\#{session_id}-vimbridge)"', trim(system('tmux show-options status-left')))
 endfunc
 
 func Test_socket()
