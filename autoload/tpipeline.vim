@@ -130,8 +130,8 @@ endfunc
 
 func tpipeline#fork_job()
 	if g:tpipeline_restore
-		let s:restore_left = system("tmux display-message -p '#{status-left}'")
-		let s:restore_right = system("tmux display-message -p '#{status-right}'")
+		let s:restore_left = trim(system("tmux display-message -p '#{status-left}'"))
+		let s:restore_right = trim(system("tmux display-message -p '#{status-right}'"))
 	endif
 	let script = printf("while IFS='$\\n' read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
 	if g:tpipeline_usepane
@@ -140,13 +140,13 @@ func tpipeline#fork_job()
 	endif
 	if g:tpipeline_autoembed
 		for o in g:tpipeline_embedopts
-			let script = 'tmux set -g ' . o . '; ' . script
+			let script = 'tmux set ' . o . '; ' . script
 		endfor
 	endif
 	if g:tpipeline_fillcentre
 		let script .= "; C=$(echo \"$l\" | grep -o 'bg=#[0-9a-f]\\{6\\}'| tail -1)"
 		if !g:tpipeline_usepane
-			let script .= "; tmux set -g status-style \"$C\""
+			let script .= "; tmux set status-style \"$C\""
 		endif
 	endif
 	if g:tpipeline_split
@@ -258,9 +258,9 @@ func tpipeline#update()
 endfunc
 
 func tpipeline#restore_tmux()
-	call system('tmux set -g status-left ' . shellescape(s:restore_left))
+	call system('tmux set status-left ' . shellescape(s:restore_left))
 	if g:tpipeline_split
-		call system('tmux set -g status-right ' . shellescape(s:restore_right))
+		call system('tmux set status-right ' . shellescape(s:restore_right))
 	endif
 endfunc
 
@@ -284,9 +284,9 @@ endfunc
 func tpipeline#forceupdate()
 	let s:needs_cleanup = 0
 	if g:tpipeline_restore
-		call system("tmux set -g status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)'")
+		call system("tmux set status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)'")
 		if g:tpipeline_split
-			call system("tmux set -g status-right '#(cat #{socket_path}-\\#{session_id}-vimbridge-R)'")
+			call system("tmux set status-right '#(cat #{socket_path}-\\#{session_id}-vimbridge-R)'")
 		endif
 	endif
 	let s:last_statusline = ''
