@@ -130,8 +130,8 @@ endfunc
 
 func tpipeline#fork_job()
 	if g:tpipeline_restore
-		let s:restore_left = trim(system("tmux display-message -p '#{status-left}'"))
-		let s:restore_right = trim(system("tmux display-message -p '#{status-right}'"))
+		let s:restore_left = system("tmux display-message -p '#{status-left}'")
+		let s:restore_right = system("tmux display-message -p '#{status-right}'")
 	endif
 	let script = printf("while IFS='$\\n' read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
 	if g:tpipeline_usepane
