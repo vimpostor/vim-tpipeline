@@ -7,7 +7,6 @@ g:tpipeline_focuslost	tpipeline.txt	/*g:tpipeline_focuslost*
 g:tpipeline_preservebg	tpipeline.txt	/*g:tpipeline_preservebg*
 g:tpipeline_refreshcmd	tpipeline.txt	/*g:tpipeline_refreshcmd*
 g:tpipeline_restore	tpipeline.txt	/*g:tpipeline_restore*
-g:tpipeline_size	tpipeline.txt	/*g:tpipeline_size*
 g:tpipeline_split	tpipeline.txt	/*g:tpipeline_split*
 g:tpipeline_statusline	tpipeline.txt	/*g:tpipeline_statusline*
 g:tpipeline_tabline	tpipeline.txt	/*g:tpipeline_tabline*

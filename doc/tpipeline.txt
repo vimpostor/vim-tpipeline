@@ -62,14 +62,6 @@ CONFIGURATION						*tpipeline-configure*
 			set -g status-right-length 90
 <
 
-	g:tpipeline_size				*g:tpipeline_size*
-		By default, |tpipeline| will truncate the |statusline| automatically,
-		but if you want to render the whole statusline, set this variable
-		instead.
->
-			let g:tpipeline_size = 300
-<
-
 	g:tpipeline_focuslost				*g:tpipeline_focuslost*
 		If you don't want to respond to `FocusLost` signals, set this
 		variable using `let g:tpipeline_focuslost = 0`
