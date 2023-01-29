@@ -122,8 +122,10 @@ func tpipeline#initialize()
 	if s:is_nvim
 		let g:tpipeline_fillchar = ""
 
-		call tpipeline#util#set_size()
-		au VimResized * call tpipeline#util#set_size()
+		if !exists('g:tpipeline_size')
+			call tpipeline#util#set_size()
+			au VimResized * call tpipeline#util#set_size()
+		endif
 		au UIEnter * call tpipeline#util#check_gui()
 	endif
 endfunc
