@@ -93,8 +93,6 @@ func tpipeline#initialize()
 		endif
 	augroup END
 
-	let s:update_pending = 0
-	let s:update_required = 0
 	let s:last_statusline = ''
 	let s:last_writtenline = ''
 	let s:cleanup_delay = 45
@@ -114,7 +112,6 @@ func tpipeline#initialize()
 		let s:clear_stream .= "\n"
 	endif
 
-	let s:job_check = 1
 	let s:needs_cleanup = 0
 
 	let s:is_nvim = has('nvim')
@@ -194,29 +191,6 @@ func tpipeline#init_statusline()
 	endif
 
 	call tpipeline#update()
-endfunc
-
-func tpipeline#deferred_update()
-	let s:update_required = 1
-	if s:update_pending
-		return
-	endif
-	let s:update_pending = 1
-	let s:delay_timer = timer_start(0, {-> tpipeline#delayed_update()})
-endfunc
-
-func tpipeline#delayed_update()
-	if s:job_check
-		if (s:is_nvim && s:job < 0) || (!s:is_nvim && job_status(s:job) == 'dead')
-			call tpipeline#state#freeze()
-		endif
-		let s:job_check = 0
-	endif
-	let s:update_pending = 0
-	if s:update_required
-		let s:update_required = 0
-		call tpipeline#update()
-	endif
 endfunc
 
 func tpipeline#update()
