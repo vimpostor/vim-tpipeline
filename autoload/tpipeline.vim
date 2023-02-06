@@ -185,7 +185,7 @@ func tpipeline#init_statusline()
 			if g:tpipeline_clearstl
 				let g:tpipeline_statusline = &stl
 				set stl=%#StatusLine#
-				au OptionSet statusline let g:tpipeline_statusline = &stl | set stl=%#StatusLine# | call tpipeline#update()
+				au OptionSet statusline if v:option_type == 'global' | let g:tpipeline_statusline = &stl | set stl=%#StatusLine# | call tpipeline#update() | endif
 			endif
 		endif
 	endif
