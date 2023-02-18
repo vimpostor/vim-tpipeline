@@ -31,6 +31,10 @@ func tpipeline#build_hooks()
 		if g:tpipeline_cursormoved
 			au CursorMoved * call tpipeline#update()
 		endif
+
+		if empty(g:tpipeline_statusline) && !g:tpipeline_tabline && g:tpipeline_clearstl
+			au OptionSet statusline if v:option_type == 'global' | let g:tpipeline_statusline = &stl | set stl=%#StatusLine# | call tpipeline#update() | endif
+		endif
 	augroup END
 endfunc
 
@@ -185,7 +189,6 @@ func tpipeline#init_statusline()
 			if g:tpipeline_clearstl
 				let g:tpipeline_statusline = &stl
 				set stl=%#StatusLine#
-				au OptionSet statusline if v:option_type == 'global' | let g:tpipeline_statusline = &stl | set stl=%#StatusLine# | call tpipeline#update() | endif
 			endif
 		endif
 	endif
