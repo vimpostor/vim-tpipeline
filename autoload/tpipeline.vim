@@ -89,13 +89,6 @@ func tpipeline#initialize()
 	endif
 	let s:tpipeline_filepath = tpipeline#get_filepath()
 	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
-	augroup tpipelinei
-		if v:vim_did_enter
-			call tpipeline#init_statusline()
-		else
-			au VimEnter * call tpipeline#init_statusline()
-		endif
-	augroup END
 
 	let s:last_statusline = ''
 	let s:last_writtenline = ''
@@ -120,6 +113,15 @@ func tpipeline#initialize()
 
 	let s:is_nvim = has('nvim')
 	let s:has_modechgd = exists('##ModeChanged')
+
+	augroup tpipelinei
+		if v:vim_did_enter
+			call tpipeline#init_statusline()
+		else
+			au VimEnter * call tpipeline#init_statusline()
+		endif
+	augroup END
+
 	if s:is_nvim
 		let g:tpipeline_fillchar = ""
 
