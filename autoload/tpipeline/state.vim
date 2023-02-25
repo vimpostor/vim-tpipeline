@@ -28,6 +28,10 @@ func tpipeline#state#toggle_frozen()
 	endif
 endfunc
 
+func tpipeline#state#is_active()
+	return s:active
+endfunc
+
 func tpipeline#state#restore()
 	let s:active = 0
 
