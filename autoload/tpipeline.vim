@@ -114,14 +114,6 @@ func tpipeline#initialize()
 	let s:is_nvim = has('nvim')
 	let s:has_modechgd = exists('##ModeChanged')
 
-	augroup tpipelinei
-		if v:vim_did_enter
-			call tpipeline#init_statusline()
-		else
-			au VimEnter * call tpipeline#init_statusline()
-		endif
-	augroup END
-
 	if s:is_nvim
 		let g:tpipeline_fillchar = ""
 
@@ -131,6 +123,14 @@ func tpipeline#initialize()
 		endif
 		au UIEnter * call tpipeline#util#check_gui()
 	endif
+
+	augroup tpipelinei
+		if v:vim_did_enter
+			call tpipeline#init_statusline()
+		else
+			au VimEnter * call tpipeline#init_statusline()
+		endif
+	augroup END
 endfunc
 
 func tpipeline#fork_job()
