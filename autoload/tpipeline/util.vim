@@ -24,3 +24,8 @@ endfunc
 func tpipeline#util#remove_align(str)
 	return substitute(a:str, '%=', '', 'g')
 endfunc
+
+func tpipeline#util#clear_stl()
+	let g:tpipeline_statusline = &stl
+	set stl=%#StatusLine#
+endfunc
