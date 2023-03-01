@@ -16,7 +16,7 @@ func tpipeline#util#set_size()
 endfunc
 
 func tpipeline#util#check_gui()
-	if (v:event['chan'] && !(has('nvim-0.9') && nvim_list_uis()[0].ext_termcolors)) || has('gui_running')
+	if (v:event['chan'] && !has('nvim-0.9')) || has('gui_running')
 		call tpipeline#state#restore()
 	endif
 endfunc
