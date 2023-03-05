@@ -36,7 +36,7 @@ func tpipeline#build_hooks()
 			if g:tpipeline_clearstl
 				if tpipeline#util#is_lualine()
 					au OptionSet statusline if v:option_type == 'local' | call tpipeline#util#clear_all_stl() | endif
-					au ModeChanged *:c call tpipeline#util#clear_all_stl()
+					au ModeChanged * call tpipeline#util#clear_all_stl()
 				endif
 				au OptionSet statusline if v:option_type == 'global' | call tpipeline#util#clear_stl() | endif
 			endif
