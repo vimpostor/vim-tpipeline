@@ -33,9 +33,6 @@ func tpipeline#build_hooks()
 		endif
 
 		if empty(g:tpipeline_statusline) && !g:tpipeline_tabline
-			if tpipeline#util#is_lualine()
-				au OptionSet statusline let g:tpipeline_statusline = &stl
-			endif
 			if g:tpipeline_clearstl
 				if tpipeline#util#is_lualine()
 					au OptionSet statusline if v:option_type == 'local' | call tpipeline#util#clear_all_stl() | endif
