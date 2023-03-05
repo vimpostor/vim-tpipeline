@@ -34,16 +34,3 @@ func tpipeline#util#is_lualine()
 	" lualine doesn't play nice, so it needs extra workarounds
 	return has('nvim') && !empty(nvim_get_autocmds(#{group: "lualine"}))
 endfunc
-
-func tpipeline#util#set_stl_hooks()
-	if empty(g:tpipeline_statusline) && !g:tpipeline_tabline
-		if g:tpipeline_clearstl
-			if tpipeline#util#is_lualine()
-				au OptionSet statusline call tpipeline#util#clear_stl()
-			else
-				au OptionSet statusline if v:option_type == 'global' | call tpipeline#util#clear_stl() | endif
-			endif
-		endif
-		au OptionSet statusline call tpipeline#update()
-	endif
-endfunc
