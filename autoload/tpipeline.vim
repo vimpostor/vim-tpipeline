@@ -33,11 +33,9 @@ func tpipeline#build_hooks()
 		endif
 
 		if empty(g:tpipeline_statusline) && !g:tpipeline_tabline
-			if g:tpipeline_clearstl
-				if tpipeline#lualine#is_lualine()
-					au OptionSet statusline if v:option_type == 'local' | call tpipeline#lualine#clear_all_stl() | endif
-					au ModeChanged * call tpipeline#lualine#clear_all_stl()
-				endif
+			if tpipeline#lualine#is_lualine()
+				au OptionSet statusline call tpipeline#lualine#delay_eval()
+			elseif g:tpipeline_clearstl
 				au OptionSet statusline if v:option_type == 'global' | call tpipeline#util#clear_stl() | endif
 			endif
 			au OptionSet statusline call tpipeline#update()
