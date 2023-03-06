@@ -29,14 +29,3 @@ func tpipeline#util#clear_stl()
 	let g:tpipeline_statusline = &stl
 	set stl=%#StatusLine#
 endfunc
-
-func tpipeline#util#is_lualine()
-	" lualine doesn't play nice, so it needs extra workarounds
-	return has('nvim') && !empty(nvim_get_autocmds(#{group: "lualine"}))
-endfunc
-
-func tpipeline#util#clear_all_stl()
-	for i in range(1, tabpagewinnr(tabpagenr(), '$'))
-		call win_execute(win_getid(i), 'setlocal stl<')
-	endfor
-endfunc
