@@ -5,6 +5,6 @@ endfunc
 
 func tpipeline#lualine#clear_all_stl()
 	for i in range(1, tabpagewinnr(tabpagenr(), '$'))
-		call win_execute(win_getid(i), 'setlocal stl<')
+		noa call win_execute(win_getid(i), 'setlocal stl<')
 	endfor
 endfunc
