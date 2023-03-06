@@ -10,7 +10,11 @@ func tpipeline#lualine#clear_all_stl()
 endfunc
 
 func tpipeline#lualine#fix_stl()
-	noa let g:tpipeline_statusline = getwinvar(win_getid(), '&stl')
+	noa let s = getwinvar(win_getid(), '&stl')
+	if !empty(s) && s !=# '%#StatusLine#'
+		let g:tpipeline_statusline = s
+	endif
+
 	if g:tpipeline_clearstl
 		call tpipeline#lualine#clear_all_stl()
 	endif
