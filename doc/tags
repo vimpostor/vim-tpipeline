@@ -23,5 +23,9 @@ tpipeline-api	tpipeline.txt	/*tpipeline-api*
 tpipeline-configure	tpipeline.txt	/*tpipeline-configure*
 tpipeline-contents	tpipeline.txt	/*tpipeline-contents*
 tpipeline-introduction	tpipeline.txt	/*tpipeline-introduction*
+tpipeline-kitty	tpipeline-kitty.txt	/*tpipeline-kitty*
+tpipeline-kitty-configure	tpipeline-kitty.txt	/*tpipeline-kitty-configure*
+tpipeline-kitty-introduction	tpipeline-kitty.txt	/*tpipeline-kitty-introduction*
+tpipeline-kitty.txt	tpipeline-kitty.txt	/*tpipeline-kitty.txt*
 tpipeline-tmux	tpipeline.txt	/*tpipeline-tmux*
 tpipeline.txt	tpipeline.txt	/*tpipeline.txt*
