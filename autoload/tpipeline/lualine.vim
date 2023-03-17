@@ -1,6 +1,16 @@
 func tpipeline#lualine#is_lualine()
 	" lualine doesn't play nice, so it needs extra workarounds
-	return has('nvim') && !empty(nvim_get_autocmds(#{group: "lualine"}))
+	if !has('nvim')
+		return 0
+	endif
+
+	try
+		let res = !empty(nvim_get_autocmds(#{group: "lualine"}))
+	catch
+		let res = 0
+	endtry
+
+	return res
 endfunc
 
 func tpipeline#lualine#clear_all_stl()
