@@ -145,10 +145,10 @@ func Test_performance()
 	call assert_equal(printf("Called %d times", call_num), log[2])
 
 	let total_time = str2float(log[3]->matchstr('\d\.\d\+'))
-	call assert_equal(printf("Total time:   %f", total_time), log[3])
+	call assert_equal(printf("Total time:   %.9f", total_time), log[3])
 
 	let self_time = str2float(log[4]->matchstr('\d\.\d\+'))
-	call assert_equal(printf(" Self time:   %f", self_time), log[4])
+	call assert_equal(printf(" Self time:   %.9f", self_time), log[4])
 
 	let individual_time = total_time / call_num
 	echo printf("Called %d times\nTotal time: %f\n Self time: %f\nIndividual time: %f", call_num, total_time, self_time, individual_time)
