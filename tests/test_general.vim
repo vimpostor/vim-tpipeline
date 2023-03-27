@@ -121,7 +121,7 @@ func Test_performance()
 
 	exec printf("profile start %s", log_file)
 	profile func tpipeline#update
-	" simulate someone scrolling at 60FPS
+	" simulate someone scrolling at 120FPS
 	func Scroll()
 		if line(".") - 1
 			norm k
