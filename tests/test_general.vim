@@ -26,6 +26,10 @@ func Read_socket()
 	endif
 endfunc
 
+func Strip_hl(s)
+	return substitute(a:s, '#\[[^\]]*\]', '', 'g')
+endfunc
+
 func Test_autoembed()
 	call assert_equal('status-left "#(cat #{socket_path}-\\#{session_id}-vimbridge)"', trim(system('tmux show-options status-left')))
 endfunc
@@ -33,7 +37,7 @@ endfunc
 func Test_socket()
 	let g:tpipeline_statusline = 'test'
 	call Read_socket()
-	call assert_match('test', s:left)
+	call assert_equal('test', Strip_hl(s:left))
 endfunc
 
 func Test_colors()
@@ -47,15 +51,15 @@ endfunc
 func Test_focusevents()
 	let g:tpipeline_statusline = 'focused'
 	call Read_socket()
-	call assert_match('focused', s:left)
+	call assert_equal('focused', Strip_hl(s:left))
 	" lose focus
 	call tpipeline#deferred_cleanup()
 	call Read_socket()
-	call assert_notmatch('focused', s:left)
+	call assert_notequal('focused', Strip_hl(s:left))
 	" gain focus
 	call tpipeline#forceupdate()
 	call Read_socket()
-	call assert_match('focused', s:left)
+	call assert_equal('focused', Strip_hl(s:left))
 endfunc
 
 func Test_rapidfocus()
@@ -64,16 +68,16 @@ func Test_rapidfocus()
 	call tpipeline#deferred_cleanup()
 	call tpipeline#forceupdate()
 	call Read_socket()
-	call assert_match('focused', s:left)
+	call assert_equal('focused', Strip_hl(s:left))
 endfunc
 
 func Test_split()
 	let g:tpipeline_statusline = 'LEFT%=RIGHT'
 	call Read_socket()
-	call assert_match('LEFT', s:left)
-	call assert_notmatch('RIGHT', s:left)
-	call assert_match('RIGHT', s:right)
-	call assert_notmatch('LEFT', s:right)
+	call assert_equal('LEFT', Strip_hl(s:left))
+	call assert_notequal('RIGHT', Strip_hl(s:left))
+	call assert_equal('RIGHT', Strip_hl(s:right))
+	call assert_notequal('LEFT', Strip_hl(s:right))
 endfunc
 
 " test that if a vim window is much smaller than the console window, that we still use the entire space available
@@ -93,8 +97,8 @@ func Test_small_pane()
 	" This especially means that the right part is NOT empty.
 	call Read_socket()
 	call assert_false(empty(s:right))
-	call assert_match(left, s:left)
-	call assert_match(right, s:right)
+	call assert_equal(left, Strip_hl(s:left))
+	call assert_equal(right, Strip_hl(s:right))
 
 	bd!
 endfunc
@@ -104,8 +108,8 @@ func Test_unicode()
 	let right = "🛠⛏🪚🔩"
 	let g:tpipeline_statusline = "%#String#" . left . "%=%#Error#" . right
 	call Read_socket()
-	call assert_match(left, s:left)
-	call assert_match(right, s:right)
+	call assert_equal(left, Strip_hl(s:left))
+	call assert_equal(right, Strip_hl(s:right))
 endfunc
 
 func Test_performance()
@@ -183,11 +187,11 @@ endfunc
 func Test_number_evaluation()
 	let g:tpipeline_statusline = "%{g:ReturnNumber()}"
 	call Read_socket()
-	call assert_match(string(g:ReturnNumber()), s:left)
+	call assert_equal(string(g:ReturnNumber()), Strip_hl(s:left))
 endfunc
 
 func Test_quoted_strings()
 	let g:tpipeline_statusline = '%{eval("g:ReturnNumber()")}'
 	call Read_socket()
-	call assert_match(string(g:ReturnNumber()), s:left)
+	call assert_equal(string(g:ReturnNumber()), Strip_hl(s:left))
 endfunc
