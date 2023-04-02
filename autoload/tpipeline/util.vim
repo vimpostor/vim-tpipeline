@@ -12,7 +12,7 @@ func tpipeline#util#left_justify(str)
 endfunc
 
 func tpipeline#util#set_size()
-	let g:tpipeline_size = str2nr(systemlist("tmux display-message -p '#{window_width}'")[-1])
+	let g:tpipeline_size = str2nr(systemlist("sh -c 'tmux display-message -p \"#{window_width}\"'")[-1])
 endfunc
 
 func tpipeline#util#check_gui()
