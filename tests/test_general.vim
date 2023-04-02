@@ -195,3 +195,8 @@ func Test_quoted_strings()
 	call Read_socket()
 	call assert_equal(string(g:ReturnNumber()), Strip_hl(s:left))
 endfunc
+
+func Test_can_debug()
+	let info = tpipeline#debug#info()
+	call assert_true(len(info))
+endfunc

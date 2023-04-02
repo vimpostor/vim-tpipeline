@@ -32,6 +32,7 @@ func tpipeline#debug#info()
 
 		let result.native_str = native.str
 		let result.native_highlights = native.highlights
+		let result.tpipeline_size = g:tpipeline_size
 	else
 		let brand = 'vim'
 		let version_info = v:versionlong
