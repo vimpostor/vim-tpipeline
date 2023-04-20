@@ -33,8 +33,8 @@ body:
     id: debug
     attributes:
       label: Debug output
-      description: "Please copy and paste the output of `:echo tpipeline#debug#info()` inside vim, if relevant. This will be automatically formatted into code, so no need for backticks."
+      description: "Please copy and paste the output of `:echo tpipeline#debug#info()` inside vim, if relevant."
       placeholder: ":echo tpipeline#debug#info()"
-      render: JSON
+      render: Text
     validations:
       required: false
