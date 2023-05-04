@@ -15,7 +15,12 @@ endfunc
 
 func tpipeline#lualine#clear_all_stl()
 	for i in range(1, tabpagewinnr(tabpagenr(), '$'))
-		noa call win_execute(win_getid(i), 'setlocal stl<')
+		noa let s = getwinvar(win_getid(i), '&stl')
+		" Resetting the statusline may interfere with typing in that window,
+		" check for current statusline value before resetting it.
+		if !empty(s) && s !=# '%#StatusLine#'
+			noa call win_execute(win_getid(i), 'setlocal stl<')
+		endif
 	endfor
 endfunc
 
