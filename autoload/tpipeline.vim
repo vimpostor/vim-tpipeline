@@ -260,6 +260,7 @@ func tpipeline#cleanup()
 		else
 			call job_stop(s:job)
 		endif
+		call tpipeline#state#freeze()
 		call writefile([''], s:tpipeline_filepath, '')
 		if g:tpipeline_split
 			call writefile([''], s:tpipeline_right_filepath, '')
