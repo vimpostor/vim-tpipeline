@@ -19,20 +19,20 @@ function M.color(grp)
 	end
 	local st = ''
 	if vim.fn.synIDattr(id, 'bold') == '1' then
-		st = ',bold'
+		st = '#[bold]'
 		was_bold = true
 	elseif was_bold then
-		st = ',nobold'
+		st = '#[nobold]'
 		was_bold = false
 	end
 	if vim.fn.synIDattr(id, 'italic') == '1' then
-		st = st .. ',italics'
+		st = st .. '#[italics]'
 		was_italic = true
 	elseif was_italic then
-		st = st .. ',noitalics'
+		st = st .. '#[noitalics]'
 		was_italic = false
 	end
-	return string.format('#[fg=%s,bg=%s%s]', fg, bg, st)
+	return string.format('#[fg=%s]#[bg=%s]%s', fg, bg, st)
 end
 
 function M.update()
