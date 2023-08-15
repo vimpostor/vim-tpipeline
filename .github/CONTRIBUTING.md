@@ -3,7 +3,7 @@
 ## Issues and bug reports
 When reporting issues, please include both your vim config and tmux config if relevant. If you don't know what parts of your config are relevant, it is okay to just paste your entire config.
 Often it is also helpful to know what terminal emulator you are using.
-When debugging statusline artifacts, it can be helpful to checkout `:echo tpipeline#debug#info()`.
+When debugging statusline artifacts, it can be helpful to checkout `:echo tpipeline#debug#info()` or `:checkhealth tpipeline` in neovim.
 
 ## Development
 Code contributions are much welcomed and appreciated.
