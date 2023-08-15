@@ -10,6 +10,12 @@ M.check = function()
 	else
 		vim.health.report_ok("Neovim version is supported")
 	end
+
+	if vim.regex('%run'):match_str(info.job_state) == nil then
+		vim.health.report_ok("Background job is running")
+	else
+		vim.health.report_error(string.format("Background job is not running: %s", info.job_state))
+	end
 end
 
 return M

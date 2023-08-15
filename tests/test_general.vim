@@ -26,6 +26,16 @@ func Read_socket()
 	endif
 endfunc
 
+func Test_loaded()
+	call assert_equal(1, g:loaded_tpipeline)
+endfunc
+
+func Test_job_runs()
+	let job = tpipeline#debug#info()
+	" background job is still running
+	call assert_match("^run", job.job_state)
+endfunc
+
 func Strip_hl(s)
 	return substitute(a:s, '#\[[^\]]*\]', '', 'g')
 endfunc

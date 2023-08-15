@@ -311,3 +311,15 @@ func tpipeline#deferred_cleanup()
 	let s:needs_cleanup = 1
 	let s:cleanup_timer = timer_start(s:cleanup_delay, {-> tpipeline#cautious_cleanup()})
 endfunc
+
+func tpipeline#job_state()
+	let res = ""
+	if s:is_nvim
+		let pid = jobpid(s:job)
+		let res = pid ? "run as PID " . pid : "dead"
+	else
+		let res = job_status(s:job)
+	endif
+
+	return res
+endfunc
