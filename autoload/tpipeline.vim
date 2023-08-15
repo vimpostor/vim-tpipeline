@@ -142,6 +142,19 @@ func tpipeline#initialize()
 	augroup END
 endfunc
 
+func tpipeline#on_stderr(chan_id, data, name)
+	let s:elines[-1] .= a:data[0]
+	call extend(s:elines, a:data[1:])
+	while len(s:elines) > 1
+		let line = remove(s:elines, 0)
+		call tpipeline#debug#log_err(line)
+	endwhile
+endfunc
+
+func tpipeline#err_cb(channel, msg)
+	call tpipeline#debug#log_err(a:msg)
+endfunc
+
 func tpipeline#on_exit(job, code, t)
 	call tpipeline#state#freeze()
 	let s:exit_code = a:code
@@ -183,11 +196,12 @@ func tpipeline#fork_job()
 
 	let command = ['bash', '-c', script]
 	if s:is_nvim
-		let options = #{on_exit: function('tpipeline#on_exit')}
+		let s:elines = ['']
+		let options = #{on_stderr: function('tpipeline#on_stderr'), on_exit: function('tpipeline#on_exit')}
 		let s:job = jobstart(command, options)
 		let s:channel = s:job
 	else
-		let options = #{noblock: 1, exit_cb: function('tpipeline#exit_cb')}
+		let options = #{noblock: 1, err_cb: function('tpipeline#err_cb'), exit_cb: function('tpipeline#exit_cb')}
 		let s:job = job_start(command, options)
 		let s:channel = job_getchannel(s:job)
 	endif

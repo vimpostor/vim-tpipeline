@@ -16,6 +16,12 @@ M.check = function()
 	else
 		vim.health.report_error(string.format("Background job is not running: %s", info.job_state))
 	end
+
+	if next(info.job_errors) == nil then
+		vim.health.report_ok("No job errors reported")
+	else
+		vim.health.report_warn("Job reported errors", info.job_errors)
+	end
 end
 
 return M

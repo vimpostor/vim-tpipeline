@@ -1,4 +1,5 @@
 func tpipeline#debug#init()
+	let s:stderr = []
 	let s:tpipeline_filepath = tpipeline#get_filepath()
 	let s:tpipeline_right_filepath = s:tpipeline_filepath . '-R'
 endfunc
@@ -20,7 +21,7 @@ func tpipeline#debug#info()
 	let tmux = systemlist("tmux -V")[-1]
 	let jobstate = tpipeline#job_state()
 	let os = tpipeline#debug#os()
-	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string(), job_state: jobstate, os: os}
+	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string(), job_state: jobstate, job_errors: s:stderr, os: os}
 
 	if has('nvim')
 		let stl = g:tpipeline_statusline
@@ -43,6 +44,10 @@ func tpipeline#debug#info()
 	let result.version_info = version_info
 
 	return result
+endfunc
+
+func tpipeline#debug#log_err(line)
+	call add(s:stderr, a:line)
 endfunc
 
 call tpipeline#debug#init()
