@@ -2,6 +2,8 @@ if !has('nvim')
 	import autoload 'tpipeline/parse.vim'
 endif
 
+let s:exit_code = -1
+
 func tpipeline#get_filepath()
 	" e.g. /tmp/tmux-1000/default-$0-vimbridge
 	let tmux = $TMUX
@@ -140,6 +142,16 @@ func tpipeline#initialize()
 	augroup END
 endfunc
 
+func tpipeline#on_exit(job, code, t)
+	call tpipeline#state#freeze()
+	let s:exit_code = a:code
+endfunc
+
+func tpipeline#exit_cb(job, code)
+	call tpipeline#state#freeze()
+	let s:exit_code = a:code
+endfunc
+
 func tpipeline#fork_job()
 	if g:tpipeline_restore
 		let s:restore_left = systemlist("sh -c 'echo \"\"; tmux display-message -p \"#{status-left}\"'")[-1]
@@ -171,10 +183,11 @@ func tpipeline#fork_job()
 
 	let command = ['bash', '-c', script]
 	if s:is_nvim
-		let s:job = jobstart(command)
+		let options = #{on_exit: function('tpipeline#on_exit')}
+		let s:job = jobstart(command, options)
 		let s:channel = s:job
 	else
-		let options = #{noblock: 1}
+		let options = #{noblock: 1, exit_cb: function('tpipeline#exit_cb')}
 		let s:job = job_start(command, options)
 		let s:channel = job_getchannel(s:job)
 	endif
@@ -319,6 +332,9 @@ func tpipeline#job_state()
 		let res = pid ? "run as PID " . pid : "dead"
 	else
 		let res = job_status(s:job)
+	endif
+	if s:exit_code > -1
+		let res .= printf(" (exit code %d)", s:exit_code)
 	endif
 
 	return res
