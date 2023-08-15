@@ -342,7 +342,10 @@ endfunc
 func tpipeline#job_state()
 	let res = ""
 	if s:is_nvim
-		let pid = jobpid(s:job)
+		let pid = 0
+		if s:exit_code < 0
+			let pid = jobpid(s:job)
+		endif
 		let res = pid ? "run as PID " . pid : "dead"
 	else
 		let res = job_status(s:job)
