@@ -21,7 +21,8 @@ func tpipeline#debug#info()
 	let tmux = systemlist("tmux -V")[-1]
 	let jobstate = tpipeline#job_state()
 	let os = tpipeline#debug#os()
-	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string(), job_state: jobstate, job_errors: s:stderr, os: os}
+	let bad_colors = len(tpipeline#debug#get_bad_hl_groups())
+	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string(), job_state: jobstate, job_errors: s:stderr, os: os, bad_colors: bad_colors}
 
 	if has('nvim')
 		let stl = g:tpipeline_statusline
@@ -48,6 +49,26 @@ endfunc
 
 func tpipeline#debug#log_err(line)
 	call add(s:stderr, a:line)
+endfunc
+
+func tpipeline#debug#is_truecolor(s)
+	return empty(a:s) || a:s == 'fg' || a:s== 'bg' || a:s == '#NONE' || a:s =~ '#\x\{6}'
+endfunc
+
+func tpipeline#debug#is_truecolor_group(id)
+	let syn = synIDtrans(a:id)
+	let fg = tolower(synIDattr(syn, 'fg'))
+	let bg = tolower(synIDattr(syn, 'bg'))
+	return tpipeline#debug#is_truecolor(fg) && tpipeline#debug#is_truecolor(bg)
+endfunc
+
+func tpipeline#debug#get_bad_hl_groups()
+	if has('nvim')
+		let hls = luaeval('vim.tbl_keys(vim.api.nvim_get_hl(0, {}))')->map({_, v -> #{id: hlID(v), name: v}})
+	else
+		let hls = hlget()
+	endif
+	return hls->filter({_, v -> !tpipeline#debug#is_truecolor_group(v.id)})->map({_, v -> v.name})
 endfunc
 
 call tpipeline#debug#init()

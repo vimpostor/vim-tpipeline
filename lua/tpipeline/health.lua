@@ -4,7 +4,7 @@ M.check = function()
 	vim.health.report_start("tpipeline report")
 	local info = vim.fn['tpipeline#debug#info']()
 
-	ver = vim.version()
+	local ver = vim.version()
 	if vim.version.lt(ver, {0, 6, 0}) then
 		vim.health.report_error(string.format("Neovim version %d.%d is not supported, use 0.6 or higher", ver.major, ver.minor))
 	else
@@ -21,6 +21,14 @@ M.check = function()
 		vim.health.report_ok("No job errors reported")
 	else
 		vim.health.report_warn("Job reported errors", info.job_errors)
+	end
+
+	if info.bad_colors > 0 then
+		local groups = vim.fn['tpipeline#debug#get_bad_hl_groups']()
+		local colorscheme = vim.api.nvim_exec2("colorscheme", {output = true}).output
+		vim.health.report_warn(string.format("The colorscheme %s contains %d highlight groups that don't properly support truecolor. These colors might not render correctly in tmux.\nBad highlight groups are: %s", colorscheme, info.bad_colors, vim.inspect(groups)))
+	else
+		vim.health.report_ok("Colorscheme has true color support")
 	end
 end
 
