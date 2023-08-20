@@ -340,6 +340,10 @@ func tpipeline#deferred_cleanup()
 endfunc
 
 func tpipeline#job_state()
+	if !exists('s:job')
+		return "dead (init not called)"
+	endif
+
 	let res = ""
 	if s:is_nvim
 		let pid = 0

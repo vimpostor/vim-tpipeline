@@ -16,8 +16,16 @@ func tpipeline#debug#os()
 endfunc
 
 func tpipeline#debug#info()
-	let left = readfile(s:tpipeline_filepath)
-	let right = readfile(s:tpipeline_right_filepath)
+	if filereadable(s:tpipeline_filepath)
+		let left = readfile(s:tpipeline_filepath)
+	else
+		let left = ''
+	endif
+	if filereadable(s:tpipeline_right_filepath)
+		let right = readfile(s:tpipeline_right_filepath)
+	else
+		let right = ''
+	endif
 	let tmux = systemlist("tmux -V")[-1]
 	let jobstate = tpipeline#job_state()
 	let os = tpipeline#debug#os()
@@ -25,17 +33,17 @@ func tpipeline#debug#info()
 	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string(), job_state: jobstate, job_errors: s:stderr, os: os, bad_colors: bad_colors}
 
 	if has('nvim')
-		let stl = g:tpipeline_statusline
+		let stl = get(g:, 'tpipeline_statusline', '')
 		if empty(stl)
 			let stl = &stl
 		endif
-		let native = nvim_eval_statusline(stl, #{highlights: 1, use_tabline: g:tpipeline_tabline})
+		let native = nvim_eval_statusline(stl, #{highlights: 1, use_tabline: get(g:, 'tpipeline_tabline', 0)})
 		let brand = 'neovim'
 		let version_info = join(luaeval("vim.inspect(vim.version())")->split('\n'))
 
 		let result.native_str = native.str
 		let result.native_highlights = native.highlights
-		let result.tpipeline_size = g:tpipeline_size
+		let result.tpipeline_size = get(g:, 'tpipeline_size', 0)
 	else
 		let brand = 'vim'
 		let version_info = v:versionlong
