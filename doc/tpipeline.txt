@@ -19,6 +19,9 @@ get a total of two extra lines of buffer content available.
 This plugin also comes with its own statusline that you can use independently
 of the tmux functionality.
 
+Embedding the statusline is not just limited to tmux but can be made to work
+with arbitrary other programs, see |tpipeline-external|.
+
 ------------------------------------------------------------------------------
 TMUX INTEGRATION					*tpipeline-tmux*
 
@@ -126,8 +129,10 @@ CONFIGURATION						*tpipeline-configure*
 		If you want to run an external command every time the
 		statusline changes, you can provide a shell command with this
 		variable.
+		The provided command is run from a separate process and never
+		blocks vim.
 		This can be used for external statusline integrations
-		different from tmux.
+		different from tmux, see |tpipeline-external|.
 
 	g:tpipeline_clearstl				*g:tpipeline_clearstl*
 		If you want this plugin to clear the vim internal statusline

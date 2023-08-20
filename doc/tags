@@ -22,6 +22,10 @@ tpipeline#update()	tpipeline.txt	/*tpipeline#update()*
 tpipeline-api	tpipeline.txt	/*tpipeline-api*
 tpipeline-configure	tpipeline.txt	/*tpipeline-configure*
 tpipeline-contents	tpipeline.txt	/*tpipeline-contents*
+tpipeline-external	tpipeline-external.txt	/*tpipeline-external*
+tpipeline-external-examples	tpipeline-external.txt	/*tpipeline-external-examples*
+tpipeline-external-introduction	tpipeline-external.txt	/*tpipeline-external-introduction*
+tpipeline-external.txt	tpipeline-external.txt	/*tpipeline-external.txt*
 tpipeline-introduction	tpipeline.txt	/*tpipeline-introduction*
 tpipeline-kitty	tpipeline-kitty.txt	/*tpipeline-kitty*
 tpipeline-kitty-configure	tpipeline-kitty.txt	/*tpipeline-kitty-configure*

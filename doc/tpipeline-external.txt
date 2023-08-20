@@ -1,0 +1,31 @@
+*tpipeline-external.txt*	External statusline integration
+*tpipeline-external*
+
+
+Introduction					|tpipeline-external-introduction|
+Examples					|tpipeline-external-examples|
+
+==============================================================================
+INTRODUCTION						*tpipeline-external-introduction*
+
+This plugin is not limited to embedding the statusline in tmux only. The
+statusline can be embedded in arbitrary external programs. The
+|g:tpipeline_refreshcmd| option already allows running arbitrary commands to
+trigger the update of an external statusline.
+
+Depending on the external program, some integration needs to be done on that
+side as well. There exists full documentation for some external programs in
+|tpipeline-external-examples|.
+
+------------------------------------------------------------------------------
+EXAMPLES						*tpipeline-external-examples*
+
+The following list contains documentation for examples of embedding the
+statusline in some popular external programs that are not tmux:
+
+	Kitty statusline				|tpipeline-kitty|
+		Embeds the vim statusline in the Kitty terminal emulator
+		statusline.
+
+==============================================================================
+	vim:tw=78:sw=4:ts=8:ft=help:norl:noet:
