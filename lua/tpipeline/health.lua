@@ -24,9 +24,7 @@ M.check = function()
 	end
 
 	if info.bad_colors > 0 then
-		local groups = vim.fn['tpipeline#debug#get_bad_hl_groups']()
-		local colorscheme = vim.api.nvim_exec2("colorscheme", {output = true}).output
-		vim.health.report_warn(string.format("The colorscheme %s contains %d highlight groups that don't properly support truecolor. These colors might not render correctly in tmux.\nBad highlight groups are: %s", colorscheme, info.bad_colors, vim.inspect(groups)))
+		vim.health.report_warn(string.format("The current colorscheme contains %d highlight groups that don't properly support truecolor.\nThese colors might not render correctly in tmux.\nYou can list them with \":echom tpipeline#debug#get_bad_hl_groups()\".", info.bad_colors))
 	else
 		vim.health.report_ok("Colorscheme has true color support")
 	end
