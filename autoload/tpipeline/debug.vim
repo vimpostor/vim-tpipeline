@@ -30,13 +30,13 @@ func tpipeline#debug#info()
 	let jobstate = tpipeline#job_state()
 	let os = tpipeline#debug#os()
 	let bad_colors = len(tpipeline#debug#get_bad_hl_groups())
-	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string(), job_state: jobstate, job_errors: s:stderr, os: os, bad_colors: bad_colors}
+	let stl = get(g:, 'tpipeline_statusline', '')
+	if empty(stl)
+		let stl = &stl
+	endif
+	let result = #{left: left, right: right, tmux: tmux, plugin_version: tpipeline#version#string(), job_state: jobstate, job_errors: s:stderr, os: os, bad_colors: bad_colors, stl: stl}
 
 	if has('nvim')
-		let stl = get(g:, 'tpipeline_statusline', '')
-		if empty(stl)
-			let stl = &stl
-		endif
 		let native = nvim_eval_statusline(stl, #{highlights: 1, use_tabline: get(g:, 'tpipeline_tabline', 0)})
 		let brand = 'neovim'
 		let version_info = join(luaeval("vim.inspect(vim.version())")->split('\n'))
