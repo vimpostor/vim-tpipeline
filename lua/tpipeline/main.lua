@@ -35,15 +35,8 @@ function M.color(grp)
 	return string.format('#[fg=%s,bg=%s%s]', fg, bg, st)
 end
 
-function M.update()
-	was_bold = false
-	was_italic = false
-
-	local stl = vim.g.tpipeline_statusline
-	if stl == '' then
-		stl = vim.o.stl
-	end
-	local evl = vim.api.nvim_eval_statusline(stl, {fillchar = vim.g.tpipeline_fillchar, highlights = 1, use_tabline = vim.g.tpipeline_tabline, maxwidth = vim.g.tpipeline_size})
+function M.eval_stl(stl, width)
+	local evl = vim.api.nvim_eval_statusline(stl, {fillchar = vim.g.tpipeline_fillchar, highlights = 1, use_tabline = vim.g.tpipeline_tabline, maxwidth = width})
 	local res = evl.str
 	local i = 0
 	for k, hl in pairs(evl.highlights) do
@@ -52,7 +45,37 @@ function M.update()
 		res = vim.fn.strpart(res, 0, hl.start + i) .. grp .. vim.fn.strpart(res, hl.start + i)
 		i = i + string.len(grp)
 	end
-	return res:gsub(split_pattern, '%%=')
+	return res
+end
+
+function M.update()
+	was_bold = false
+	was_italic = false
+
+	local stl = vim.g.tpipeline_statusline
+	if stl == '' then
+		stl = vim.o.stl
+	end
+
+	local res = M.eval_stl(stl, vim.g.tpipeline_size)
+
+	if #vim.split(res, split_pattern) <= 2 then
+		res = res:gsub(split_pattern, '%%=')
+	else
+		-- sometimes the split point is not unique, in which case we have to find it out manually
+		local retry = M.eval_stl(stl, vim.g.tpipeline_size + 2)
+		local i = 1
+		local start = 1
+		while i <= res:len() and res:sub(i, i) == retry:sub(i, i) do
+			if res:sub(i, i) ~= vim.g.tpipeline_fillchar then
+				start = i
+			end
+			i = i + 1
+		end
+		res = string.gsub(res:sub(1, start), vim.g.tpipeline_fillchar, ' ') .. string.gsub(res:sub(start + 1, i - 1), split_pattern, '%%=') .. string.gsub(res:sub(i), vim.g.tpipeline_fillchar, ' ')
+	end
+
+	return res
 end
 
 return M
