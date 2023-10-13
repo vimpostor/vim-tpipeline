@@ -55,7 +55,7 @@ func tpipeline#stl#progress()
 endfunc
 
 func tpipeline#stl#line()
-	return tpipeline#stl#mode() . ' ' . tpipeline#stl#fn() . tpipeline#stl#attr() . tpipeline#stl#rec() . '%=' . tpipeline#stl#searchc() . tpipeline#stl#ft() . ' ' . tpipeline#stl#progress()
+	return tpipeline#stl#mode() . ' ' . tpipeline#stl#fn() . tpipeline#stl#attr() . tpipeline#stl#rec() . '%#Ignore#%=' . tpipeline#stl#searchc() . tpipeline#stl#ft() . ' ' . tpipeline#stl#progress()
 endfunc
 
 func tpipeline#stl#tabline()
