@@ -34,7 +34,7 @@ func tpipeline#stl#searchc()
 	if !v:hlsearch
 		return ''
 	endif
-	let result = searchcount()
+	silent! let result = searchcount()
 	if empty(result) || result.incomplete ==#1
 		return ''
 	endif
