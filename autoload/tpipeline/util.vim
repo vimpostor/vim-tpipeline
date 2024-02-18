@@ -15,6 +15,12 @@ func tpipeline#util#set_size()
 	let g:tpipeline_size = str2nr(systemlist("sh -c 'echo \"\"; tmux display-message -p \"#{window_width}\"'")[-1])
 endfunc
 
+func tpipeline#util#set_custom_size()
+	if exists('#User#TpipelineSize')
+		doautocmd User TpipelineSize
+	endif
+endfunc
+
 func tpipeline#util#check_gui()
 	if (v:event['chan'] && !has('nvim-0.9')) || has('gui_running')
 		call tpipeline#state#restore()

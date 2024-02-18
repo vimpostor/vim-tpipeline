@@ -7,6 +7,7 @@ Introduction					|tpipeline-introduction|
 Tmux Integration				|tpipeline-tmux|
 Configuration					|tpipeline-configure|
 Api						|tpipeline-api|
+Autocommands					|tpipeline-autocommands|
 
 ==============================================================================
 INTRODUCTION						*tpipeline-introduction*
@@ -165,6 +166,14 @@ CONFIGURATION						*tpipeline-configure*
 			set -g pane-border-format '#{pane_title}'
 <
 
+	g:tpipeline_size				*g:tpipeline_size*
+		By default the statusline size is calculated automatically to
+		span the entire tmux window size. With this option you can
+		overwrite a custom statusline size to be used. If the size is
+		not constant and should be recalculated on every statusline
+		evaluation, then the |User_TpipelineSize| autocommand can be
+		used.
+
 ------------------------------------------------------------------------------
 API							*tpipeline-api*
 
@@ -197,6 +206,17 @@ API							*tpipeline-api*
 	tpipeline#state#toggle()			*tpipeline#state#toggle()*
 		Toggles the active state.
 		See also |tpipeline#state#restore()| and |tpipeline#state#reload()|.
+
+------------------------------------------------------------------------------
+AUTOCOMMANDS						*tpipeline-autocommands*
+
+A few |User| |autocommands| are provided to allow extending this
+plugin's functionality. Example usage:
+>
+	autocmd User TpipelineSize let g:tpipeline_size = &co
+<
+							*User_TpipelineSize*
+TpipelineSize		When calculating a custom statusline size. See |g:tpipeline_size|.
 
 ==============================================================================
 	vim:tw=78:sw=4:ts=8:ft=help:norl:noet:

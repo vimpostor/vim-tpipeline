@@ -13,6 +13,10 @@ statusline can be embedded in arbitrary external programs. The
 |g:tpipeline_refreshcmd| option already allows running arbitrary commands to
 trigger the update of an external statusline.
 
+The |g:tpipeline_size| option allows to configure the size of the rendered
+statusline, which usually should be set to the numerical size of the external
+statusline, i.e. the number of characters or columns that fit into it.
+
 Depending on the external program, some integration needs to be done on that
 side as well. There exists full documentation for some external programs in
 |tpipeline-external-examples|.

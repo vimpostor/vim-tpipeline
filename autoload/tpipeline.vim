@@ -126,7 +126,10 @@ func tpipeline#initialize()
 	if s:is_nvim
 		let g:tpipeline_fillchar = ""
 
-		if !exists('g:tpipeline_size')
+		if exists('#User#TpipelineSize')
+			call tpipeline#util#set_custom_size()
+			au VimResized * call tpipeline#util#set_custom_size()
+		elseif !exists('g:tpipeline_size')
 			call tpipeline#util#set_size()
 			au VimResized * call tpipeline#util#set_size()
 		endif
