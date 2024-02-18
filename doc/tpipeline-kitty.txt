@@ -73,13 +73,17 @@ def parse_stl(screen: Screen, draw_data: DrawData, stl: str, draw: bool):
 		fmt = stl[pos+1:next].split(",")
 		for f in fmt:
 			if f.startswith("fg="):
-				if f == "fg=default":
+				if f == "fg=default" or f == "fg=terminal":
 					screen.cursor.fg = as_rgb(int(draw_data.default_fg))
+				elif f == "fg=bg":
+					screen.cursor.fg = screen.cursor.bg
 				else:
 					screen.cursor.fg = as_rgb(int(f[4:10], 16))
 			elif f.startswith("bg="):
-				if f == "bg=default":
+				if f == "bg=default" or f == "bg=terminal":
 					screen.cursor.bg = as_rgb(int(draw_data.default_bg))
+				elif f == "bg=fg":
+					screen.cursor.bg = screen.cursor.fg
 				else:
 					screen.cursor.bg = as_rgb(int(f[4:10], 16))
 
