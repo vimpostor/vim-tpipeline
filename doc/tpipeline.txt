@@ -170,9 +170,8 @@ CONFIGURATION						*tpipeline-configure*
 		By default the statusline size is calculated automatically to
 		span the entire tmux window size. With this option you can
 		overwrite a custom statusline size to be used. If the size is
-		not constant and should be recalculated on every statusline
-		evaluation, then the |User_TpipelineSize| autocommand can be
-		used.
+		not constant and should be recalculated on demand, then it can
+		be set from the |User_TpipelineSize| autocommand.
 
 ------------------------------------------------------------------------------
 API							*tpipeline-api*
