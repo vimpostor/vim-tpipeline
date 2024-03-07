@@ -192,7 +192,7 @@ func tpipeline#fork_job()
 		endif
 	endif
 	if g:tpipeline_usepane
-		let script .= "; tmux select-pane -T \"#[fill=${C:3}]#[align=left]$l#[align=right]$r\""
+		let script .= "; tmux select-pane -t \"$TMUX_PANE\" -T \"#[fill=${C:3}]#[align=left]$l#[align=right]$r\""
 	endif
 	let script .= "; " . g:tpipeline_refreshcmd . "; done"
 
