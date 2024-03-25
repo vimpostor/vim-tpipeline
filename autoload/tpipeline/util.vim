@@ -12,7 +12,12 @@ func tpipeline#util#left_justify(str)
 endfunc
 
 func tpipeline#util#set_size()
-	let g:tpipeline_size = str2nr(systemlist("sh -c 'echo \"\"; tmux display-message -p \"#{window_width}\"'")[-1])
+	if !empty($TMUX)
+		let g:tpipeline_size = str2nr(systemlist("sh -c 'echo \"\"; tmux display-message -p \"#{window_width}\"'")[-1])
+	elseif !empty($ZELLIJ)
+		" TODO: verify if this is reasonable.
+		let g:tpipeline_size = str2nr(systemlist("sh -c 'tput cols'")[-1])
+	endif
 endfunc
 
 func tpipeline#util#set_custom_size()
