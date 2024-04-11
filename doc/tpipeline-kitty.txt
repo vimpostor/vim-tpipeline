@@ -51,7 +51,7 @@ timer_id = None
 def parse_stl(screen: Screen, draw_data: DrawData, stl: str, draw: bool):
 	pos = 0
 	length = 0
-	while pos < len(stl):
+	while pos < len(stl) - 1:
 		next = stl.find("#[", pos)
 		if next == -1:
 			length += len(stl[pos:])
