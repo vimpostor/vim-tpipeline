@@ -26,6 +26,15 @@ func Read_socket()
 	endif
 endfunc
 
+func Scroll()
+	if line(".") - 1
+		norm k
+	else
+		norm G
+	endif
+	call tpipeline#update()
+endfunc
+
 func Test_loaded()
 	call assert_equal(1, g:loaded_tpipeline)
 endfunc
@@ -143,21 +152,13 @@ func Test_performance()
 	exec printf("profile start %s", log_file)
 	profile func tpipeline#update
 	" simulate someone scrolling at 120FPS
-	func Scroll()
-		if line(".") - 1
-			norm k
-		else
-			norm G
-		endif
-		call tpipeline#update()
-	endfunc
 	let timer = timer_start(float2nr(individual_threshold * 1000), {-> Scroll()}, {'repeat': -1})
 	exec "sleep " . test_duration
 
 	profile stop
 	call timer_stop(timer)
 	" wait for tmux to catch up
-	sleep 2
+	sleep 200m
 
 	let log = readfile(log_file, '', 5)
 	call assert_equal('FUNCTION  tpipeline#update()', log[0])
@@ -219,4 +220,22 @@ func Test_minwid_padded()
 	call Read_socket()
 	call assert_match("a$", s:left)
 	call assert_true(empty(s:right))
+endfunc
+
+func Test_lag_behind()
+	" statusline should not lag behind even after rapid fire updates
+	let g:tpipeline_statusline = "%!tpipeline#stl#line()"
+	let test_duration = "3"
+	norm 99o
+	" update literally every single ms
+	let timer = timer_start(1, {-> Scroll()}, {'repeat': -1})
+	exec "sleep " . test_duration
+	call timer_stop(timer)
+
+	" now set a new statusline, the new value should appear immediately without any lag
+	let g:tpipeline_statusline = "RAPIDFIRE"
+	call Read_socket()
+	call assert_equal('RAPIDFIRE', Strip_hl(s:left))
+
+	bd!
 endfunc
