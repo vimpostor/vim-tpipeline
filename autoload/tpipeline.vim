@@ -174,6 +174,9 @@ func tpipeline#fork_job()
 		let s:restore_right = systemlist("sh -c 'echo \"\"; tmux display-message -p \"#{status-right}\"'")[-1]
 	endif
 	let script = printf("export IFS='$\\n'; while read -r l; do echo \"$l\" > '%s'", s:tpipeline_filepath)
+	if g:tpipeline_split
+		let script .= printf("; read -r r; echo \"$r\" > '%s'", s:tpipeline_right_filepath)
+	endif
 	if g:tpipeline_usepane
 		" end early if file was truncated so as not to overwrite any titles of panes we may switch to
 		let script .= "; if [ -z \"$l\" ]; then continue; fi"
@@ -188,9 +191,6 @@ func tpipeline#fork_job()
 		if !g:tpipeline_usepane
 			let script .= "; tmux set status-style \"$C\""
 		endif
-	endif
-	if g:tpipeline_split
-		let script .= printf("; read -r r; echo \"$r\" > '%s'", s:tpipeline_right_filepath)
 	endif
 	if g:tpipeline_usepane
 		let script .= "; tmux select-pane -T \"#[fill=${C:3}]#[align=left]$l#[align=right]$r\""
