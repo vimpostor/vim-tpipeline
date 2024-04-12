@@ -49,9 +49,10 @@ from kitty.utils import color_as_int
 timer_id = None
 
 def parse_stl(screen: Screen, draw_data: DrawData, stl: str, draw: bool):
+	stl = stl[:-1] # remove LF
 	pos = 0
 	length = 0
-	while pos < len(stl) - 1:
+	while pos < len(stl):
 		next = stl.find("#[", pos)
 		if next == -1:
 			length += len(stl[pos:])
