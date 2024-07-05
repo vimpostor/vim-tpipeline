@@ -7,17 +7,12 @@ let s:exit_code = -1
 func tpipeline#get_filepath()
 
 	if !empty($ZELLIJ)
-		" e.g. /tmp/zjstatus-$UID/$SESSION_NAME-$PANE_ID-vimbridge
+		" e.g. /tmp/zjstatus-$UID/$SESSION_NAME-vimbridge
 		let p = "/tmp/zjstatus-" . systemlist("id -u")[-1]
 		silent! call mkdir(p)
 		let session = $ZELLIJ_SESSION_NAME
-		" TODO: wait for https://github.com/zellij-org/zellij/issues/2835
-		" so we can identify the currently active pane. Now I have to hardcode it
-		" to zjstatus - so no reason to use the variable here, yet.
-		" let paneid = $ZELLIJ_PANE_ID
-		let paneid = "0"
 		let p = p . "/"
-		let zellij = p . session . "-" . paneid . "-vimbridge"
+		let zellij = p . session . "-vimbridge"
 		return zellij
 	endif
 
