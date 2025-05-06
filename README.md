@@ -16,14 +16,14 @@ It is **highly recommended** to put this in your `~/.tmux.conf`:
 ```bash
 set -g focus-events on
 set -g status-style bg=default
-set -g status-left-length 90
-set -g status-right-length 90
+set -g status-left-length 99
+set -g status-right-length 99
 set -g status-justify centre
 ```
 
 Restart tmux and now you should see your vim statusline inside tmux.
 
-`vim-tpipeline` is compatible with all statuslines and can be used together with other statusline plugins like *lualine*. If it doesn't work with yours, file a bug report.
+`vim-tpipeline` is compatible with all statuslines and can be used together with other statusline plugins like *lightline*. If it doesn't work with yours, file a bug report.
 
 ## Requirements
 
@@ -47,9 +47,9 @@ let g:tpipeline_autoembed = 0
 set -g focus-events on
 set -g status-style bg=default
 set -g status-left '#(cat #{socket_path}-\#{session_id}-vimbridge)'
-set -g status-left-length 90
+set -g status-left-length 99
 set -g status-right '#(cat #{socket_path}-\#{session_id}-vimbridge-R)'
-set -g status-right-length 90
+set -g status-right-length 99
 set -g status-justify centre
 ```
 
