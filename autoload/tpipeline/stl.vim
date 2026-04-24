@@ -50,6 +50,10 @@ func tpipeline#stl#progress()
 	let text = line('.')
 	let text = repeat(' ', g:tpipeline_progresslen - strchars(text) - 1) . text . ' '
 
+	if exists('g:tpipeline_progress')
+		let p = float2nr(g:tpipeline_progress * g:tpipeline_progresslen)
+	endif
+
 	let pre = '%#TpipelineGreyInv#%#TpipelineGrey#'
 	return pre . strcharpart(text, 0, p) . '%#TpipelineGreyInv#' . strcharpart(text, p)
 endfunc
