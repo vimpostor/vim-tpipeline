@@ -48,11 +48,13 @@ endfunc
 func tpipeline#stl#progress()
 	let p = tpipeline#util#percentage() * g:tpipeline_progresslen / 100
 	let text = line('.')
-	let text = repeat(' ', g:tpipeline_progresslen - strchars(text) - 1) . text . ' '
-
 	if exists('g:tpipeline_progress')
 		let p = float2nr(g:tpipeline_progress * g:tpipeline_progresslen)
+		if exists('g:tpipeline_progress_str')
+			let text = g:tpipeline_progress_str
+		endif
 	endif
+	let text = repeat(' ', g:tpipeline_progresslen - strchars(text) - 1) . text . ' '
 
 	let pre = '%#TpipelineGreyInv#%#TpipelineGrey#'
 	return pre . strcharpart(text, 0, p) . '%#TpipelineGreyInv#' . strcharpart(text, p)
