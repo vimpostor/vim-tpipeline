@@ -5,14 +5,28 @@ endif
 let s:exit_code = -1
 
 func tpipeline#get_filepath()
-	" e.g. /tmp/tmux-1000/default-$0-vimbridge
-	let tmux = $TMUX
-	if empty(tmux)
-		let p = "/tmp/tmux-" . systemlist("id -u")[-1]
+
+	if !empty($ZELLIJ)
+		" e.g. /tmp/zjstatus-$UID/$SESSION_NAME-vimbridge
+		let p = "/tmp/zjstatus-" . systemlist("id -u")[-1]
 		silent! call mkdir(p)
-		let tmux = p . "/default,0,0"
+		let session = $ZELLIJ_SESSION_NAME
+		let p = p . "/"
+		let zellij = p . session . "-vimbridge"
+		return zellij
 	endif
-	return strcharpart(tmux, 0, stridx(tmux, ",")) . '-$' . strcharpart(tmux, strridx(tmux, ",") + 1) . '-vimbridge'
+
+
+	if !empty($TMUX)
+		" e.g. /tmp/tmux-1000/default-$0-vimbridge
+		let tmux = $TMUX
+		if empty(tmux)
+			let p = "/tmp/tmux-" . systemlist("id -u")[-1]
+			silent! call mkdir(p)
+			let tmux = p . "/default,0,0"
+		endif
+		return strcharpart(tmux, 0, stridx(tmux, ",")) . '-$' . strcharpart(tmux, strridx(tmux, ",") + 1) . '-vimbridge'
+	endif
 endfunc
 
 func tpipeline#build_hooks()
@@ -169,6 +183,7 @@ func tpipeline#exit_cb(job, code)
 endfunc
 
 func tpipeline#fork_job()
+	" TODO: for ZELLIJ, only do what is necessary
 	if g:tpipeline_restore
 		let s:restore_left = systemlist("sh -c 'echo \"\"; tmux display-message -p \"#{status-left}\"'")[-1]
 		let s:restore_right = systemlist("sh -c 'echo \"\"; tmux display-message -p \"#{status-right}\"'")[-1]
