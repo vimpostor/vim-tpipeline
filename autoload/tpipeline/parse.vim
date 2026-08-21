@@ -36,9 +36,9 @@ def Parse(opt: string): string
 		elseif first ==# 'v'
 			return string(virtcol('.'))
 		elseif first ==# 'p'
-			return tpipeline#util#percentage()
+			return string(tpipeline#util#percentage())
 		elseif first ==# 'P'
-			return tpipeline#util#percentage() .. '%'
+			return string(tpipeline#util#percentage()) .. '%'
 		elseif first ==# '='
 			return '%='
 		elseif first ==# '%'
