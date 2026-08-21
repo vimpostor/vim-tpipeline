@@ -38,7 +38,7 @@ def Parse(opt: string): string
 		elseif first ==# 'p'
 			return string(tpipeline#util#percentage())
 		elseif first ==# 'P'
-			return string(tpipeline#util#percentage()) .. '%'
+			return tpipeline#util#percentage() .. '%'
 		elseif first ==# '='
 			return '%='
 		elseif first ==# '%'
