@@ -138,6 +138,11 @@ func Test_unicode()
 	call assert_equal(right, Strip_hl(s:right))
 endfunc
 
+func Test_parse()
+	let g:tpipeline_statusline = "%f%l%p"
+	call Read_socket()
+endfunc
+
 func Test_performance()
 	" make sure we use a somewhat heavy statusline
 	let g:tpipeline_statusline = "%!tpipeline#stl#line()"
